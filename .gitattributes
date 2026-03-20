@@ -1,0 +1,71 @@
+# Set default behavior to automatically normalize line endings to LF
+* text=auto eol=lf
+
+# Explicitly declare text files with LF line endings
+*.py text eol=lf
+*.pyw text eol=lf
+*.pyi text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.cfg text eol=lf
+*.ini text eol=lf
+*.conf text eol=lf
+*.env text eol=lf
+
+# Shell scripts must use LF for Unix compatibility
+*.sh text eol=lf
+
+# Windows scripts must use CRLF for Windows compatibility
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Docker files
+Dockerfile* text eol=lf
+*.dockerfile text eol=lf
+docker-compose*.yaml text eol=lf
+docker-compose*.yml text eol=lf
+.dockerignore text eol=lf
+
+# Git files
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# GitHub files
+*.md text eol=lf
+
+# CSV and data files (text but preserve as-is for data integrity)
+*.csv text eol=lf
+*.dat text eol=lf
+*.x12 text eol=lf
+
+# Binary files (do not normalize)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.tar binary
+*.gz binary
+*.tgz binary
+*.bz2 binary
+*.7z binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+
+# Python compiled files
+*.pyc binary
+*.pyo binary
+*.pyd binary
+
+# IDE and editor files - preserve as-is to avoid conflicts
+.vscode/* text eol=lf
+.idea/* text eol=lf

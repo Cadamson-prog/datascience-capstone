@@ -1,5 +1,7 @@
 _Data Science Capstone (Team Delta)_
 
+> See the [docs/](docs/) directory for support documentation and guidelines for contributing.
+
 # Machine Learning for Gunshot Residue Classification: Accuracy, Interpretability, and Failure Analysis
 
 ## Table of Contents

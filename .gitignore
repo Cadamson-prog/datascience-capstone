@@ -1,76 +1,8 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-*.egg
-*.egg-info/
-dist/
-build/
-eggs/
-parts/
-var/
-sdist/
-develop-eggs/
-.installed.cfg
-lib/
-lib64/
-*.pyo
-.Python
-env/
-venv/
-ENV/
-.env
-.venv
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-htmlcov/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
+# Raw data (too large for GitHub)
+data/raw/
+
+# Jupyter checkpoints
 .ipynb_checkpoints/
-*.ipynb_checkpoints
-profile_default/
-ipython_config.py
-Pipfile.lock
-poetry.lock
-
-# R
-.Rhistory
-.Rapp.history
-.RData
-.Ruserdata
-.Rproj.user/
-*.Rproj
-.Renviron
-*.Rcheck/
-.httr-oauth
-rsconnect/
-
-# VS Code
-.vscode/
-*.code-workspace
-
-# Data files (common large/sensitive formats)
-# *.csv
-*.tsv
-# *.parquet
-*.feather
-*.h5
-*.hdf5
-*.sqlite
-*.db
-# data/raw/
-# data/processed/
-
-# OS
+__pycache__/
+*.pyc
 .DS_Store
-Thumbs.db
-desktop.ini

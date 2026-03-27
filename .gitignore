@@ -1,8 +1,36 @@
 # Raw data (too large for GitHub)
 data/raw/
 
-# Jupyter checkpoints
+# Jupyter / Python
 .ipynb_checkpoints/
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+env/
+venv/
+ENV/
+.env
+.venv
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# OS
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# Miscellaneous
+*.log
+*.tmp
+*.bak

@@ -1,0 +1,22 @@
+# Core data
+pandas
+numpy
+
+# Visualization
+matplotlib
+seaborn
+
+# Machine learning
+scikit-learn
+xgboost
+
+# Deep learning
+torch
+torchvision
+
+# Interpretability
+shap
+
+# Image processing
+opencv-python
+tifffile

@@ -1,6 +1,7 @@
 # Core data
 pandas
 numpy
+pyarrow
 
 # Visualization
 matplotlib
@@ -18,5 +19,5 @@ torchvision
 shap
 
 # Image processing
-opencv-python
-tifffile
+# opencv-python
+# tifffile

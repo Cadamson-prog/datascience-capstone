@@ -1,0 +1,44 @@
+Analysis Summary ================================
+       Project: Amy's GSR
+        Sample: Sparklers post handling post burn
+      Analysis: Analysis 2019-11-26 10.19.02.-0500
+    Instrument: NIST's TESCAN MIRA3
+      Operator: Nicholas W. M. Ritchie
+Search and Measure ==============================
+           FOV: 0.256 mm × 0.256 mm FOV
+      Detector: BSED
+          BSED: Contrast 31.84 Brightness: 93.15
+           SED: Contrast 30.48 Brightness: 93.59
+        Search: 128 to 255 at 1024 pixels × 1024 pixels at 1 µs/pixel
+       Measure: 96 to 255 at 4 µs/pixel
+          Step: 8
+    Morphology: Area[0.5 µm²,40000.0 µm²]
+ Max Particles: 10000
+ Max per field: 1000
+      Beam Int: 6.85
+          Spot: 7.45 nm
+       Faraday: 1.06 nA
+        Beam E: 25.00 keV
+            WD: 17.003 mm
+Vacuum ==========================================
+       VP Mode: False
+       Chamber: 0.00045263 torr
+        Column: 6.873e-06 torr
+           Gun: 6.4806e-10 torr
+Images ==========================================
+         Field: Collect at 1024 pixels × 1024 pixels
+      Particle: Evaluate trueRule at 128 pixels × 128 pixels
+EDS Configuration ==============================
+           EDS: 0.3 s Real time
+          Mode: Point mode EDS
+       Vectors: QuickQuant[Global - 10 eV/ch - FWHM[Mn Kα]=132.0 eV - 2017-04-28 00:00,25.0 keV][40 vectors][17 vectors]
+      Elements: Na, Mg, Al, Si, S, Ca, Ti, Cr, Fe, Ni, Cu, Zn, Ge, Mo, Ba, Bi, U
+         Rules: ASPEX-type rule set[generic.zrr]
+SI Collection ==================================
+          When: Based on rule evaluation
+    Dimensions: 64
+         Dwell: 10
+Tiling ========================================
+   Description: Randomized[Circular[C={X:-12.121,Y:-6.534,Z:24.964,Rotate:-0.00,Tilt:-0.00}, R=5.800 mm, Underfill],84b75c9]
+         Tiles: 1533 of 0.256 mm × 0.256 mm
+          Area: 105.673

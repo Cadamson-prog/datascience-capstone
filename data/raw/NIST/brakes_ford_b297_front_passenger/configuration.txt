@@ -1,0 +1,44 @@
+Analysis Summary ================================
+       Project: Amy's GSR
+        Sample: Ford Explorer B297 Front Passenger
+      Analysis: Analysis 2019-12-11 15.36.11.-0500
+    Instrument: NIST's TESCAN MIRA3
+      Operator: Nicholas W. M. Ritchie
+Search and Measure ==============================
+           FOV: 0.256 mm × 0.256 mm FOV
+      Detector: BSED
+          BSED: Contrast 31.90 Brightness: 93.09
+           SED: Contrast 35.55 Brightness: 92.50
+        Search: 64 to 255 at 1024 pixels × 1024 pixels at 1 µs/pixel
+       Measure: 32 to 255 at 4 µs/pixel
+          Step: 8
+    Morphology: Area[0.5 µm²,40000.0 µm²]
+ Max Particles: 5000
+ Max per field: 1000
+      Beam Int: 6.85
+          Spot: 7.45 nm
+       Faraday: 1.06 nA
+        Beam E: 25.00 keV
+            WD: 17.001 mm
+Vacuum ==========================================
+       VP Mode: False
+       Chamber: 0.00046915 torr
+        Column: 7.4725e-06 torr
+           Gun: 6.4351e-10 torr
+Images ==========================================
+         Field: Collect at 1024 pixels × 1024 pixels
+      Particle: Evaluate trueRule at 128 pixels × 128 pixels
+EDS Configuration ==============================
+           EDS: 0.3 s Real time
+          Mode: Point mode EDS
+       Vectors: QuickQuant[Global - 10 eV/ch - FWHM[Mn Kα]=132.0 eV - 2017-04-28 00:00,25.0 keV][40 vectors][17 vectors]
+      Elements: Na, Mg, Al, Si, S, Ca, Ti, Cr, Fe, Ni, Cu, Zn, Ge, Mo, Ba, Bi, U
+         Rules: ASPEX-type rule set[generic.zrr]
+SI Collection ==================================
+          When: Based on rule evaluation
+    Dimensions: 64
+         Dwell: 10
+Tiling ========================================
+   Description: Randomized[Circular[C={X:11.358,Y:6.680,Z:25.122,Rotate:-0.00,Tilt:-0.00}, R=5.769 mm, Underfill],6ad3739]
+         Tiles: 1493 of 0.256 mm × 0.256 mm
+          Area: 104.565

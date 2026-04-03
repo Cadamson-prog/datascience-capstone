@@ -1,0 +1,44 @@
+Analysis Summary ================================
+       Project: Amy's GSR
+        Sample: Shooter #4 - Zero time R
+      Analysis: Analysis 2019-08-29 17.11.13.-0400
+    Instrument: NIST's TESCAN MIRA3
+      Operator: Nicholas W. M. Ritchie
+Search and Measure ==============================
+           FOV: 0.256 mm × 0.256 mm FOV
+      Detector: BSED
+          BSED: Contrast 32.50 Brightness: 93.10
+           SED: Contrast 33.01 Brightness: 93.28
+        Search: 64 to 255 at 1024 pixels × 1024 pixels at 1 µs/pixel
+       Measure: 32 to 255 at 4 µs/pixel
+          Step: 8
+    Morphology: Area[0.5 µm²,40000.0 µm²]
+ Max Particles: 100000
+ Max per field: 1000
+      Beam Int: 6.84
+          Spot: 7.54 nm
+       Faraday: 0.90 nA
+        Beam E: 25.00 keV
+            WD: 16.970 mm
+Vacuum ==========================================
+       VP Mode: False
+       Chamber: 0.00070471 torr
+        Column: 2.1441e-05 torr
+           Gun: 5.7986e-10 torr
+Images ==========================================
+         Field: Collect at 1024 pixels × 1024 pixels
+      Particle: Evaluate trueRule at 128 pixels × 128 pixels
+EDS Configuration ==============================
+           EDS: 0.3 s Real time
+          Mode: Point mode EDS
+       Vectors: QuickQuant[Global - 10 eV/ch - FWHM[Mn Kα]=132.0 eV - 2017-04-28 00:00,25.0 keV][48 vectors][19 vectors]
+      Elements: Na, Mg, Al, Si, S, Ca, Ti, Cr, Fe, Ni, Cu, Zn, Ge, Mo, Sb, Ba, Pb, Bi, U
+         Rules: ASPEX-type rule set[generic.zrr]
+SI Collection ==================================
+          When: Based on rule evaluation
+    Dimensions: 64
+         Dwell: 10
+Tiling ========================================
+   Description: Circular[C={X:-1.862,Y:12.809,Z:23.857,Rotate:-0.00,Tilt:-0.00}, R=5.753 mm, Underfill]
+         Tiles: 1508 of 0.256 mm × 0.256 mm
+          Area: 103.987

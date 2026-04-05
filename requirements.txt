@@ -10,6 +10,7 @@ seaborn
 # Machine learning
 scikit-learn
 xgboost
+umap-learn
 
 # Deep learning
 torch

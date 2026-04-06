@@ -6,6 +6,7 @@ pyarrow
 # Visualization
 matplotlib
 seaborn
+glasbey # colorblind palettes
 
 # Machine learning
 scikit-learn

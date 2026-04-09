@@ -59,6 +59,8 @@ docker-compose*.yml text eol=lf
 # IDE and editor files - preserve as-is to avoid conflicts
 .vscode/* text eol=lf
 .idea/* text eol=lf
+# Git LFS tracked files (large data files)
 data/processed/*.parquet filter=lfs diff=lfs merge=lfs -text
 data/processed/nist_concatenated_parquets/*.parquet filter=lfs diff=lfs merge=lfs -text
+data/processed/sandbox/*.parquet filter=lfs diff=lfs merge=lfs -text
 data/raw/NFI/*.parquet filter=lfs diff=lfs merge=lfs -text

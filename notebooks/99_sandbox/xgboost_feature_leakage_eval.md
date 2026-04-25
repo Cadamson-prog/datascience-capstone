@@ -24,9 +24,13 @@ Dropped from baseline model version 3.
 
 ![alt text](../../artifacts/03_model_exploration/xgboost_feature_leakage_eval/b2_learning_curve.png)
 
+![alt text](../../artifacts/03_model_exploration/xgboost_feature_leakage_eval/b2_importance_features.jpg)
+
 3) __pb_sb_over_non_ba_mass__
 
 Dropped from baseline model version 3.
+
+![alt text](../../artifacts/03_model_exploration/xgboost_feature_leakage_eval/b2_importance_features.jpg)
 
 4) __pb_sb_over_non_ba_o_mass__
 

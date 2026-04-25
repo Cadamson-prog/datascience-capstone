@@ -10,7 +10,7 @@ As seen in the learning curve below from XGBoost baseline model v1,
 the learning curve starts at 0.9997 AUCPR on the very first boosting round and reaches 0.9999+ by round 50. 
 The model essentially solves the problem immediately. The train and val curves track closely with no divergence, so there's no classical overfitting but that's because the task is too easy.
 
-![alt text](../../artifacts/03_model_exploration/xgboost_feature_leakage_eval/b1_core_gsr_count_learning_curve.png.png)
+![alt text](../../artifacts/03_model_exploration/xgboost_feature_leakage_eval/b1_core_gsr_count_learning_curve.png)
 
 `core_gsr_count` accounts for 97.8% of all split importance. Suspect #1 for leakage. The model is almost entirely a single-feature decision tree that checks how many of Pb/Ba/Sb are present, with the remaining features handling a thin margin of edge cases (log_pb_plus_sb at 1.4% and everything else below 0.5%).
 

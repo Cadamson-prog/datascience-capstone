@@ -5,6 +5,7 @@ _Data Science Capstone (Team Delta)_
 # Machine Learning for Gunshot Residue Classification: Accuracy, Interpretability, and Failure Analysis
 
 ## Table of Contents
+- [Team Contributions](#team-contributions)
 - [Background](#background)
 - [Questions](#questions)
 - [Hypotheses & Predictions](#hypotheses--predictions)
@@ -14,7 +15,18 @@ _Data Science Capstone (Team Delta)_
 - [Technical Stack](#technical-stack)
 - [Repository Structure](#repository-structure)
 - [Project Timeline](#project-timeline)
-- [Contributors](#contributors)
+
+## Team Contributions
+
+EDA
+- NFI (primary dataset): **Kristin Predeck**
+- NIST (secondary dataset): **Brendan OConnell**
+- EPA Environmental Confounders (secondary dataset): **Carlos Adamson**
+
+Models
+- Logistic Regression: **Carlos Adamson**
+- XGBoost: **Brendan OConnell**
+- Neural Net: **Kristin Predeck**
 
 ## Background
 
@@ -233,9 +245,3 @@ datascience-capstone/
 | 6 | Cross-validation, hyperparameter tuning, and model evaluation | Model Evaluation and Interpretation Report |
 | 7 | Interpret results, failure analysis, and visual storytelling | — |
 | 8 | Final presentations and submit all written deliverables and code | Capstone Project Final Report |
- 
-## Contributors
- 
-- **Kristin Predeck**
-- **Brendan OConnell**
-- **Carlos Adamson**

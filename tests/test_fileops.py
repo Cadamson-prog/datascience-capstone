@@ -1,11 +1,11 @@
-"""Unit tests for src/utilities.py"""
+"""Unit tests for src/utils/fileops.py"""
 
 import pytest
 import pandas as pd
 from unittest.mock import patch
 from pathlib import Path
 
-import src.utilities as utils
+import src.utils.fileops as fileops
 from src.exceptions import (
     DataFileNotFoundError,
     InvalidFileNameError,
@@ -22,15 +22,17 @@ def data_dir(tmp_path, monkeypatch):
     """
     Create a temporary data/ directory and redirect load_data_file to use it.
 
-    utilities.py computes data_dir as:
-        Path(__file__).resolve().parent.parent / "data"
-    Patching the module's __file__ to tmp_path/src/utilities.py makes
+    fileops.py computes data_dir as:
+        Path(__file__).resolve().parent.parent.parent / "data"
+    Patching the module's __file__ to tmp_path/src/utils/fileops.py makes
     data_dir resolve to tmp_path/data.
     """
 
     d = tmp_path / "data"
     d.mkdir()
-    monkeypatch.setattr(utils, "__file__", str(tmp_path / "src" / "utilities.py"))
+    monkeypatch.setattr(
+        fileops, "__file__", str(tmp_path / "src" / "utils" / "fileops.py")
+    )
     return d
 
 
@@ -39,11 +41,11 @@ class TestInvalidFilename:
 
     def test_bare_name_raises(self, data_dir):
         with pytest.raises(InvalidFileNameError):
-            utils.load_data_file("myfile")
+            fileops.load_data_file("myfile")
 
     def test_path_without_extension_raises(self, data_dir):
         with pytest.raises(InvalidFileNameError):
-            utils.load_data_file("subdir/myfile")
+            fileops.load_data_file("subdir/myfile")
 
 
 class TestFilenameOnly:
@@ -52,20 +54,20 @@ class TestFilenameOnly:
     def test_csv_loads_successfully(self, data_dir):
         (data_dir / "sample.csv").write_text("a,b\n1,2\n")
         with patch("pandas.read_csv", return_value=DUMMY_DF) as mock_read:
-            result = utils.load_data_file("sample.csv")
+            result = fileops.load_data_file("sample.csv")
         assert result is DUMMY_DF
         mock_read.assert_called_once()
 
     def test_parquet_loads_successfully(self, data_dir):
         (data_dir / "sample.parquet").touch()
         with patch("pandas.read_parquet", return_value=DUMMY_DF) as mock_read:
-            result = utils.load_data_file("sample.parquet")
+            result = fileops.load_data_file("sample.parquet")
         assert result is DUMMY_DF
         mock_read.assert_called_once()
 
     def test_not_found_raises(self, data_dir):
         with pytest.raises(DataFileNotFoundError):
-            utils.load_data_file("missing.csv")
+            fileops.load_data_file("missing.csv")
 
     def test_multiple_matches_raises(self, data_dir):
         sub = data_dir / "sub"
@@ -73,12 +75,12 @@ class TestFilenameOnly:
         (data_dir / "dup.csv").touch()
         (sub / "dup.csv").touch()
         with pytest.raises(MultipleDataFilesFoundError):
-            utils.load_data_file("dup.csv")
+            fileops.load_data_file("dup.csv")
 
     def test_unsupported_extension_raises(self, data_dir):
         (data_dir / "sample.xlsx").touch()
         with pytest.raises(InvalidFileTypeError):
-            utils.load_data_file("sample.xlsx")
+            fileops.load_data_file("sample.xlsx")
 
 
 class TestPathWithoutDataPrefix:
@@ -89,7 +91,7 @@ class TestPathWithoutDataPrefix:
         sub.mkdir()
         (sub / "labels.csv").write_text("a,b\n1,2\n")
         with patch("pandas.read_csv", return_value=DUMMY_DF) as mock_read:
-            result = utils.load_data_file("processed/labels.csv")
+            result = fileops.load_data_file("processed/labels.csv")
         assert result is DUMMY_DF
         mock_read.assert_called_once()
 
@@ -98,13 +100,13 @@ class TestPathWithoutDataPrefix:
         sub.mkdir()
         (sub / "labels.parquet").touch()
         with patch("pandas.read_parquet", return_value=DUMMY_DF) as mock_read:
-            result = utils.load_data_file("processed/labels.parquet")
+            result = fileops.load_data_file("processed/labels.parquet")
         assert result is DUMMY_DF
         mock_read.assert_called_once()
 
     def test_not_found_raises(self, data_dir):
         with pytest.raises(DataFileNotFoundError):
-            utils.load_data_file("processed/missing.csv")
+            fileops.load_data_file("processed/missing.csv")
 
 
 class TestPathWithDataPrefix:
@@ -115,7 +117,7 @@ class TestPathWithDataPrefix:
         sub.mkdir()
         (sub / "labels.csv").write_text("a,b\n1,2\n")
         with patch("pandas.read_csv", return_value=DUMMY_DF) as mock_read:
-            result = utils.load_data_file("data/processed/labels.csv")
+            result = fileops.load_data_file("data/processed/labels.csv")
         assert result is DUMMY_DF
         mock_read.assert_called_once()
 
@@ -124,10 +126,10 @@ class TestPathWithDataPrefix:
         sub.mkdir()
         (sub / "labels.parquet").touch()
         with patch("pandas.read_parquet", return_value=DUMMY_DF) as mock_read:
-            result = utils.load_data_file("data/processed/labels.parquet")
+            result = fileops.load_data_file("data/processed/labels.parquet")
         assert result is DUMMY_DF
         mock_read.assert_called_once()
 
     def test_not_found_raises(self, data_dir):
         with pytest.raises(DataFileNotFoundError):
-            utils.load_data_file("data/processed/missing.csv")
+            fileops.load_data_file("data/processed/missing.csv")

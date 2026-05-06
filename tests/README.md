@@ -21,4 +21,4 @@ From the `tests` directory, run:
 
 Example:
 
-    pytest test_utilities.py
+    pytest test_fileops.py

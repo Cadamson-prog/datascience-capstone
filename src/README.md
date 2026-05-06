@@ -16,6 +16,8 @@ __Exceptions__
 
 Custom exceptions.
 
-__Utilities__
+__Utils__
 
-Common reusable functions across the project.
+Common reusable helpers across the project, organized by topic.
+
+- `utils/fileops.py` - file operations (e.g. locating and loading project data files)

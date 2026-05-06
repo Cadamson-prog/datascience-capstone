@@ -90,7 +90,7 @@ pip install -e .
 You can confirm it worked by running:
 
 ```bash
-python -c "from src.utilities import load_data_file; print(load_data_file)"
+python -c "from src.utils.fileops import load_data_file; print(load_data_file)"
 ```
 
 If this prints a function reference (rather than an `ImportError`), the package is wired up correctly.
@@ -99,12 +99,12 @@ If this prints a function reference (rather than an `ImportError`), the package 
 
 ## Example: Using `src` in a Notebook
 
-Once setup is complete, you can import utilities from `src/` in any notebook under [notebooks/](../notebooks/). The [`load_data_file`](../src/utilities.py) helper takes just a filename — it recursively searches the project's `data/` directory for a match, so you don't need to pass a path.
+Once setup is complete, you can import utilities from `src/` in any notebook under [notebooks/](../notebooks/). The [`load_data_file`](../src/utils/fileops.py) helper takes just a filename — it recursively searches the project's `data/` directory for a match, so you don't need to pass a path.
 
 Create a new notebook (e.g. `notebooks/99_sandbox/example_load.ipynb`) and add the following cell:
 
 ```python
-from src.utilities import load_data_file
+from src.utils.fileops import load_data_file
 
 # Pass just the filename — `load_data_file` finds it under data/ for you.
 df = load_data_file("particle_labeled.parquet")

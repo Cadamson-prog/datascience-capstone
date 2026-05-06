@@ -1,11 +1,8 @@
-"""
-Utilities module for common reusable functions across the project.
-"""
+"""File operations: helpers for locating and loading project data files."""
 
 from pathlib import Path
-from typing import Dict
 import pandas as pd
-from . import exceptions as exc
+from .. import exceptions as exc
 
 
 def load_data_file(file_name: str) -> pd.DataFrame:
@@ -25,7 +22,9 @@ def load_data_file(file_name: str) -> pd.DataFrame:
     """
 
     p = Path(file_name)
-    data_dir = Path(__file__).resolve().parent.parent / "data"
+    # fileops.py lives at <project-root>/src/utils/fileops.py — climb three
+    # parents to reach the project root, then descend into `data`.
+    data_dir = Path(__file__).resolve().parent.parent.parent / "data"
 
     # `file_name` must have an extension
     if not p.suffix:

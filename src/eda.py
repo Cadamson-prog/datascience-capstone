@@ -2,7 +2,7 @@
 
 from typing import Dict
 import pandas as pd
-from . import utilities as util
+from .utils import fileops
 
 
 def get_nfi_final_class_map() -> Dict[str, str]:
@@ -73,7 +73,7 @@ def create_main_data() -> pd.DataFrame:
         duplicate (stub_id, particle_id) rows removed, and some metadata columns dropped.
     """
 
-    raw_df = util.load_data_file("data/raw/NFI/nfi_particle_data_full.parquet")
+    raw_df = fileops.load_data_file("data/raw/NFI/nfi_particle_data_full.parquet")
 
     raw_df["final_class"] = raw_df["relevance_class"].map(get_nfi_final_class_map())
     raw_df["label"] = raw_df["final_class"].map(get_nfi_label_map())

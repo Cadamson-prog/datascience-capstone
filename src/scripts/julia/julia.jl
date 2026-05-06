@@ -1,4 +1,13 @@
-# Julia Docs: https://docs.julialang.org
+# Author: Brendan OConnell
+# Year:   2026
+#
+# Purpose:
+#   Document the basic usage commands for working with Julia software.
+#
+# Source: 
+#   Julia Docs: https://docs.julialang.org
+#
+# ============================================================
 
 #=
 Use the following commands in the Julia REPL to install packages for working with the NFI particle data. 

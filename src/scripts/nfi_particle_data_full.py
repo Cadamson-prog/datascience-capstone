@@ -1,7 +1,24 @@
 """
-This script was used to read, concatenate, and merge the raw data files from the NFI GitHub repository. 
-The final output is a single Parquet file containing the full particle data, 
-with additional information from the source and stub raw files.
+Author: Brendan OConnell
+Year:   2026
+
+Purpose: 
+    For reference only. Not to be reused.
+    Temp script to read, concatenate, and merge the raw data files from the NFI GitHub repository.
+
+How it worked:
+    The NFI GitHub repo was cloned locally.
+    This script was created & placed in the root directory of the cloned repo.
+    Steps of execution:
+    - Reads in the source, stub, and stub source CSV files.
+    - Reads and concatenates the particle CSV files (particle_1 through particle_14) into a single DataFrame.
+    - Merges all data together based on the established relationships.
+    - Saves the final DataFrame as a Parquet file for efficient storage and retrieval.
+
+Output File:
+    `data/raw/NFI/nfi_particle_data_full.parquet`
+    This file was originally created using this script in the cloned NFI repo.
+    It was then copied to the above path in this project repository.
 
 Original raw CSV files can be found here:
 https://github.com/NetherlandsForensicInstitute/gunshot-residue

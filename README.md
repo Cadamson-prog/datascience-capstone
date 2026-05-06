@@ -1,8 +1,14 @@
-_Data Science Capstone (Team Delta)_
 
-> See the [docs/](docs/) directory for support documentation and guidelines for contributing.
 
-# Machine Learning for Gunshot Residue Classification: Accuracy, Interpretability, and Failure Analysis
+# Machine Learning for Gunshot Residue (GSR) Classification<br><br>*Accuracy, Interpretability, and Failure Analysis*
+____________________________________________________________
+> Join the conversation! Checkout Team Delta's [Discussion Board](https://github.com/bkoconnell/datascience-capstone/discussions) where we brainstorm ideas and collaborate on the project.
+____________________________________________________________
+
+Start here! See the [docs/](docs/) directory for: 
+- __*reproducibility*__ setup
+- __*contributing*__ guidelines
+- general support documentation
 
 ## Table of Contents
 - [Team Contributions](#team-contributions)
@@ -27,6 +33,8 @@ Models
 - Logistic Regression: **Carlos Adamson**
 - XGBoost: **Brendan OConnell**
 - Neural Net: **Kristin Predeck**
+
+> NOTE: Individual file contributions include headers with Author details.
 
 ## Background
 
@@ -201,7 +209,6 @@ All hyperparameter tuning will be oriented toward minimizing false positives whi
 - **Core libraries:** pandas, numpy, scikit-learn, xgboost, pytorch
 - **Visualization:** matplotlib, seaborn
 - **Interpretability:** shap
-- **Image processing:** opencv, tifffile
 - **Version control:** Git / GitHub
  
 ## Repository Structure

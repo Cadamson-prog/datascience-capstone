@@ -2,6 +2,8 @@
 pandas
 numpy
 pyarrow
+scipy
+IPython
 
 # Visualization
 matplotlib
@@ -19,7 +21,3 @@ torchvision
 
 # Interpretability
 shap
-
-# Image processing
-# opencv-python
-# tifffile

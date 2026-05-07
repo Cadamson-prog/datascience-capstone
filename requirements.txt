@@ -10,14 +10,16 @@ matplotlib
 seaborn
 glasbey # colorblind palettes
 
-# Machine learning
+# ML support
 scikit-learn
 xgboost
 umap-learn
-
-# Deep learning
 torch
 torchvision
-
-# Interpretability
 shap
+
+# Testing
+pytest
+
+# Linting / formatting
+ruff==0.15.12

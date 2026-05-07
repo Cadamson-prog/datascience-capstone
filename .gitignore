@@ -18,6 +18,7 @@ ENV/
 .env
 .venv
 .Python
+.pytest_cache/
 pip-log.txt
 pip-delete-this-directory.txt
 

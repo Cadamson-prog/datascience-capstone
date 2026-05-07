@@ -1,12 +1,17 @@
-# batch_hdz_to_parquet.jl
-# Converts HDZ/PXZ Zeppelin files to Parquet for multiple sample directories.
-# Packages are loaded once, then all directory pairs are processed sequentially.
+# Author: Brendan OConnell
+# Year:   2026
+#
+# Purpose:
+#   Converts HDZ/PXZ Zeppelin files to Parquet for multiple sample directories.
+#   Packages are loaded once, then all directory pairs are processed sequentially.
 #
 # Usage:
 #   julia batch_hdz_to_parquet.jl
 #
 # Configuration:
 #   Edit the `jobs` tuple below to define (source_dir, target_dir) pairs.
+#
+# ============================================================
 
 using NeXLParticle
 using DataFrames

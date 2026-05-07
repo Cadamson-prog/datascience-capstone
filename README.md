@@ -26,7 +26,7 @@ We rely on the following resources for our peer reviews:
 
 __*ReviewNB*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews.
 
-## Team Contributions
+## Team Members & Contributions
 
 Official team member accounts are listed in [CODEOWNERS](https://github.com/bkoconnell/datascience-capstone/blob/main/CODEOWNERS)
 

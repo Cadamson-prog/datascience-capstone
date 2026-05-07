@@ -20,3 +20,6 @@ shap
 
 # Testing
 pytest
+
+# Linting / formatting
+black

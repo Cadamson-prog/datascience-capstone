@@ -7,7 +7,3 @@ __Goals:__
 - Establish baselines
 - Compare model performance metrics
 - Process of elimination
-
-__Key Decisions:__
-
-__Reasoning:__

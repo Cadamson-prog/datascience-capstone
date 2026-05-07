@@ -1,14 +1,16 @@
-#= 
-# hdz_to_parquet.jl
-# Converts all HDZ/PXZ Zeppelin files in a source directory to Parquet.
+# Author: Brendan OConnell
+# Year:   2026
+#
+# Purpose:
+#   Converts all HDZ/PXZ Zeppelin files in a source directory to Parquet.
 #
 # Usage:
 #   julia hdz_to_parquet.jl <source_dir> <target_dir>
 #
 # Example:
 #   julia hdz_to_parquet.jl "C:\tmp\Chevy Caprise 422PC2 Front Passenger\neQuant.hdz" "C:\git\datascience-capstone\data\raw\NIST\brakes_chevy_front_passenger\neQuant.parquet"
-
-=#
+#
+# ============================================================
 
 using NeXLParticle
 using DataFrames

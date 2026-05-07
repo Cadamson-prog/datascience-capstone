@@ -1,0 +1,74 @@
+name: py-lint
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  py-lint:
+    name: Ruff formatter check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ruff
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ruff==0.15.12
+
+      - name: Run py_lint.py (formats files in place)
+        run: python src/scripts/linting/py_lint.py
+
+      - name: Capture git diff
+        id: capture
+        shell: bash
+        run: |
+          git diff > py_lint.diff
+          if [ -s py_lint.diff ]; then
+            echo "diff_present=true" >> "$GITHUB_OUTPUT"
+            echo "Ruff produced formatting changes:"
+            echo "----------------------------------------------------------------"
+            cat py_lint.diff
+            echo "----------------------------------------------------------------"
+          else
+            echo "diff_present=false" >> "$GITHUB_OUTPUT"
+            echo "No formatting changes — repository is ruff-format-clean."
+          fi
+
+      - name: Upload diff artifact
+        if: steps.capture.outputs.diff_present == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: py_lint_diff
+          path: py_lint.diff
+          if-no-files-found: error
+
+      - name: Fail job if diff is non-empty
+        if: steps.capture.outputs.diff_present == 'true'
+        shell: bash
+        run: |
+          echo "::error title=Ruff formatting required::Python files are not ruff-format-clean."
+          echo ""
+          echo "How to fix:"
+          echo "  1. Download the 'py_lint_diff' artifact from this workflow run"
+          echo "     to inspect the changes ruff wants to apply."
+          echo "  2. Locally run:  python src/scripts/linting/py_lint.py"
+          echo "  3. Apply the resulting changes (git add -u), commit, and push."
+          echo "  4. Re-run this GitHub Actions workflow."
+          echo ""
+          echo "See docs/workflows/linting.md for more details."
+          exit 1

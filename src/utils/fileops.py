@@ -1,4 +1,10 @@
-"""File operations: helpers for locating and loading project data files."""
+"""
+Author: Brendan OConnell
+Year:   2026
+
+Purpose:
+    File operation helpers for locating and loading project data files.
+"""
 
 from pathlib import Path
 import pandas as pd
@@ -19,6 +25,12 @@ def load_data_file(file_name: str) -> pd.DataFrame:
 
     Returns:
         DataFrame: The loaded data as a pandas DataFrame.
+
+    Raises:
+        InvalidFileNameError: If `file_name` does not have an extension.
+        DataFileNotFoundError: If no file matching `file_name` is found in the data directory.
+        MultipleDataFilesFoundError: If more than one file matching `file_name` is found in the data directory.
+        InvalidFileTypeError: If the file extension of `file_name` is not supported for loading.
     """
 
     p = Path(file_name)

@@ -1,6 +1,7 @@
 """Unit tests for src/scripts/linting/py_lint.py"""
 
 import subprocess
+import sys
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -122,9 +123,13 @@ class TestRunBlack:
             rc = py_lint.run_black(files)
 
         assert rc == 0
-        # Compare against str(Path(...)) so the test passes on both POSIX
-        # and Windows (which use different path separators).
-        mock_run.assert_called_once_with(["black", str(files[0]), str(files[1])])
+        # Script invokes black via `sys.executable -m black` so it picks up
+        # the version installed in the active environment. Compare against
+        # str(Path(...)) so the test passes on both POSIX and Windows (which
+        # use different path separators).
+        mock_run.assert_called_once_with(
+            [sys.executable, "-m", "black", str(files[0]), str(files[1])]
+        )
 
     def test_returns_black_exit_code(self):
         files = [Path("/repo/a.py")]

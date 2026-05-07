@@ -3,9 +3,9 @@ Author: Brendan OConnell
 Year:   2026
 
 Purpose:
-    Run the `black` formatter against every Python file tracked by the
+    Run the `ruff` formatter against every Python file tracked by the
     repository (and any new, non-gitignored Python files staged for commit).
-    The script formats files in place and exits 0 if `black` itself succeeds.
+    The script formats files in place and exits 0 if `ruff` itself succeeds.
 
     The companion GitHub Actions workflow (`.github/workflows/py-lint.yml`)
     invokes this script, captures any resulting `git diff`, uploads it as an
@@ -21,13 +21,13 @@ Local usage:
 
     Prerequisites:
         - You are inside a git repository.
-        - `black==25.1.0` is installed in the active Python environment.
-          Install with `pip install black==25.1.0`
+        - `ruff==0.15.12` is installed in the active Python environment.
+          Install with `pip install ruff==0.15.12`
           (or `pip install -r requirements.txt`) if needed.
 
 How to recover from a failed GitHub Actions `py-lint` job:
     1. Download the `py_lint_diff` artifact from the workflow run to inspect
-       the changes black wants to apply.
+       the changes ruff wants to apply.
     2. Locally run `python src/scripts/linting/py_lint.py`.
     3. Stage the changes (`git add -u`), commit, and push.
     4. Re-run the workflow.
@@ -91,16 +91,16 @@ def find_python_files(root: Path) -> list[Path]:
     return files
 
 
-def run_black(files: list[Path]) -> int:
+def run_ruff(files: list[Path]) -> int:
     """
-    Invoke `black` on the given files. Returns black's exit code.
+    Invoke `ruff format` on the given files. Returns ruff's exit code.
     Returns 0 immediately when there are no files to format.
     """
     if not files:
         print("No Python files to format.")
         return 0
-    print(f"Running black on {len(files)} file(s)...")
-    cmd = [sys.executable, "-m", "black", *[str(f) for f in files]]
+    print(f"Running ruff format on {len(files)} file(s)...")
+    cmd = [sys.executable, "-m", "ruff", "format", *[str(f) for f in files]]
     result = subprocess.run(cmd)
     return result.returncode
 
@@ -108,7 +108,7 @@ def run_black(files: list[Path]) -> int:
 def main() -> int:
     root = repo_root()
     files = find_python_files(root)
-    return run_black(files)
+    return run_ruff(files)
 
 
 if __name__ == "__main__":

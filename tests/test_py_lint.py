@@ -106,36 +106,36 @@ class TestFindPythonFiles:
         assert second_call.kwargs["cwd"] == tmp_path
 
 
-class TestRunBlack:
-    """`run_black()` shells out to the `black` CLI."""
+class TestRunRuff:
+    """`run_ruff()` shells out to the `ruff format` CLI."""
 
     def test_no_files_skips_subprocess(self, capsys):
         with patch.object(py_lint.subprocess, "run") as mock_run:
-            rc = py_lint.run_black([])
+            rc = py_lint.run_ruff([])
         assert rc == 0
         mock_run.assert_not_called()
         assert "No Python files" in capsys.readouterr().out
 
-    def test_invokes_black_with_files(self):
+    def test_invokes_ruff_with_files(self):
         files = [Path("/repo/a.py"), Path("/repo/b.py")]
         with patch.object(py_lint.subprocess, "run") as mock_run:
             mock_run.return_value = MagicMock(returncode=0)
-            rc = py_lint.run_black(files)
+            rc = py_lint.run_ruff(files)
 
         assert rc == 0
-        # Script invokes black via `sys.executable -m black` so it picks up
-        # the version installed in the active environment. Compare against
+        # Script invokes ruff via `sys.executable -m ruff format` so it picks
+        # up the version installed in the active environment. Compare against
         # str(Path(...)) so the test passes on both POSIX and Windows (which
         # use different path separators).
         mock_run.assert_called_once_with(
-            [sys.executable, "-m", "black", str(files[0]), str(files[1])]
+            [sys.executable, "-m", "ruff", "format", str(files[0]), str(files[1])]
         )
 
-    def test_returns_black_exit_code(self):
+    def test_returns_ruff_exit_code(self):
         files = [Path("/repo/a.py")]
         with patch.object(py_lint.subprocess, "run") as mock_run:
             mock_run.return_value = MagicMock(returncode=123)
-            rc = py_lint.run_black(files)
+            rc = py_lint.run_ruff(files)
         assert rc == 123
 
 
@@ -147,19 +147,19 @@ class TestMain:
         with (
             patch.object(py_lint, "repo_root", return_value=tmp_path) as mock_root,
             patch.object(py_lint, "find_python_files", return_value=files) as mock_find,
-            patch.object(py_lint, "run_black", return_value=0) as mock_black,
+            patch.object(py_lint, "run_ruff", return_value=0) as mock_ruff,
         ):
             rc = py_lint.main()
 
         assert rc == 0
         mock_root.assert_called_once_with()
         mock_find.assert_called_once_with(tmp_path)
-        mock_black.assert_called_once_with(files)
+        mock_ruff.assert_called_once_with(files)
 
-    def test_propagates_black_failure(self, tmp_path):
+    def test_propagates_ruff_failure(self, tmp_path):
         with (
             patch.object(py_lint, "repo_root", return_value=tmp_path),
             patch.object(py_lint, "find_python_files", return_value=[]),
-            patch.object(py_lint, "run_black", return_value=2),
+            patch.object(py_lint, "run_ruff", return_value=2),
         ):
             assert py_lint.main() == 2

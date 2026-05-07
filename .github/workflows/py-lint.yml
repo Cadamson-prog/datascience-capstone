@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   py-lint:
-    name: Black formatter check
+    name: Ruff formatter check
     runs-on: ubuntu-latest
 
     steps:
@@ -25,10 +25,10 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install black
+      - name: Install ruff
         run: |
           python -m pip install --upgrade pip
-          python -m pip install black==25.1.0
+          python -m pip install ruff==0.15.12
 
       - name: Run py_lint.py (formats files in place)
         run: python src/scripts/linting/py_lint.py
@@ -40,13 +40,13 @@ jobs:
           git diff > py_lint.diff
           if [ -s py_lint.diff ]; then
             echo "diff_present=true" >> "$GITHUB_OUTPUT"
-            echo "Black produced formatting changes:"
+            echo "Ruff produced formatting changes:"
             echo "----------------------------------------------------------------"
             cat py_lint.diff
             echo "----------------------------------------------------------------"
           else
             echo "diff_present=false" >> "$GITHUB_OUTPUT"
-            echo "No formatting changes — repository is black-clean."
+            echo "No formatting changes — repository is ruff-format-clean."
           fi
 
       - name: Upload diff artifact
@@ -61,11 +61,11 @@ jobs:
         if: steps.capture.outputs.diff_present == 'true'
         shell: bash
         run: |
-          echo "::error title=Black formatting required::Python files are not black-formatted."
+          echo "::error title=Ruff formatting required::Python files are not ruff-format-clean."
           echo ""
           echo "How to fix:"
           echo "  1. Download the 'py_lint_diff' artifact from this workflow run"
-          echo "     to inspect the changes black wants to apply."
+          echo "     to inspect the changes ruff wants to apply."
           echo "  2. Locally run:  python src/scripts/linting/py_lint.py"
           echo "  3. Apply the resulting changes (git add -u), commit, and push."
           echo "  4. Re-run this GitHub Actions workflow."

@@ -22,4 +22,4 @@ shap
 pytest
 
 # Linting / formatting
-black==25.1.0
+ruff==0.15.12

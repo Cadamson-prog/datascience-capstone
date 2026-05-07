@@ -100,7 +100,7 @@ def run_black(files: list[Path]) -> int:
         print("No Python files to format.")
         return 0
     print(f"Running black on {len(files)} file(s)...")
-    cmd = ["black", *[str(f) for f in files]]
+    cmd = [sys.executable, "-m", "black", *[str(f) for f in files]]
     result = subprocess.run(cmd)
     return result.returncode
 

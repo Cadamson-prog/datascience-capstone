@@ -2,16 +2,16 @@
 Author: Brendan OConnell
 Year:   2026
 
-Purpose: 
+Purpose:
     For reproducibility, this script can be used to read, concatenate, and merge the raw NIST data files from `data/raw/NIST/`.
     Specifically, it is designed to process neQuant and its variants, but can be replicated & modified as needed.
 
 Configuration:
-    Edit the `nequant` variable to specify which neQuant variant to process. 
+    Edit the `nequant` variable to specify which neQuant variant to process.
     Edit the output_path as needed (optional).
 
 How it works:
-    The script will look for Parquet files in each subdirectory of `data/raw/NIST/` that match the specified neQuant name, 
+    The script will look for Parquet files in each subdirectory of `data/raw/NIST/` that match the specified neQuant name,
     concatenate them together, and write the result to a single Parquet file in `data/processed/nist_concatenated_parquets/`.
 
 Output File:
@@ -31,7 +31,9 @@ nequant = "neQuant"
 # nequant = "neQuantC3s JORS[GSR+Base]"
 # nequant = "neQuantC6s JORS[GSR+Base]"
 raw_nist_dir = Path("data/raw/NIST")
-output_path = Path(f"data/processed/nist_concatenated_parquets/nist_{nequant}_concatenated_data.parquet")
+output_path = Path(
+    f"data/processed/nist_concatenated_parquets/nist_{nequant}_concatenated_data.parquet"
+)
 
 
 def normalize_columns(df):
@@ -44,9 +46,9 @@ def normalize_columns(df):
     renamed = {}
     for col in df.columns:
         if col.endswith("_K_FLOAT"):
-            base = col[: -len("_K_FLOAT")]   # strip _K_FLOAT
+            base = col[: -len("_K_FLOAT")]  # strip _K_FLOAT
             if base.startswith("U_"):
-                base = base + "_"            # restore trailing _ for uncertainty cols
+                base = base + "_"  # restore trailing _ for uncertainty cols
             renamed[col] = base
     return df.rename(columns=renamed)
 

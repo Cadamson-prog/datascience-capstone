@@ -10,7 +10,9 @@ import src.scripts.linting.py_lint as py_lint
 
 
 def _completed(stdout: str = "", returncode: int = 0) -> subprocess.CompletedProcess:
-    return subprocess.CompletedProcess(args=[], returncode=returncode, stdout=stdout, stderr="")
+    return subprocess.CompletedProcess(
+        args=[], returncode=returncode, stdout=stdout, stderr=""
+    )
 
 
 class TestRepoRoot:
@@ -30,7 +32,9 @@ class TestRepoRoot:
 
     def test_called_outside_git_repo_raises(self):
         with patch.object(py_lint.subprocess, "run") as mock_run:
-            mock_run.side_effect = subprocess.CalledProcessError(returncode=128, cmd="git")
+            mock_run.side_effect = subprocess.CalledProcessError(
+                returncode=128, cmd="git"
+            )
             with pytest.raises(RuntimeError):
                 py_lint.repo_root()
 

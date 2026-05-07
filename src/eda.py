@@ -2,10 +2,9 @@
 Author: Brendan OConnell
 Year:   2026
 
-Purpose: 
+Purpose:
     For reproducibility, this module contains reusable functions to support critical EDA steps.
 """
-
 
 from typing import Dict
 import pandas as pd

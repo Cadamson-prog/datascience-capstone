@@ -2,9 +2,12 @@ name: py-lint
 
 on:
   pull_request:
-  push:
     branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   py-lint:

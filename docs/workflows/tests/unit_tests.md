@@ -1,7 +1,7 @@
 # `unit-tests` — Workflow Reference
 
 A focused reference for the GitHub Actions workflow that runs the project's
-unit test suite on every pull request and push to `main`.
+unit test suite on every pull request targeting `main`.
 
 ---
 
@@ -63,8 +63,17 @@ See [`tests/README.md`](../../../tests/README.md) for additional examples.
 ## GitHub Actions: `unit-tests` job
 
 The [`.github/workflows/unit-tests.yml`](../../../.github/workflows/unit-tests.yml)
-workflow runs on every pull request, every push to `main`, and on manual
-`workflow_dispatch`. The job does the following on `ubuntu-latest`:
+workflow runs on every pull request that targets `main` (when opened,
+when new commits are pushed, and when reopened) and on manual
+`workflow_dispatch`. PRs whose base branch is something other than
+`main` (e.g. stacked feature branches) do not trigger the job, and it
+does **not** run on close/merge. A `concurrency` group keyed on
+`${{ github.workflow }}-${{ github.ref }}` with `cancel-in-progress: true`
+ensures that pushing a new commit to a PR cancels the in-flight run for
+that same PR — only the most recent commit is checked, since the job
+validates the full PR file set rather than per-commit changes.
+
+The job does the following on `ubuntu-latest`:
 
 1. Checks out the branch.
 2. Sets up Python 3.11 (with `pip` caching).

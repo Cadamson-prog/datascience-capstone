@@ -3,7 +3,7 @@
 This document describes the project's Python linting workflow:
 the `py_lint.py` script that formats every Python file in the repository
 with [black](https://black.readthedocs.io/), the corresponding GitHub
-Actions job that enforces it on every pull request and push to `main`,
+Actions job that enforces it on every pull request targeting `main`,
 and the steps to follow when that job fails.
 
 ---
@@ -75,9 +75,18 @@ git commit -m "Apply black formatting"
 
 ## GitHub Actions: `py-lint` job
 
-The `.github/workflows/py-lint.yml` workflow runs on every pull request,
-every push to `main`, and on manual `workflow_dispatch`. The job does the
-following on `ubuntu-latest`:
+The `.github/workflows/py-lint.yml` workflow runs on every pull request
+that targets `main` (when opened, when new commits are pushed, and when
+reopened) and on manual `workflow_dispatch`. PRs whose base branch is
+something other than `main` (e.g. stacked feature branches) do not
+trigger the job, and it does **not** run on close/merge. A `concurrency`
+group keyed on `${{ github.workflow }}-${{ github.ref }}` with
+`cancel-in-progress: true` ensures that pushing a new commit to a PR
+cancels the in-flight run for that same PR — only the most recent
+commit is checked, since the job validates the full PR file set rather
+than per-commit changes.
+
+The job does the following on `ubuntu-latest`:
 
 1. Checks out the branch (with full git history).
 2. Sets up Python 3.11.

@@ -1,4 +1,10 @@
-"""Custom exceptions for the project."""
+"""
+Author: Brendan OConnell
+Year:   2026
+
+Purpose:
+    Custom exceptions for the project.
+"""
 
 
 # Data file exceptions

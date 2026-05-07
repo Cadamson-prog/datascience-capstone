@@ -1,4 +1,11 @@
-"""Python source code support for EDA notebooks"""
+"""
+Author: Brendan OConnell
+Year:   2026
+
+Purpose: 
+    For reproducibility, this module contains reusable functions to support critical EDA steps.
+"""
+
 
 from typing import Dict
 import pandas as pd

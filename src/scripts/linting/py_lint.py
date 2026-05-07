@@ -21,8 +21,9 @@ Local usage:
 
     Prerequisites:
         - You are inside a git repository.
-        - `black` is installed in the active Python environment.
-          Install with `pip install black` if needed.
+        - `black==25.1.0` is installed in the active Python environment.
+          Install with `pip install black==25.1.0`
+          (or `pip install -r requirements.txt`) if needed.
 
 How to recover from a failed GitHub Actions `py-lint` job:
     1. Download the `py_lint_diff` artifact from the workflow run to inspect

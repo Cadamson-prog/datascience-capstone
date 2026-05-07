@@ -26,7 +26,9 @@ jobs:
           python-version: "3.11"
 
       - name: Install black
-        run: python -m pip install --upgrade pip black
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install black==25.1.0
 
       - name: Run py_lint.py (formats files in place)
         run: python src/scripts/linting/py_lint.py
@@ -68,5 +70,5 @@ jobs:
           echo "  3. Apply the resulting changes (git add -u), commit, and push."
           echo "  4. Re-run this GitHub Actions workflow."
           echo ""
-          echo "See docs/workflows/linting/py_lint.md for more details."
+          echo "See docs/workflows/linting.md for more details."
           exit 1

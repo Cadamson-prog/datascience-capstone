@@ -22,7 +22,6 @@ and the steps to follow when that job fails.
 | Piece | Path |
 | --- | --- |
 | Linting script | `src/scripts/linting/py_lint.py` |
-| Script-specific doc | `docs/workflows/linting/py_lint.md` |
 | Unit tests | `tests/test_py_lint.py` |
 | GitHub Actions workflow | `.github/workflows/py-lint.yml` |
 
@@ -42,10 +41,16 @@ output and the job fails.
 ### Prerequisites
 
 - You are inside a clone of this repository.
-- Your active Python environment has `black` installed:
+- Your active Python environment has `black==25.1.0` installed:
 
   ```bash
-  pip install black
+  pip install black==25.1.0
+  ```
+
+  Or, equivalently, install via the project's pinned requirements:
+
+  ```bash
+  pip install -r requirements.txt
   ```
 
 ### Run it
@@ -143,5 +148,7 @@ If the job still fails after these steps, double-check that:
   locally is necessary but not sufficient — the changes need to be on the
   branch CI is testing).
 - Your local `black` version matches the version installed in the workflow.
-  The workflow installs the latest release; if your local version is older
-  it may produce a different diff. Update with `pip install --upgrade black`.
+  Both are pinned to `black==25.1.0` (in `requirements.txt` and the workflow's
+  install step). If your local version drifts, it will likely produce a
+  different diff than CI. Reinstall the pin with `pip install black==25.1.0`
+  or `pip install -r requirements.txt`.

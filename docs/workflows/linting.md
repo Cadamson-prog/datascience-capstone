@@ -24,7 +24,7 @@ and the steps to follow when that job fails.
 | Linting script | `src/scripts/linting/py_lint.py` |
 | Wrapper (macOS / Linux / Git Bash) | `lint.sh` |
 | Wrapper (Windows cmd / PowerShell) | `lint.bat` |
-| Unit tests | `tests/test_py_lint.py` |
+| Unit tests | `tests/unit/test_py_lint.py` |
 | GitHub Actions workflow | `.github/workflows/py-lint.yml` |
 
 The script discovers every Python file the repository tracks (and any new,

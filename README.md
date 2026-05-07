@@ -16,6 +16,7 @@ Read our [docs/](https://github.com/bkoconnell/datascience-capstone/tree/main/do
 - [Data](#data)
 - [Methods](#methods)
 - [Technical Stack](#technical-stack)
+- [Model Testing & Reproducibility](#model-testing--reproducibility)
 - [Repository Structure](#repository-structure)
 - [Project Timeline](#project-timeline)
 
@@ -165,7 +166,62 @@ All hyperparameter tuning will be oriented toward minimizing false positives whi
 - **Interpretability:** shap
 - **Version control:** Git / GitHub / Git LFS (large file storage for parquets)
 - **Formatting:** Ruff
- 
+
+## Model Testing & Reproducibility
+
+### Model Testing
+
+The latest model releases are found here: `artifacts/models/`.
+
+Pre-designed tests for the latest model releases are available in `tests/model/`.
+
+> TODO: Write model tests. Then add steps here for running the Model Tests
+
+### Test Automation (GitHub)
+
+CI runs on every pull request to `main` (and on manual dispatch) via GitHub Actions in [.github/workflows/](.github/workflows/). The pipeline is composed of the following jobs:
+
+- **Python Lint** — Runs Ruff in format-check mode against the repo's Python sources. Fails the PR if any file is not ruff-format-clean and uploads the proposed diff as a build artifact.
+- **Notebook Lint** *(not released)* — Will enforce notebook hygiene (cleared outputs, consistent formatting, etc.) so that `.ipynb` reviews on ReviewNB stay focused on substantive changes.
+- **Unit Tests** — Runs the `pytest` suite under `tests/unit/` against a freshly installed environment (`pip install -r requirements.txt` + editable install of the project package).
+
+Non-PR automation jobs:
+- **Reproducibility** *(not released)* — Users can manually trigger this workflow for an end-to-end data and modeling pipeline on a slim sample so that downstream notebooks remain runnable from a clean clone.
+
+### Local Reproducibility
+
+> **Prerequisite:** Follow [docs/DEVELOPER_SETUP.md](docs/DEVELOPER_SETUP.md) to set up Python, the virtual environment, and Git LFS so the project's data and dependencies resolve correctly.
+
+The [src/](src/) directory hosts reusable Python code (helpers, model utilities, scripts) that the notebooks import. Centralizing logic there keeps notebooks focused on narrative and exploration while letting non-trivial functions be shared, tested, and lint-checked alongside the rest of the codebase.
+
+### Local Testing
+
+> **Prerequisite:** Follow [docs/DEVELOPER_SETUP.md](docs/DEVELOPER_SETUP.md) before running the steps below.
+
+**Lint** — From the repository root, run the wrapper that matches your shell. Both forward to `src/scripts/linting/py_lint.py` and apply Ruff formatting in place:
+
+```bash
+# macOS / Linux
+./lint.sh
+
+# Windows
+lint.bat
+```
+
+Inspect the resulting diff and commit any changes the formatter applies; the CI `Python Lint` job will fail otherwise.
+
+**Unit tests** — From the `tests/unit/` directory, run the full suite or a single file:
+
+```bash
+# Run all unit tests
+pytest
+
+# Run a specific test file
+pytest test_fileops.py
+```
+
+See [tests/README.md](tests/README.md) for additional usage details.
+
 ## Repository Structure
  
 ```
@@ -205,6 +261,7 @@ datascience-capstone/
 │   └── workflows/                  # Linting and testing workflow docs
 │ 
 ├── notebooks/                      # Jupyter Notebooks for the DataScience Flow
+│   │                                (w/ ephemeral `outputs/` dir per section)
 │   ├── 00_tidy_data_prep/
 │   ├── 01_eda/
 │   ├── 02_feature_processing/
@@ -218,7 +275,9 @@ datascience-capstone/
 │   ├── exceptions.py
 │   ├── scripts/                    # Standalone data-prep / lint scripts (incl. julia/)
 │   └── utils/                      # Shared helpers: common, fileops, logreg, nist, nn, xgb
-├── tests/                          # Pytest suite (unit + lint tests)
+├── tests/                          # Pytest suite
+│   ├── model/                      # Model tests (TODO — not yet implemented)
+│   └── unit/                       # Unit tests for src/ helpers + lint script
 ├── lint.bat / lint.sh              # Local lint entrypoints (Ruff)
 ├── pyproject.toml                  # Project + tooling configuration
 └── requirements.txt                # Python dependencies

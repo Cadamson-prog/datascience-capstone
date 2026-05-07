@@ -6,7 +6,7 @@ _Data Science Capstone (Team Delta)_
 
 ## Table of Contents
 - [Peer Reviews](#peer-reviews) 
-- [Team Contributions](#team-contributions)
+- [Team Members & Contributions](#team-members--contributions)
 - [Background](#background)
 - [Questions](#questions)
 - [Hypotheses & Predictions](#hypotheses--predictions)

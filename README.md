@@ -1,23 +1,44 @@
-_Data Science Capstone (Team Delta)_
 
-> See the [docs/](docs/) directory for support documentation and guidelines for contributing.
 
-# Machine Learning for Gunshot Residue Classification: Accuracy, Interpretability, and Failure Analysis
+# Machine Learning for Gunshot Residue (GSR) Classification<br><br>*Accuracy, Interpretability, and Failure Analysis*
+____________________________________________________________
+> Join the conversation! Checkout our [Discussion Board](https://github.com/bkoconnell/datascience-capstone/discussions) where we brainstorm and collaborate on the project.
+____________________________________________________________
+
+Read our [docs/](https://github.com/bkoconnell/datascience-capstone/tree/main/docs) for __*developer setup*__ (reproducibility), __*contributing*__ guidelines, and general support documentation.
 
 ## Table of Contents
-- [Peer Reviews](#peer-reviews) 
-- [Team Members & Contributions](#team-members--contributions)
-- [Background](#background)
-- [Questions](#questions)
+- [Team Delta](#team-delta)
+- [Project Background](#project-background)
+- [Research Questions](#research-questions)
 - [Hypotheses & Predictions](#hypotheses--predictions)
 - [Stakeholders](#stakeholders)
 - [Data](#data)
 - [Methods](#methods)
 - [Technical Stack](#technical-stack)
+- [Model Testing & Reproducibility](#model-testing--reproducibility)
 - [Repository Structure](#repository-structure)
 - [Project Timeline](#project-timeline)
 
-## Peer Reviews
+## Team Delta
+
+*Official team member accounts are listed in [CODEOWNERS](https://github.com/bkoconnell/datascience-capstone/blob/main/CODEOWNERS)*
+
+### Project Attributions
+
+__EDA__
+- NFI (primary dataset): **Kristin Predeck**
+- NIST (secondary dataset): **Brendan OConnell**
+- EPA Environmental Confounders (secondary dataset): **Carlos Adamson**
+
+__Models__
+- Logistic Regression: **Carlos Adamson**
+- XGBoost: **Brendan OConnell**
+- Neural Net: **Kristin Predeck**
+
+> NOTE: Individual file attributions can be found in the file headers with Author details.
+
+### Peer Reviews
 
 We rely on the following resources for our peer reviews:
 
@@ -26,23 +47,7 @@ We rely on the following resources for our peer reviews:
 
 __*ReviewNB*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews.
 
-## Team Members & Contributions
-
-Official team member accounts are listed in [CODEOWNERS](https://github.com/bkoconnell/datascience-capstone/blob/main/CODEOWNERS)
-
-EDA attributions:
-- NFI (primary dataset): **Kristin Predeck**
-- NIST (secondary dataset): **Brendan OConnell**
-- EPA Environmental Confounders (secondary dataset): **Carlos Adamson**
-
-Model attributions:
-- Logistic Regression: **Carlos Adamson**
-- XGBoost: **Brendan OConnell**
-- Neural Net: **Kristin Predeck**
-
-Want to contribute to our project? Check out our [contributing guidelines](https://github.com/bkoconnell/datascience-capstone?tab=contributing-ov-file#contributing-guidelines) for more details.
-
-## Background
+## Project Background
 
 Gunshot residue (GSR) analysis is a critical component of forensic investigations involving firearm discharge. When a firearm is fired, microscopic particles containing elements such as lead (Pb), barium (Ba), and antimony (Sb) are released and can serve as key physical evidence in criminal cases. Traditional GSR identification relies on scanning electron microscopy with energy dispersive X-ray spectroscopy (SEM/EDS), where expert analysts classify particles based on morphology and elemental composition.
 
@@ -50,7 +55,7 @@ However, this process is prone to error. Chemically similar particles from envir
 
 Machine learning offers a data-driven alternative that can improve the consistency, scalability, and transparency of GSR classification. Unlike prior work that focuses primarily on model accuracy and efficiency, this project emphasizes interpretability and failure analysis. Understanding *why* models make decisions and *where* they fail is essential for responsible application in forensic science.
 
-## Questions
+## Research Questions
 
 1. **Primary:** How accurately and reliably can machine learning models distinguish true gunshot residue particles from chemically similar non-GSR particles?
 2. **Comparative:** How does classification performance vary across different machine learning approaches (linear, tree-based, neural network) when applied to GSR identification?
@@ -106,10 +111,6 @@ This project uses two complementary datasets:
 
 - **Key finding:** NIST shooter samples confirmed that PbBaSb, PbBa, PbSb, and BaSb classes are genuine GSR. NIST confounder samples (fireworks, brake dust) lack GSR particle classes, confirming these are true environmental sources. This informed the labeling scheme applied to the NFI dataset.
 
-### Processed Output
-- `processed/particle_labeled.parquet` -- Full NFI dataset with added `final_class`, `label`, and binary `target` columns
-- Generated by `notebooks/01_data_preparation.ipynb`
-
 ### Labeling Scheme (NIST-Informed)
 
 | NFI Class | Label | NIST Justification |
@@ -131,65 +132,13 @@ This project uses two complementary datasets:
 - Assigned NIST-informed binary labels (GSR vs Non-GSR)
 - Identified 90 elemental composition columns as features
  
-## Methods
- 
-### Preprocessing
-- Standardize elemental concentration units and scales across both datasets
-- Assess and handle missing values (imputation or removal as appropriate)
-- Extract numerical features from TIFF spectral images for use in image-based modeling
-- Engineer additional features such as elemental ratios (e.g., Pb/Ba, Sb/Ba)
- 
 ### Models
 | Model | Type | Purpose |
 |---|---|---|
 | Logistic Regression | Linear | Baseline classifier to establish a performance floor |
 | XGBoost | Tree-based (nonlinear) | Capture complex feature interactions |
 | Fully Connected Neural Network | Deep learning (tabular) | Test deep learning on structured elemental data |
-| CNN (if feasible) | Deep learning (image) | Leverage spectral information from TIFF images |
- 
 
-## Stakeholders
- 
-- **Courts and legal decision-makers** who require GSR analysis to support judicial outcomes. Results must be accurate, reliable, reproducible, and interpretable to be admissible and trustworthy.
-- **Expert witnesses and forensic analysts** who may use this pipeline as a starting point for deeper investigation. Transparency and ease of use are paramount to support existing workflows and aid in preparing expert testimony.
-- **Defendants and defense counsel** who are directly impacted by classification errors. False positives are a critical concern, and defense teams may scrutinize failure modes and model limitations to ensure fair and transparent application of ML in forensic evidence.
-- **Federal research funders** (e.g., the National Institute of Justice, NSF) who actively support research aimed at improving the scientific rigor of forensic methods.
- 
-## Data
- 
-This project uses two complementary datasets. Across both, the target variable is a binary indicator of GSR versus non-GSR: `gsr_label` in the NIST data and `merged_relevance_class` in the NFI data. Predictor variables consist primarily of elemental compositions (chemical signatures), along with ammunition type, case type, and TIFF spectral images (NIST only) as a secondary modality.
- 
-### NIST Gunshot Residue Dataset (Ritchie & Reynolds, 2021)
-- **Source:** National Institute of Standards and Technology
-- **Contents:** Particle-level SEM/EDS measurements including elemental concentrations (Pb, Ba, Sb, etc.), sample metadata, and TIFF images with embedded X-ray spectra
-- **Size:** 30 discrete samples — 8 GSR, 12 brake dust, 10 fireworks
-- **Collection:** Samples collected by the Boston Police Department from a volunteer at a firing range
-- **Strengths:** High-quality, verified ground truth labels; suitable for benchmarking
-- **Limitations:** Small sample size; single volunteer and collection setting limits generalizability
- 
-### NFI Gunshot Residue Dataset (Matzen et al., 2022)
-- **Source:** Netherlands Forensic Institute (publicly available via GitHub)
-- **Contents:** SEM/EDS particle measurements with classification labels across four relational tables (stub, particle, source, stub-source)
-- **Size:** 1,953 samples from 210 criminal cases across ~964,000 particles
-- **Collection:** Sampled from a variety of locations and case types between 2015–2019
-- **Strengths:** Scale and diversity across real-world criminal cases; designed for ML analysis
-- **Limitations:** Batch effects from multiple case types; limited elemental scope may miss edge-case confounders
- 
-## Methods
- 
-### Preprocessing
-- Clean and standardize data: assess missing values (impute or drop), standardize units and scales of elemental concentrations across NIST and NFI datasets
-- Extract numerical features from TIFF spectral images for use in image-based and combined modeling
-- Engineer additional features such as elemental ratios and morphology descriptors where available
- 
-### Models
-| Model | Type | Purpose | Key Hyperparameters |
-|---|---|---|---|
-| Logistic Regression | Linear | Baseline classifier and initial feature selection | Regularization strength |
-| XGBoost | Tree-based (nonlinear) | Capture complex feature interactions | Tree depth, learning rate, number of estimators, class weighting |
-| Fully Connected Neural Network | Deep learning (tabular) | Test deep learning on structured elemental data | Depth, hidden layer size, learning rate, batch size, dropout, early stopping |
-| CNN (if feasible) | Deep learning (image) | Leverage spectral information from TIFF images | — |
- 
 All hyperparameter tuning will be oriented toward minimizing false positives while maintaining low false negatives. Dimensionality reduction (PCA for linear space, UMAP for nonlinear space) will be explored selectively on the NFI elemental features (Ac–Zr), but only where it does not compromise interpretability.
  
 ### Evaluation
@@ -215,36 +164,123 @@ All hyperparameter tuning will be oriented toward minimizing false positives whi
 - **Core libraries:** pandas, numpy, scikit-learn, xgboost, pytorch
 - **Visualization:** matplotlib, seaborn
 - **Interpretability:** shap
-- **Image processing:** opencv, tifffile
-- **Version control:** Git / GitHub
- 
+- **Version control:** Git / GitHub / Git LFS (large file storage for parquets)
+- **Formatting:** Ruff
+
+## Model Testing & Reproducibility
+
+### Model Testing
+
+The latest model releases are found here: `artifacts/models/`.
+
+Pre-designed tests for the latest model releases are available in `tests/model/`.
+
+> TODO: Write model tests. Then add steps here for running the Model Tests
+
+### Test Automation (GitHub)
+
+CI runs on every pull request to `main` (and on manual dispatch) via GitHub Actions in [.github/workflows/](.github/workflows/). The pipeline is composed of the following jobs:
+
+- **Python Lint** — Runs Ruff in format-check mode against the repo's Python sources. Fails the PR if any file is not ruff-format-clean and uploads the proposed diff as a build artifact.
+- **Notebook Lint** *(not released)* — Will enforce notebook hygiene (cleared outputs, consistent formatting, etc.) so that `.ipynb` reviews on ReviewNB stay focused on substantive changes.
+- **Unit Tests** — Runs the `pytest` suite under `tests/unit/` against a freshly installed environment (`pip install -r requirements.txt` + editable install of the project package).
+
+Non-PR automation jobs:
+- **Reproducibility** *(not released)* — Users can manually trigger this workflow for an end-to-end data and modeling pipeline on a slim sample so that downstream notebooks remain runnable from a clean clone.
+
+### Local Reproducibility
+
+> **Prerequisite:** Follow [docs/DEVELOPER_SETUP.md](docs/DEVELOPER_SETUP.md) to set up Python, the virtual environment, and Git LFS so the project's data and dependencies resolve correctly.
+
+The [src/](src/) directory hosts reusable Python code (helpers, model utilities, scripts) that the notebooks import. Centralizing logic there keeps notebooks focused on narrative and exploration while letting non-trivial functions be shared, tested, and lint-checked alongside the rest of the codebase.
+
+### Local Testing
+
+> **Prerequisite:** Follow [docs/DEVELOPER_SETUP.md](docs/DEVELOPER_SETUP.md) before running the steps below.
+
+**Lint** — From the repository root, run the wrapper that matches your shell. Both forward to `src/scripts/linting/py_lint.py` and apply Ruff formatting in place:
+
+```bash
+# macOS / Linux
+./lint.sh
+
+# Windows
+lint.bat
+```
+
+Inspect the resulting diff and commit any changes the formatter applies; the CI `Python Lint` job will fail otherwise.
+
+**Unit tests** — From the `tests/unit/` directory, run the full suite or a single file:
+
+```bash
+# Run all unit tests
+pytest
+
+# Run a specific test file
+pytest test_fileops.py
+```
+
+See [tests/README.md](tests/README.md) for additional usage details.
+
 ## Repository Structure
  
 ```
 datascience-capstone/
-├── README.md
-├── .gitignore
-├── requirements.txt        # Python dependencies
+├── .github/
+│   └── workflows/                  # CI workflows (py-lint, nb-lint, unit-tests)
+├── artifacts/
+│   ├── models/                     # Trained model artifacts (e.g., neural_network/)
+│   └── reports/                    # Submitted reports
+│       ├── 01_eda/
+│       ├── 02_feature_processing/
+│       └── 03_model_exploration/
 ├── data/
-│   ├── raw/                # Original unmodified datasets
-│   │   ├── NFI/            # NFI particle, stub, source CSVs (not tracked in git, file size too large)
-│   │   └── NIST/           # NIST shooter, firework, brake dust zips (not tracked in git, file size too large)
-│   └── processed/          # Cleaned and feature-engineered data
-│       └── particle_labeled.parquet  # Full NFI dataset with labels and target
-├── notebooks/              # Exploratory analysis and prototyping
-│   ├── 01_data_preparation.ipynb
-│   ├── 02_eda.ipynb
-│   ├── 03_modeling.ipynb
-│   ├── 04_interpretability.ipynb
-│   └── 05_failure_analysis.ipynb
-├── src/
-│   ├── preprocessing/      # Data cleaning and feature engineering scripts
-│   ├── models/             # Model training and evaluation scripts
-│   └── interpretability/   # SHAP, permutation importance, failure analysis
-├── results/                # Model outputs, metrics, and visualizations
-├── figures/                # Saved plots from notebooks
-├── docs/                   # Project documentation, reports, and references
-└── requirements.txt        # Python dependencies
+│   ├── raw/                        # Original unmodified datasets
+│   │   ├── NFI/                    # primary dataset
+│   │   └── NIST/                   # secondary dataset
+│   │
+│   └── processed/                  # Team Delta's cleaned/engineered output files
+│       │
+│       ├── particle_labeled.parquet             # Full NFI dataset for EDA
+│       ├── particle_ambiguous.parquet           # Subset of NFI w/ only Ambiguous particles
+│       ├── preprocessed.parquet                 # Post-EDA NFI w/ 27 Elements and w/o Ambiguous
+│       ├── preprocessed_minimal.parquet         # Post-EDA NFI w/ 89 elements and w/o Ambiguous
+│       ├── engineered_features_logistic.parquet # NFI Feature Engineered (log reg)
+│       ├── engineered_features_xgboost.parquet  # NFI Feature Engineered (xgb)
+│       ├── engineered_features_nn.parquet       # NFI Feature Engineered (nn)
+│       │
+│       ├── preprocessed_nist.parquet            # NIST for cross-testing
+│       └── nist_concatenated_parquets/          # NIST concatenated (not fully processed)
+│ 
+├── docs/                           # Project documentation, reports, and references
+│   ├── CLONING.md
+│   ├── CONTRIBUTING.md
+│   ├── DEVELOPER_SETUP.md
+│   ├── python_setup.md
+│   ├── data_dictionaries/          # Per-stage data dictionaries
+│   └── workflows/                  # Linting and testing workflow docs
+│ 
+├── notebooks/                      # Jupyter Notebooks for the DataScience Flow
+│   │                                (w/ ephemeral `outputs/` dir per section)
+│   ├── 00_tidy_data_prep/
+│   ├── 01_eda/
+│   ├── 02_feature_processing/
+│   ├── 03_model_exploration/
+│   ├── 04_model/
+│   ├── 05_evaluation/
+│   ├── 06_presentation/
+│   └── 99_sandbox/
+├── src/                            # Reusable Python source supporting notebooks
+│   ├── eda.py
+│   ├── exceptions.py
+│   ├── scripts/                    # Standalone data-prep / lint scripts (incl. julia/)
+│   └── utils/                      # Shared helpers: common, fileops, logreg, nist, nn, xgb
+├── tests/                          # Pytest suite
+│   ├── model/                      # Model tests (TODO — not yet implemented)
+│   └── unit/                       # Unit tests for src/ helpers + lint script
+├── lint.bat / lint.sh              # Local lint entrypoints (Ruff)
+├── pyproject.toml                  # Project + tooling configuration
+└── requirements.txt                # Python dependencies
 ```
  
 ## Project Timeline

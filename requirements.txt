@@ -2,6 +2,8 @@
 pandas
 numpy
 pyarrow
+scipy
+IPython
 
 # Visualization
 matplotlib
@@ -15,8 +17,6 @@ umap-learn
 torch
 torchvision
 shap
-# opencv-python
-# tifffile
 
 # Testing
 pytest

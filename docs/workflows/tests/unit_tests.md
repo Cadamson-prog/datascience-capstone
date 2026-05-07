@@ -18,15 +18,17 @@ unit test suite on every pull request targeting `main`.
 
 | Piece | Path |
 | --- | --- |
-| Test files | [`tests/`](../../../tests/) |
+| Test files | [`tests/unit/`](../../../tests/unit/) |
 | Test directory README | [`tests/README.md`](../../../tests/README.md) |
 | GitHub Actions workflow | [`.github/workflows/unit-tests.yml`](../../../.github/workflows/unit-tests.yml) |
 
-The workflow runs `pytest` against the [`tests/`](../../../tests/) directory.
-`pytest` auto-discovers every file matching the `test_*.py` pattern (e.g.
-`test_fileops.py`, `test_py_lint.py`) and executes the test cases inside
-each one. A non-zero exit code from `pytest` (any failing test, collection
-error, or import error) fails the job.
+The workflow runs `pytest` against the [`tests/unit/`](../../../tests/unit/)
+directory. `pytest` auto-discovers every file matching the `test_*.py`
+pattern (e.g. `test_fileops.py`, `test_py_lint.py`) and executes the test
+cases inside each one. A non-zero exit code from `pytest` (any failing
+test, collection error, or import error) fails the job. Model-level tests
+are tracked separately under [`tests/model/`](../../../tests/model/) and
+are not yet wired into CI.
 
 ---
 
@@ -47,13 +49,13 @@ specifically:
 From the repo root (with the venv activated):
 
 ```bash
-pytest tests/
+pytest tests/unit/
 ```
 
 ### Run a single file
 
 ```bash
-pytest tests/test_fileops.py
+pytest tests/unit/test_fileops.py
 ```
 
 See [`tests/README.md`](../../../tests/README.md) for additional examples.
@@ -81,7 +83,7 @@ The job does the following on `ubuntu-latest`:
 4. Installs the project in editable mode (`pip install -e . --no-deps`)
    so test imports such as `import src.utils.fileops` resolve. `--no-deps`
    skips re-resolving the heavy ML dependencies already installed in step 3.
-5. Runs `pytest tests/ -v`.
+5. Runs `pytest tests/unit/ -v`.
 
 The verbose flag (`-v`) makes each test name visible in the GitHub Actions
 log so you can identify a failing test without downloading any artifacts.
@@ -99,13 +101,13 @@ If the `unit-tests` job fails on your branch:
 2. **Reproduce locally.** From the repo root with the venv activated:
 
    ```bash
-   pytest tests/ -v
+   pytest tests/unit/ -v
    ```
 
    To re-run only the failing test (faster iteration):
 
    ```bash
-   pytest tests/test_<file>.py::TestClass::test_name -v
+   pytest tests/unit/test_<file>.py::TestClass::test_name -v
    ```
 
 3. **Decide whether the test or the code is wrong:**

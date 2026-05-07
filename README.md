@@ -5,7 +5,8 @@ _Data Science Capstone (Team Delta)_
 # Machine Learning for Gunshot Residue Classification: Accuracy, Interpretability, and Failure Analysis
 
 ## Table of Contents
-- [Team Contributions](#team-contributions)
+- [Peer Reviews](#peer-reviews) 
+- [Team Members & Contributions](#team-members--contributions)
 - [Background](#background)
 - [Questions](#questions)
 - [Hypotheses & Predictions](#hypotheses--predictions)
@@ -16,17 +17,30 @@ _Data Science Capstone (Team Delta)_
 - [Repository Structure](#repository-structure)
 - [Project Timeline](#project-timeline)
 
-## Team Contributions
+## Peer Reviews
 
-EDA
+We rely on the following resources for our peer reviews:
+
+- Pull Request comments (for non-notebook files, general feedback, and PR approvals)
+- Our [ReviewNB](https://app.reviewnb.com/bkoconnell/datascience-capstone/) page (3rd party resource specifically for Jupyter Notebook reviews)
+
+__*ReviewNB*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews.
+
+## Team Members & Contributions
+
+Official team member accounts are listed in [CODEOWNERS](https://github.com/bkoconnell/datascience-capstone/blob/main/CODEOWNERS)
+
+EDA attributions:
 - NFI (primary dataset): **Kristin Predeck**
 - NIST (secondary dataset): **Brendan OConnell**
 - EPA Environmental Confounders (secondary dataset): **Carlos Adamson**
 
-Models
+Model attributions:
 - Logistic Regression: **Carlos Adamson**
 - XGBoost: **Brendan OConnell**
 - Neural Net: **Kristin Predeck**
+
+Want to contribute to our project? Check out our [contributing guidelines](https://github.com/bkoconnell/datascience-capstone?tab=contributing-ov-file#contributing-guidelines) for more details.
 
 ## Background
 

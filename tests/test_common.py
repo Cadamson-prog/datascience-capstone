@@ -14,7 +14,9 @@ class TestSentinelDivide:
     """`sentinel_divide` returns n/d, substituting -1 for any zero in d."""
 
     def test_scalar_no_zero(self):
-        assert common.sentinel_divide(np.array([10.0]), np.array([2.0])) == pytest.approx(5.0)
+        assert common.sentinel_divide(
+            np.array([10.0]), np.array([2.0])
+        ) == pytest.approx(5.0)
 
     def test_array_without_zeros(self):
         n = np.array([10.0, 6.0, 8.0])
@@ -112,18 +114,17 @@ def threshold_df():
         {
             "Threshold": [0.10, 0.30, 0.50, 0.70, 0.90],
             "Precision": [0.20, 0.50, 0.80, 0.90, 0.95],
-            "Recall":    [0.99, 0.85, 0.75, 0.60, 0.30],
-            "F1":        [0.33, 0.63, 0.77, 0.72, 0.45],
-            "FPR":       [0.40, 0.20, 0.10, 0.05, 0.01],
-            "FNR":       [0.01, 0.15, 0.25, 0.40, 0.70],
-            "FP":        [400, 200, 100,  50,  10],
-            "FN":        [ 10, 150, 250, 400, 700],
+            "Recall": [0.99, 0.85, 0.75, 0.60, 0.30],
+            "F1": [0.33, 0.63, 0.77, 0.72, 0.45],
+            "FPR": [0.40, 0.20, 0.10, 0.05, 0.01],
+            "FNR": [0.01, 0.15, 0.25, 0.40, 0.70],
+            "FP": [400, 200, 100, 50, 10],
+            "FN": [10, 150, 250, 400, 700],
         }
     )
 
 
 class TestGetRowNearestThreshold:
-
     def test_exact_match(self, threshold_df):
         row = common.get_row_nearest_threshold(threshold_df, 0.50)
         assert row["Threshold"].iloc[0] == 0.50
@@ -140,7 +141,6 @@ class TestGetRowNearestThreshold:
 
 
 class TestGetBestF1Row:
-
     def test_picks_max_f1(self, threshold_df):
         row = common.get_best_f1_row(threshold_df)
         # Best F1 in fixture is 0.77 at threshold 0.50

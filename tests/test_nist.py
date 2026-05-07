@@ -77,11 +77,10 @@ class TestLabelGsr:
 # pass freshly-built DataFrames to avoid cross-test contamination.
 # ---------------------------------------------------------------------------
 class TestRenormalizeWithOxygen:
-
     def test_scales_non_oxygen_cols_by_expected_factor(self):
         df = pd.DataFrame(
             {
-                "o":  [20.0],
+                "o": [20.0],
                 "pb": [40.0],
                 "sb": [40.0],
             }
@@ -107,7 +106,7 @@ class TestRenormalizeWithOxygen:
     def test_multiple_rows_use_per_row_oxygen_scale(self):
         df = pd.DataFrame(
             {
-                "o":  [10.0, 50.0],
+                "o": [10.0, 50.0],
                 "pb": [50.0, 50.0],
                 "sb": [50.0, 50.0],
             }

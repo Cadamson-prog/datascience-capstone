@@ -17,10 +17,10 @@ def full_logreg_df():
     return pd.DataFrame(
         {
             # excluded id/label columns
-            "stub_id":      [1, 1, 2, 2],
-            "particle_id":  [1, 2, 3, 4],
-            "label":        ["GSR", "Non_GSR", "GSR", "Non_GSR"],
-            "target":       [1, 0, 1, 0],
+            "stub_id": [1, 1, 2, 2],
+            "particle_id": [1, 2, 3, 4],
+            "label": ["GSR", "Non_GSR", "GSR", "Non_GSR"],
+            "target": [1, 0, 1, 0],
             # direct GSR elements
             "pb": [10.0, 5.0, 8.0, 0.0],
             "ba": [3.0, 7.0, 1.0, 4.0],
@@ -40,7 +40,6 @@ def full_logreg_df():
 # Output-shape / no-mutation invariants
 # ---------------------------------------------------------------------------
 class TestOutputAndNoMutation:
-
     def test_returns_new_dataframe_with_original_columns_intact(self, full_logreg_df):
         out = logreg.engineer_features_logistic(full_logreg_df)
         assert isinstance(out, pd.DataFrame)
@@ -63,7 +62,6 @@ class TestOutputAndNoMutation:
 # Log transforms
 # ---------------------------------------------------------------------------
 class TestLogTransforms:
-
     @pytest.mark.parametrize("col", ["pb", "ba", "sb", "zn", "cu", "ti"])
     def test_log_column_present(self, full_logreg_df, col):
         out = logreg.engineer_features_logistic(full_logreg_df)
@@ -91,7 +89,6 @@ class TestLogTransforms:
 # Ratios (GSR-element pairs and GSR vs confounder pairs)
 # ---------------------------------------------------------------------------
 class TestRatios:
-
     def test_pb_ba_ratio_value(self, full_logreg_df):
         out = logreg.engineer_features_logistic(full_logreg_df)
         expected = np.log1p(full_logreg_df["pb"] / (full_logreg_df["ba"] + EPS))
@@ -117,13 +114,14 @@ class TestRatios:
 # Domain summary features
 # ---------------------------------------------------------------------------
 class TestDomainSummary:
-
     def test_log_gsr_over_confounders_value(self, full_logreg_df):
         out = logreg.engineer_features_logistic(full_logreg_df)
         gsr = full_logreg_df[["pb", "ba", "sb"]].sum(axis=1)
         conf = full_logreg_df[["zn", "cu", "ti"]].sum(axis=1)
         expected = np.log1p(gsr / (conf + EPS))
-        np.testing.assert_allclose(out["log_gsr_over_confounders"].values, expected.values)
+        np.testing.assert_allclose(
+            out["log_gsr_over_confounders"].values, expected.values
+        )
 
     def test_log_gsr_over_confounders_skipped_when_no_confounders(self, full_logreg_df):
         df = full_logreg_df.drop(columns=["zn", "cu", "ti"])
@@ -162,7 +160,6 @@ class TestDomainSummary:
 # Interaction terms
 # ---------------------------------------------------------------------------
 class TestInteractions:
-
     @pytest.mark.parametrize(
         "feature, a, b",
         [
@@ -182,7 +179,6 @@ class TestInteractions:
 # Diversity column
 # ---------------------------------------------------------------------------
 class TestElementDiversity:
-
     def test_diversity_counts_nonzero_elements_per_row(self, full_logreg_df):
         out = logreg.engineer_features_logistic(full_logreg_df)
         # 7 element columns total: pb, ba, sb, zn, cu, ti, fe

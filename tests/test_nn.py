@@ -102,14 +102,13 @@ def small_nn_df():
             "pb": [10.0, 0.0, 5.0],
             "sb": [5.0, 0.0, 3.0],
             "ba": [3.0, 50.0, 2.0],
-            "o":  [10.0, 30.0, 5.0],
+            "o": [10.0, 30.0, 5.0],
             "fe": [2.0, 1.0, 0.5],
         }
     )
 
 
 class TestEngineerNnFeatures:
-
     def test_output_shape(self, small_nn_df):
         cols = ["pb", "sb", "ba", "o", "fe"]
         out = nn.engineer_nn_features(small_nn_df, cols)
@@ -147,7 +146,7 @@ class TestEngineerNnFeatures:
                 "pb": [3.0],
                 "sb": [2.0],
                 "ba": [4.0],
-                "o":  [1.0],
+                "o": [1.0],
             }
         )
         # element_cols only includes ba and o, so total_mass = ba+o = 5,
@@ -181,7 +180,6 @@ def nn_and_raw_dfs():
 
 
 class TestBuildFeatureMatrix:
-
     def test_source_nn_pulls_from_nn_dataframe(self, nn_and_raw_dfs):
         df_nn, df_raw = nn_and_raw_dfs
         cfg = {"source": "nn", "cols": ["a", "b"]}

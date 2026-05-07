@@ -2,7 +2,7 @@
 
 Below are guidelines for users to follow when contributing to our GitHub project.
 
-> This document assumes the repository has already been cloned to your local machine. If you haven't done that yet, see [CLONING.md](CLONING.md) for instructions.
+> This document assumes the repository has already been cloned to your local machine. If you haven't done that yet, see [CLONING.md](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/CLONING.md) for instructions.
 
 ## Branching and Pull Request Workflow
 

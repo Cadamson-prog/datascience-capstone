@@ -84,4 +84,4 @@ VS Code has built-in Git support that lets you clone directly from the editor.
 
 ## After Cloning
 
-Once the repository is on your local machine, check out [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to create branches and submit pull requests.
+Once the repository is on your local machine, check out [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to create branches and submit pull requests, or [DEVELOPER_SETUP.md](DEVELOPER_SETUP.md) for additional developer features & setup (highly recommended!)

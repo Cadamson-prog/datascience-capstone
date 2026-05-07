@@ -6,15 +6,14 @@ ____________________________________________________________
 ____________________________________________________________
 
 Start here! See the [docs/](docs/) directory for: 
-- __*reproducibility*__ setup
+- __*developer setup*__ for reproducibility
 - __*contributing*__ guidelines
 - general support documentation
 
 ## Table of Contents
-- [Peer Reviews](#peer-reviews) 
-- [Team Members & Contributions](#team-members--contributions)
-- [Background](#background)
-- [Questions](#questions)
+- [Team Delta](#team-delta)
+- [Project Background](#project-background)
+- [Research Questions](#research-questions)
 - [Hypotheses & Predictions](#hypotheses--predictions)
 - [Stakeholders](#stakeholders)
 - [Data](#data)
@@ -23,7 +22,25 @@ Start here! See the [docs/](docs/) directory for:
 - [Repository Structure](#repository-structure)
 - [Project Timeline](#project-timeline)
 
-## Peer Reviews
+## Team Delta
+
+*Official team member accounts are listed in [CODEOWNERS](https://github.com/bkoconnell/datascience-capstone/blob/main/CODEOWNERS)*
+
+### Project Attributions
+
+__EDA__
+- NFI (primary dataset): **Kristin Predeck**
+- NIST (secondary dataset): **Brendan OConnell**
+- EPA Environmental Confounders (secondary dataset): **Carlos Adamson**
+
+__Models__
+- Logistic Regression: **Carlos Adamson**
+- XGBoost: **Brendan OConnell**
+- Neural Net: **Kristin Predeck**
+
+> NOTE: Individual file attributions can be found in the file headers with Author details.
+
+### Peer Reviews
 
 We rely on the following resources for our peer reviews:
 
@@ -32,25 +49,7 @@ We rely on the following resources for our peer reviews:
 
 __*ReviewNB*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews.
 
-## Team Members & Contributions
-
-Official team member accounts are listed in [CODEOWNERS](https://github.com/bkoconnell/datascience-capstone/blob/main/CODEOWNERS)
-
-EDA attributions:
-- NFI (primary dataset): **Kristin Predeck**
-- NIST (secondary dataset): **Brendan OConnell**
-- EPA Environmental Confounders (secondary dataset): **Carlos Adamson**
-
-Model attributions:
-- Logistic Regression: **Carlos Adamson**
-- XGBoost: **Brendan OConnell**
-- Neural Net: **Kristin Predeck**
-
-> NOTE: Individual file contributions include headers with Author details.
-
-Want to contribute to our project? Check out our [contributing guidelines](https://github.com/bkoconnell/datascience-capstone?tab=contributing-ov-file#contributing-guidelines) for more details.
-
-## Background
+## Project Background
 
 Gunshot residue (GSR) analysis is a critical component of forensic investigations involving firearm discharge. When a firearm is fired, microscopic particles containing elements such as lead (Pb), barium (Ba), and antimony (Sb) are released and can serve as key physical evidence in criminal cases. Traditional GSR identification relies on scanning electron microscopy with energy dispersive X-ray spectroscopy (SEM/EDS), where expert analysts classify particles based on morphology and elemental composition.
 
@@ -58,7 +57,7 @@ However, this process is prone to error. Chemically similar particles from envir
 
 Machine learning offers a data-driven alternative that can improve the consistency, scalability, and transparency of GSR classification. Unlike prior work that focuses primarily on model accuracy and efficiency, this project emphasizes interpretability and failure analysis. Understanding *why* models make decisions and *where* they fail is essential for responsible application in forensic science.
 
-## Questions
+## Research Questions
 
 1. **Primary:** How accurately and reliably can machine learning models distinguish true gunshot residue particles from chemically similar non-GSR particles?
 2. **Comparative:** How does classification performance vary across different machine learning approaches (linear, tree-based, neural network) when applied to GSR identification?
@@ -223,35 +222,30 @@ All hyperparameter tuning will be oriented toward minimizing false positives whi
 - **Core libraries:** pandas, numpy, scikit-learn, xgboost, pytorch
 - **Visualization:** matplotlib, seaborn
 - **Interpretability:** shap
-- **Version control:** Git / GitHub
+- **Version control:** Git / GitHub / Git LFS (large file storage for parquets)
+- **Formatting:** Ruff
  
 ## Repository Structure
  
 ```
 datascience-capstone/
-├── README.md
-├── .gitignore
-├── requirements.txt        # Python dependencies
+├── artifacts/              # Model outputs
 ├── data/
 │   ├── raw/                # Original unmodified datasets
-│   │   ├── NFI/            # NFI particle, stub, source CSVs (not tracked in git, file size too large)
-│   │   └── NIST/           # NIST shooter, firework, brake dust zips (not tracked in git, file size too large)
-│   └── processed/          # Cleaned and feature-engineered data
+│   │   ├── NFI/            # NFI primary dataset
+│   │   └── NIST/           # NIST secondary dataset
+│   └── processed/          # Team Delta's cleaned data output files
 │       └── particle_labeled.parquet  # Full NFI dataset with labels and target
-├── notebooks/              # Exploratory analysis and prototyping
-│   ├── 01_data_preparation.ipynb
-│   ├── 02_eda.ipynb
-│   ├── 03_modeling.ipynb
-│   ├── 04_interpretability.ipynb
-│   └── 05_failure_analysis.ipynb
+├── notebooks/              # Jupyter Notebooks for the DataScience Flow
+│   ├── 00_tidy/
+│   ├── 01_eda/
+│   ├── 02_features/
+│   ├── 03_model_baselines/
+│   ├── 04_models/
+│   └── 05_evaluation/
 ├── src/
-│   ├── preprocessing/      # Data cleaning and feature engineering scripts
-│   ├── models/             # Model training and evaluation scripts
-│   └── interpretability/   # SHAP, permutation importance, failure analysis
-├── results/                # Model outputs, metrics, and visualizations
-├── figures/                # Saved plots from notebooks
-├── docs/                   # Project documentation, reports, and references
-└── requirements.txt        # Python dependencies
+│   ├── 
+└── docs/                   # Project documentation, reports, and references
 ```
  
 ## Project Timeline

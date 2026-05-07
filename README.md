@@ -170,23 +170,56 @@ All hyperparameter tuning will be oriented toward minimizing false positives whi
  
 ```
 datascience-capstone/
-├── artifacts/              # Model outputs
+├── .github/
+│   └── workflows/                  # CI workflows (py-lint, nb-lint, unit-tests)
+├── artifacts/
+│   ├── models/                     # Trained model artifacts (e.g., neural_network/)
+│   └── reports/                    # Submitted reports
+│       ├── 01_eda/
+│       ├── 02_feature_processing/
+│       └── 03_model_exploration/
 ├── data/
-│   ├── raw/                # Original unmodified datasets
-│   │   ├── NFI/            # NFI primary dataset
-│   │   └── NIST/           # NIST secondary dataset
-│   └── processed/          # Team Delta's cleaned data output files
-│       └── particle_labeled.parquet  # Full NFI dataset with labels and target
-├── notebooks/              # Jupyter Notebooks for the DataScience Flow
-│   ├── 00_tidy/
+│   ├── raw/                        # Original unmodified datasets
+│   │   ├── NFI/                    # primary dataset
+│   │   └── NIST/                   # secondary dataset
+│   │
+│   └── processed/                  # Team Delta's cleaned/engineered output files
+│       ├── particle_labeled.parquet             # Full NFI dataset with labels and target
+│       ├── particle_ambiguous.parquet           # Subset of NFI w/ only Ambiguous particles
+│       ├── preprocessed.parquet                 # Post-EDA NFI w/ 27 Elements and w/o Ambiguous
+│       ├── preprocessed_minimal.parquet         # Post-EDA NFI w/ 89 elements and w/o Ambiguous
+│       ├── preprocessed_nist.parquet            # NIST for cross-testing
+│       ├── engineered_features_logistic.parquet
+│       ├── engineered_features_xgboost.parquet
+│       ├── engineered_features_nn.parquet
+│       └── nist_concatenated_parquets/          # NIST concatenated (not fully processed)
+│ 
+├── docs/                           # Project documentation, reports, and references
+│   ├── CLONING.md
+│   ├── CONTRIBUTING.md
+│   ├── DEVELOPER_SETUP.md
+│   ├── python_setup.md
+│   ├── data_dictionaries/          # Per-stage data dictionaries
+│   └── workflows/                  # Linting and testing workflow docs
+│ 
+├── notebooks/                      # Jupyter Notebooks for the DataScience Flow
+│   ├── 00_tidy_data_prep/
 │   ├── 01_eda/
-│   ├── 02_features/
-│   ├── 03_model_baselines/
-│   ├── 04_models/
-│   └── 05_evaluation/
-├── src/
-│   ├── 
-└── docs/                   # Project documentation, reports, and references
+│   ├── 02_feature_processing/
+│   ├── 03_model_exploration/
+│   ├── 04_model/
+│   ├── 05_evaluation/
+│   ├── 06_presentation/
+│   └── 99_sandbox/
+├── src/                            # Reusable Python source supporting notebooks
+│   ├── eda.py
+│   ├── exceptions.py
+│   ├── scripts/                    # Standalone data-prep / lint scripts (incl. julia/)
+│   └── utils/                      # Shared helpers: common, fileops, logreg, nist, nn, xgb
+├── tests/                          # Pytest suite (unit + lint tests)
+├── lint.bat / lint.sh              # Local lint entrypoints (Ruff)
+├── pyproject.toml                  # Project + tooling configuration
+└── requirements.txt                # Python dependencies
 ```
  
 ## Project Timeline

@@ -184,14 +184,16 @@ datascience-capstone/
 │   │   └── NIST/                   # secondary dataset
 │   │
 │   └── processed/                  # Team Delta's cleaned/engineered output files
-│       ├── particle_labeled.parquet             # Full NFI dataset with labels and target
+│       │
+│       ├── particle_labeled.parquet             # Full NFI dataset for EDA
 │       ├── particle_ambiguous.parquet           # Subset of NFI w/ only Ambiguous particles
 │       ├── preprocessed.parquet                 # Post-EDA NFI w/ 27 Elements and w/o Ambiguous
 │       ├── preprocessed_minimal.parquet         # Post-EDA NFI w/ 89 elements and w/o Ambiguous
+│       ├── engineered_features_logistic.parquet # NFI Feature Engineered (log reg)
+│       ├── engineered_features_xgboost.parquet  # NFI Feature Engineered (xgb)
+│       ├── engineered_features_nn.parquet       # NFI Feature Engineered (nn)
+│       │
 │       ├── preprocessed_nist.parquet            # NIST for cross-testing
-│       ├── engineered_features_logistic.parquet
-│       ├── engineered_features_xgboost.parquet
-│       ├── engineered_features_nn.parquet
 │       └── nist_concatenated_parquets/          # NIST concatenated (not fully processed)
 │ 
 ├── docs/                           # Project documentation, reports, and references

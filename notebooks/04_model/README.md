@@ -10,8 +10,3 @@ __Goals:__
 __Output:__
 
 Production-ready model
-
-__Key Decisions:__
-
-
-__Reasoning:__

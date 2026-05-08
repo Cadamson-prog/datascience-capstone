@@ -192,6 +192,7 @@ CI runs on every pull request to `main` (and on manual dispatch) via GitHub Acti
 
 - **Python Lint** — Runs Ruff in format-check mode against the repo's Python sources. Fails the PR if any file is not ruff-format-clean and uploads the proposed diff as a build artifact.
 - **Notebook Lint** — Runs `nb_lint.py` (Ruff via [nbQA](https://nbqa.readthedocs.io/)) against every tracked `.ipynb` file, formatting code cells in place. Fails the PR if any notebook is not ruff-format-clean and uploads the proposed diff as a build artifact.
+- **Import-Position Lint** — Runs `import_lint.py` against every tracked `.py` and `.ipynb` file. Fails the PR if any `import` appears after non-import code, and uploads the offending-imports report as the `import_lint_report` artifact. No auto-fix; move each late import yourself. See [docs/linting.md](docs/linting.md) for the rule and allowed exceptions.
 - **Unit Tests** — Runs the `pytest` suite under `tests/unit/` against a freshly installed environment (`pip install -r requirements.txt` + editable install of the project package).
 
 Non-PR automation jobs:
@@ -225,13 +226,13 @@ lint.bat
 
 Inspect the resulting diff and commit any changes the formatter applies; the CI `Python Lint` and `Notebook Lint` jobs may fail otherwise.
 
-**Import-position check** (opt-in, not run by `lint.sh` / `lint.bat`). `src/scripts/linting/import_lint.py` verifies that every `import` in the repo's `.py` and `.ipynb` files appears at the top of the file, before any non-import code. It is a rule-checker (no auto-fix) and does not run in CI. Invoke it manually when you want to verify import-position hygiene:
+**Import-position check** (not run by `lint.sh` / `lint.bat`). `src/scripts/linting/import_lint.py` checks that every `import` in the repo's `.py` and `.ipynb` files lives at the top of the file. It is a rule-checker, not a formatter. The same script runs in CI as the `Import-Position Lint` job; you can also run it locally:
 
 ```bash
 python src/scripts/linting/import_lint.py
 ```
 
-A Markdown report grouped by file is written to `.artifacts_ci/import_lint_report.md` (gitignored) on every run. See [docs/linting.md](docs/linting.md) for the full rule definition, allowed exceptions, and how to read the output.
+A grouped-by-file Markdown report is written to `.artifacts_ci/import_lint_report.md` (gitignored) every run. CI uploads the same file as the `import_lint_report` artifact. See [docs/linting.md](docs/linting.md) for the rule, the allowed exceptions, and how to read the output.
 
 **Unit tests** — From the `tests/unit/` directory, run the full suite or a single file:
 

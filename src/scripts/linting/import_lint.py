@@ -35,15 +35,15 @@ Local usage:
 
     The script exits 0 when no violations are found, 1 otherwise. It
     prints each violation on its own line to stderr (prefixed by the
-    repo-relative path and notebook cell index, for `.ipynb`) and ALSO
-    writes a Markdown report to `.artifacts_ci/import_lint_report.md`
-    grouped by file. The script does not auto-fix anything. The report
-    is meant to be used as a punch list. The `.artifacts_ci/` directory
-    is gitignored.
+    repo-relative path, plus notebook cell index for `.ipynb`) and also
+    writes a grouped-by-file Markdown report to
+    `.artifacts_ci/import_lint_report.md`. There is no auto-fix; you
+    have to move each late import yourself. The `.artifacts_ci/`
+    directory is gitignored.
 
-    NOTE: This script is intentionally NOT wired into `lint.sh` /
-    `lint.bat`. Run it manually when you want to verify import-position
-    hygiene. See `docs/linting.md` for the full walkthrough.
+    This script is not wired into `lint.sh` / `lint.bat`. Those wrappers
+    only run formatters. Run this one directly, or rely on the CI
+    `import-lint` job. See `docs/linting.md` for the full walkthrough.
 """
 
 import ast

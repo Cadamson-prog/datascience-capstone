@@ -1,10 +1,15 @@
-# Linting Workflow
+# Linting Workflows
 
-This document describes the project's Python linting workflow:
-the `py_lint.py` script that formats every Python file in the repository
-with [ruff](https://docs.astral.sh/ruff/), the corresponding GitHub
-Actions job that enforces it on every pull request targeting `main`,
-and the steps to follow when that job fails.
+CI linting workflows for the project:
+
+- `py_lint.py` formats every Python file with
+  [ruff](https://docs.astral.sh/ruff/). The `py-lint` GitHub Actions
+  job enforces it on every PR to `main`.
+- `import_lint.py` checks that every `import` in every `.py` and
+  `.ipynb` file lives at the top of the file. The `import-lint`
+  GitHub Actions job runs it on every PR to `main`. The rule itself
+  is documented in [`../linting.md`](../linting.md); this doc covers
+  only the CI side.
 
 ---
 
@@ -14,6 +19,8 @@ and the steps to follow when that job fails.
 - [Running `py_lint.py` locally](#running-py_lintpy-locally)
 - [GitHub Actions: `py-lint` job](#github-actions-py-lint-job)
 - [Recovering from a failed `py-lint` job](#recovering-from-a-failed-py-lint-job)
+- [GitHub Actions: `import-lint` job](#github-actions-import-lint-job)
+- [Recovering from a failed `import-lint` job](#recovering-from-a-failed-import-lint-job)
 
 ---
 
@@ -181,3 +188,77 @@ If the job still fails after these steps, double-check that:
   install step). If your local version drifts, it will likely produce a
   different diff than CI. Reinstall the pin with `pip install ruff==0.15.12`
   or `pip install -r requirements.txt`.
+
+## GitHub Actions: `import-lint` job
+
+The `.github/workflows/import-lint.yml` workflow runs on every pull
+request that targets `main` (open, push, reopen) and on manual
+`workflow_dispatch`. It uses the same `concurrency` group pattern as
+`py-lint`, so pushing a new commit cancels the in-flight run for that
+PR.
+
+On `ubuntu-latest` the job:
+
+1. Checks out the branch with full history.
+2. Sets up Python 3.11. The script is stdlib-only, so no `pip install`
+   step is needed.
+3. Runs `python src/scripts/linting/import_lint.py`. The script writes
+   a Markdown report to `.artifacts_ci/import_lint_report.md` and
+   exits 0 (clean) or 1 (violations).
+4. If the script exited non-zero, uploads the report as an artifact
+   named `import_lint_report` and fails the job.
+
+The `.artifacts_ci/` directory only exists on the runner for the
+duration of the job. Locally the same path is gitignored. The report
+shows up in two places: your local working tree after running the
+script, and the workflow run page as a downloadable artifact.
+
+There is no auto-fix. Move each late import yourself: top of the file,
+top of an existing import block, or delete it if unused.
+
+## Recovering from a failed `import-lint` job
+
+If the `import-lint` job fails on your branch:
+
+1. **Open the failed workflow run** on GitHub and download the
+   `import_lint_report` artifact. It lists every offending import by
+   file (and notebook cell, where applicable), with line number and
+   import text.
+
+2. **Run the linter locally** from the repo root to regenerate the
+   same report and see the offending imports on stderr:
+
+   ```bash
+   python src/scripts/linting/import_lint.py
+   ```
+
+3. **Fix each violation.** Move every late import up into the
+   top-of-file (or top-of-notebook) import block. If an import is
+   unused, delete it instead. See [`../linting.md`](../linting.md) for
+   the rule and allowed exceptions (shebangs, module docstrings,
+   `try:` / `if:` blocks whose body is only imports, markdown cells
+   in notebooks).
+
+4. **Re-run the script** locally and confirm exit code 0 before
+   pushing.
+
+5. **Commit and push** your fixes:
+
+   ```bash
+   git add -u
+   git commit -m "Move late imports to top of file"
+   git push
+   ```
+
+6. **Re-run the workflow.** The push usually re-triggers `import-lint`
+   automatically. You can also re-run it manually from the Actions tab
+   on GitHub (or via `gh run rerun <run-id>`).
+
+If the job still fails:
+
+- Make sure you ran the script from inside the repo. It uses `git` to
+  find the root and the file list.
+- Make sure your fixes are pushed. A clean local tree is not enough;
+  CI tests what is on the branch.
+- Make sure you didn't introduce a new late import while moving an
+  old one. The report will flag any new offender too.

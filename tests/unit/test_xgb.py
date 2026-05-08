@@ -36,7 +36,7 @@ class TestComputePrauc:
     def test_target_values_other_than_one_treated_as_negative(self):
         # The function builds y as `(target == 1).astype(int)`, so any value
         # that isn't exactly 1 (including 0, 2, NaN-via-coerce-fail) is a
-        # negative. Here we mix 0 and 2 — both should be negatives.
+        # negative. Here we mix 0 and 2 - both should be negatives.
         df = pd.DataFrame({"target": [1, 0, 2, 1]})
         vals = [0.9, 0.1, 0.2, 0.8]
         y = np.array([1, 0, 0, 1])

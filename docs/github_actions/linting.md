@@ -55,7 +55,7 @@ something other than `main` (e.g. stacked feature branches) do not
 trigger the workflow, and it does **not** run on close/merge. A
 `concurrency` group keyed on `${{ github.workflow }}-${{ github.ref }}`
 with `cancel-in-progress: true` ensures that pushing a new commit to a
-PR cancels the in-flight run for that same PR — only the most recent
+PR cancels the in-flight run for that same PR - only the most recent
 commit is checked, since each job validates the full PR file set rather
 than per-commit changes.
 
@@ -143,7 +143,7 @@ If the job still fails after these steps, double-check that:
 - You ran the script(s) from inside the repository (each uses `git` to
   find the root and the file list).
 - You committed and pushed the formatting changes (a clean working tree
-  locally is necessary but not sufficient — the changes need to be on
+  locally is necessary but not sufficient - the changes need to be on
   the branch CI is testing).
 - Your local `ruff` version matches the version installed in the
   workflow. Both are pinned to `ruff==0.15.12` (in `requirements.txt`

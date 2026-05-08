@@ -1,4 +1,4 @@
-# `unit-tests` — Workflow Reference
+# `unit-tests` - Workflow Reference
 
 A focused reference for the GitHub Actions workflow that runs the project's
 unit test suite on every pull request targeting `main`.
@@ -36,7 +36,7 @@ are not yet wired into CI.
 
 ### Prerequisites
 
-You have followed [`docs/DEVELOPER_SETUP.md`](../DEVELOPER_SETUP.md) —
+You have followed [`docs/DEVELOPER_SETUP.md`](../DEVELOPER_SETUP.md) - 
 specifically:
 
 - Created and activated a virtual environment.
@@ -72,7 +72,7 @@ when new commits are pushed, and when reopened) and on manual
 does **not** run on close/merge. A `concurrency` group keyed on
 `${{ github.workflow }}-${{ github.ref }}` with `cancel-in-progress: true`
 ensures that pushing a new commit to a PR cancels the in-flight run for
-that same PR — only the most recent commit is checked, since the job
+that same PR - only the most recent commit is checked, since the job
 validates the full PR file set rather than per-commit changes.
 
 The job does the following on `ubuntu-latest`:
@@ -112,12 +112,12 @@ If the `unit-tests` job fails on your branch:
 
 3. **Decide whether the test or the code is wrong:**
 
-   - **Code regression** — your change broke behavior the test guards.
+   - **Code regression** - your change broke behavior the test guards.
      Fix the source, then re-run pytest until it passes.
-   - **Outdated test** — your change intentionally updated behavior, and
+   - **Outdated test** - your change intentionally updated behavior, and
      the test needs to track that change. Update the test (and ideally
      mention the behavior change in your PR description), then re-run.
-   - **Flaky / environmental failure** — uncommon for this suite (tests
+   - **Flaky / environmental failure** - uncommon for this suite (tests
      use `tmp_path` and mock I/O), but if you suspect this, re-run the
      workflow from the Actions tab. If it still fails, it's not flaky.
 
@@ -127,7 +127,7 @@ If the `unit-tests` job fails on your branch:
 
 If the job still fails after these steps, double-check that:
 
-- You ran `pip install -e .` after pulling — without it, `src.*` imports
+- You ran `pip install -e .` after pulling - without it, `src.*` imports
   raise `ModuleNotFoundError` and the test file fails to collect.
 - Your local Python version matches the workflow (3.11). The project
   supports `>=3.9`, but a wildly different version may surface

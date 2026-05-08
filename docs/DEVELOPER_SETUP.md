@@ -6,8 +6,8 @@ This document walks through setting up your local clone of the repository so tha
 
 Before continuing, make sure you have:
 
-1. **Cloned the repository** to your local machine — see [CLONING.md](CLONING.md)
-2. **Installed Python 3.9 or higher** — see [python_setup.md](python_setup.md)
+1. **Cloned the repository** to your local machine - see [CLONING.md](CLONING.md)
+2. **Installed Python 3.9 or higher** - see [python_setup.md](python_setup.md)
 
 All commands below assume your terminal's current working directory is the project root (`datascience-capstone/`).
 
@@ -99,14 +99,14 @@ If this prints a function reference (rather than an `ImportError`), the package 
 
 ## Example: Using `src` in a Notebook
 
-Once setup is complete, you can import utilities from `src/` in any notebook under [notebooks/](../notebooks/). The [`load_data_file`](../src/utils/fileops.py) helper takes just a filename — it recursively searches the project's `data/` directory for a match, so you don't need to pass a path.
+Once setup is complete, you can import utilities from `src/` in any notebook under [notebooks/](../notebooks/). The [`load_data_file`](../src/utils/fileops.py) helper takes just a filename - it recursively searches the project's `data/` directory for a match, so you don't need to pass a path.
 
 Create a new notebook (e.g. `notebooks/99_sandbox/example_load.ipynb`) and add the following cell:
 
 ```python
 from src.utils.fileops import load_data_file
 
-# Pass just the filename — `load_data_file` finds it under data/ for you.
+# Pass just the filename - `load_data_file` finds it under data/ for you.
 df = load_data_file("particle_labeled.parquet")
 
 df.head()
@@ -120,7 +120,7 @@ Run the cell, and you should see the first few rows of the DataFrame. If a file 
 
 Using a Python virtual environment is strongly recommended (rather than installing dependencies into your system Python) for a few practical reasons:
 
-- **Isolation** — this project's dependencies stay separate from other projects and your system Python, so version conflicts (e.g. one project needs `pandas 1.x`, another needs `pandas 2.x`) don't break anything.
-- **Reproducibility** — every developer on the team works from the same `requirements.txt`, which makes it much easier to reproduce results and debug environment-specific issues.
-- **Easy reset** — if your environment ever gets into a bad state, you can simply delete the `.venv/` folder and recreate it from scratch in seconds, without touching your system Python.
-- **Safer experimentation** — installing or upgrading a package only affects this project, so you can try things out without risking your global Python setup.
+- **Isolation** - this project's dependencies stay separate from other projects and your system Python, so version conflicts (e.g. one project needs `pandas 1.x`, another needs `pandas 2.x`) don't break anything.
+- **Reproducibility** - every developer on the team works from the same `requirements.txt`, which makes it much easier to reproduce results and debug environment-specific issues.
+- **Easy reset** - if your environment ever gets into a bad state, you can simply delete the `.venv/` folder and recreate it from scratch in seconds, without touching your system Python.
+- **Safer experimentation** - installing or upgrading a package only affects this project, so you can try things out without risking your global Python setup.

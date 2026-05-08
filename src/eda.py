@@ -57,7 +57,7 @@ def get_nfi_label_map() -> Dict[str, str]:
         # CONFIRMED NON-GSR by NIST (environmental/occupational)
         "BaAl": "Non_GSR",  # No NIST GSR equivalent
         "BaCaSi": "Non_GSR",  # No NIST GSR equivalent
-        "CuZn": "Non_GSR",  # NIST: Brass — found on shooters but NOT classified as GSR
+        "CuZn": "Non_GSR",  # NIST: Brass - found on shooters but NOT classified as GSR
         "ZnTi": "Non_GSR",  # Environmental
         "Hg": "Non_GSR",  # Environmental
         "TiZnGd": "Non_GSR",  # Environmental

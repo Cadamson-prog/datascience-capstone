@@ -18,16 +18,16 @@ unit test suite on every pull request targeting `main`.
 
 | Piece | Path |
 | --- | --- |
-| Test files | [`tests/unit/`](../../../tests/unit/) |
-| Test directory README | [`tests/README.md`](../../../tests/README.md) |
-| GitHub Actions workflow | [`.github/workflows/unit-tests.yml`](../../../.github/workflows/unit-tests.yml) |
+| Test files | [`tests/unit/`](../../tests/unit/) |
+| Test directory README | [`tests/README.md`](../../tests/README.md) |
+| GitHub Actions workflow | [`.github/workflows/unit-tests.yml`](../../.github/workflows/unit-tests.yml) |
 
-The workflow runs `pytest` against the [`tests/unit/`](../../../tests/unit/)
+The workflow runs `pytest` against the [`tests/unit/`](../../tests/unit/)
 directory. `pytest` auto-discovers every file matching the `test_*.py`
 pattern (e.g. `test_fileops.py`, `test_py_lint.py`) and executes the test
 cases inside each one. A non-zero exit code from `pytest` (any failing
 test, collection error, or import error) fails the job. Model-level tests
-are tracked separately under [`tests/model/`](../../../tests/model/) and
+are tracked separately under [`tests/model/`](../../tests/model/) and
 are not yet wired into CI.
 
 ---
@@ -36,7 +36,7 @@ are not yet wired into CI.
 
 ### Prerequisites
 
-You have followed [`docs/DEVELOPER_SETUP.md`](../../DEVELOPER_SETUP.md) —
+You have followed [`docs/DEVELOPER_SETUP.md`](../DEVELOPER_SETUP.md) —
 specifically:
 
 - Created and activated a virtual environment.
@@ -58,13 +58,13 @@ pytest tests/unit/
 pytest tests/unit/test_fileops.py
 ```
 
-See [`tests/README.md`](../../../tests/README.md) for additional examples.
+See [`tests/README.md`](../../tests/README.md) for additional examples.
 
 ---
 
 ## GitHub Actions: `unit-tests` job
 
-The [`.github/workflows/unit-tests.yml`](../../../.github/workflows/unit-tests.yml)
+The [`.github/workflows/unit-tests.yml`](../../.github/workflows/unit-tests.yml)
 workflow runs on every pull request that targets `main` (when opened,
 when new commits are pushed, and when reopened) and on manual
 `workflow_dispatch`. PRs whose base branch is something other than

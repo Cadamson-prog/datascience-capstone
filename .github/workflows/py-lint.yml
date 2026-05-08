@@ -70,5 +70,5 @@ jobs:
           echo "  3. Apply the resulting changes (git add -u), commit, and push."
           echo "  4. Re-run this GitHub Actions workflow."
           echo ""
-          echo "See docs/workflows/linting.md for more details."
+          echo "See docs/github_actions/linting.md for more details."
           exit 1

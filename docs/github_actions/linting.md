@@ -1,17 +1,19 @@
 # Linting Workflow
 
-This document describes the project's Python linting workflow:
+This document describes the project's GitHub Actions linting workflow:
 the `py_lint.py` script that formats every Python file in the repository
 with [ruff](https://docs.astral.sh/ruff/), the corresponding GitHub
 Actions job that enforces it on every pull request targeting `main`,
 and the steps to follow when that job fails.
+
+For local linting (Python **and** Jupyter notebooks), see
+[`docs/linting.md`](../linting.md).
 
 ---
 
 ## Contents
 
 - [Overview](#overview)
-- [Running `py_lint.py` locally](#running-py_lintpy-locally)
 - [GitHub Actions: `py-lint` job](#github-actions-py-lint-job)
 - [Recovering from a failed `py-lint` job](#recovering-from-a-failed-py-lint-job)
 
@@ -21,9 +23,11 @@ and the steps to follow when that job fails.
 
 | Piece | Path |
 | --- | --- |
-| Linting script | `src/scripts/linting/py_lint.py` |
+| Python linting script | `src/scripts/linting/py_lint.py` |
+| Notebook linting script | `src/scripts/linting/nb_lint.py` |
 | Wrapper (macOS / Linux / Git Bash) | `lint.sh` |
 | Wrapper (Windows cmd / PowerShell) | `lint.bat` |
+| Local-linting walkthrough | [`docs/linting.md`](../linting.md) |
 | Unit tests | `tests/unit/test_py_lint.py` |
 | GitHub Actions workflow | `.github/workflows/py-lint.yml` |
 
@@ -35,65 +39,6 @@ no commits are created automatically.
 The CI job runs the same script and then captures the resulting `git diff`.
 A non-empty diff means the committed code does not match `ruff format`'s
 expected output and the job fails.
-
----
-
-## Running `py_lint.py` locally
-
-### Prerequisites
-
-- You are inside a clone of this repository.
-- Your active Python environment has `ruff==0.15.12` installed:
-
-  ```bash
-  pip install ruff==0.15.12
-  ```
-
-  Or, equivalently, install via the project's pinned requirements:
-
-  ```bash
-  pip install -r requirements.txt
-  ```
-
-### Run it
-
-The repo root ships two thin wrapper scripts that forward to
-`src/scripts/linting/py_lint.py`. Use whichever fits your shell — both
-resolve the underlying script relative to their own location, so they
-work the same regardless of your current working directory.
-
-**macOS / Linux / Git Bash:**
-
-```bash
-./lint.sh
-```
-
-**Windows cmd / PowerShell:**
-
-```cmd
-.\lint.bat
-```
-
-Either wrapper is equivalent to running the script directly:
-
-```bash
-python src/scripts/linting/py_lint.py
-```
-
-In all three cases, the script:
-
-1. Resolves the repo root via `git rev-parse --show-toplevel`.
-2. Lists every tracked + new (non-gitignored) `.py` file.
-3. Runs `ruff format` on the full list, formatting in place.
-
-After it finishes, inspect the changes with `git diff` and, if you accept
-them, stage and commit:
-
-```bash
-git diff
-git add -u
-git commit -m "Apply ruff formatting"
-```
 
 ---
 
@@ -133,8 +78,9 @@ If the `py-lint` job fails on your branch:
    `py_lint_diff` artifact attached to the `py-lint` job. The diff shows
    exactly what `ruff format` wants to change.
 
-2. **Run the linter locally** from the repo root, using whichever wrapper
-   fits your shell:
+2. **Run the linter locally** from the repo root. See
+   [`docs/linting.md`](../linting.md) for the full walkthrough; the short
+   version is:
 
    ```bash
    # macOS / Linux / Git Bash
@@ -145,9 +91,6 @@ If the `py-lint` job fails on your branch:
    :: Windows cmd / PowerShell
    .\lint.bat
    ```
-
-   (Or invoke the underlying script directly:
-   `python src/scripts/linting/py_lint.py`.)
 
    This formats every Python file in place and should reproduce the same
    diff you downloaded.

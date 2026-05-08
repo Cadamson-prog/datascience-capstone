@@ -7,7 +7,7 @@ This document walks through setting up your local clone of the repository so tha
 Before continuing, make sure you have:
 
 1. **Cloned the repository** to your local machine — see [CLONING.md](CLONING.md)
-2. **Installed Python 3.9 or higher** — see [python_setup.md](python_setup.md)
+2. **Installed Python 3.11** (recommended — matches CI; 3.9 is the minimum supported) — see [python_setup.md](python_setup.md)
 
 All commands below assume your terminal's current working directory is the project root (`datascience-capstone/`).
 
@@ -21,12 +21,12 @@ From the project root, create a venv named `.venv`:
 
 **Windows (PowerShell):**
 ```powershell
-python -m venv .venv
+python -m venv .venv --prompt datascience-capstone
 ```
 
 **macOS / Linux:**
 ```bash
-python3 -m venv .venv
+python3 -m venv .venv --prompt datascience-capstone
 ```
 
 This creates a `.venv/` folder in the project root. It is already listed in `.gitignore` and will not be committed.
@@ -35,22 +35,18 @@ This creates a `.venv/` folder in the project root. It is already listed in `.gi
 
 You must activate the venv every time you open a new terminal session for this project.
 
-**Windows (PowerShell):**
+**Windows (PowerShell or Command Prompt):**
 ```powershell
-.venv\Scripts\Activate.ps1
+.venv\Scripts\activate
 ```
-
-**Windows (Command Prompt):**
-```cmd
-.venv\Scripts\activate.bat
-```
+> PowerShell resolves this to `Activate.ps1`; Command Prompt resolves it to `activate.bat`. You can also invoke either file directly if you prefer.
 
 **macOS / Linux:**
 ```bash
 source .venv/bin/activate
 ```
 
-When activated, your shell prompt will be prefixed with `(.venv)`.
+When activated, your shell prompt will be prefixed with `(datascience-capstone)`.
 
 > **VS Code tip:** open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`), run **Python: Select Interpreter**, and pick the one inside `.venv/`. VS Code will then auto-activate the venv for new terminals and use it as the kernel for notebooks.
 

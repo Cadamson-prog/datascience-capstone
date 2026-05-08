@@ -3,7 +3,7 @@
 Two repo-root wrappers run both linters back-to-back: `py_lint.py` (Python
 files via [ruff](https://docs.astral.sh/ruff/)) and `nb_lint.py` (Jupyter
 notebooks via [nbQA](https://nbqa.readthedocs.io/) + ruff). Each formats
-in place — review the diff before committing.
+in place - review the diff before committing.
 
 For the GitHub Actions side of these jobs, see
 [`docs/github_actions/linting.md`](github_actions/linting.md).
@@ -39,9 +39,9 @@ For the GitHub Actions side of these jobs, see
 
 Both wrappers run, in order:
 
-1. `python src/scripts/linting/py_lint.py` — formats every tracked
+1. `python src/scripts/linting/py_lint.py` - formats every tracked
    (and new, non-gitignored) `.py` file with `ruff format`.
-2. `python src/scripts/linting/nb_lint.py` — formats every tracked
+2. `python src/scripts/linting/nb_lint.py` - formats every tracked
    (and new, non-gitignored) `.ipynb` file with `nbqa ruff format`.
 
 You can also invoke either script on its own:

@@ -8,6 +8,7 @@ ____________________________________________________________
 Read our [docs/](https://github.com/bkoconnell/datascience-capstone/tree/main/docs) for __*developer setup*__ (reproducibility), __*contributing*__ guidelines, and general support documentation.
 
 ## Table of Contents
+- [Quick Start](#quick-start)
 - [Team Delta](#team-delta)
 - [Project Background](#project-background)
 - [Research Questions](#research-questions)
@@ -16,13 +17,21 @@ Read our [docs/](https://github.com/bkoconnell/datascience-capstone/tree/main/do
 - [Data](#data)
 - [Methods](#methods)
 - [Technical Stack](#technical-stack)
-- [Model Testing & Reproducibility](#model-testing--reproducibility)
+- [Testing & Source Code](#testing--source-code)
 - [Repository Structure](#repository-structure)
 - [Project Timeline](#project-timeline)
 
+## Quick Start
+
+Impatient developer? Can't wait to try our models? The [QuickStart](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/QuickStart.md) guide was made just for you.
+
+Contributors are welcome! Please follow our [CONTRIBUTING](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/CONTRIBUTING.md) guidelines to learn how we’ve checked each box for *coding best practices* 😉
+
+[Read the Docs](https://github.com/bkoconnell/datascience-capstone/tree/main/docs) for all our repository support documentation. 
+
 ## Team Delta
 
-*Official team member accounts are listed in [CODEOWNERS](https://github.com/bkoconnell/datascience-capstone/blob/main/CODEOWNERS)*
+Who are we? The Team Delta [CODEOWNERS](https://github.com/bkoconnell/datascience-capstone/blob/main/CODEOWNERS) for this DataScience Capstone project.
 
 ### Project Attributions
 
@@ -36,7 +45,7 @@ __Models__
 - XGBoost: **Brendan OConnell**
 - Neural Net: **Kristin Predeck**
 
-> NOTE: Individual file attributions can be found in the file headers with Author details.
+> NOTE: Individual file attributions can be found in the file headers with Author details, or in the NOTEBOOKS.md file header (`notebooks/` directory).
 
 ### Peer Reviews
 
@@ -165,9 +174,9 @@ All hyperparameter tuning will be oriented toward minimizing false positives whi
 - **Visualization:** matplotlib, seaborn
 - **Interpretability:** shap
 - **Version control:** Git / GitHub / Git LFS (large file storage for parquets)
-- **Formatting:** Ruff
+- **Formatting:** Ruff, nbQA
 
-## Model Testing & Reproducibility
+## Testing & Source Code
 
 ### Model Testing
 
@@ -182,23 +191,29 @@ Pre-designed tests for the latest model releases are available in `tests/model/`
 CI runs on every pull request to `main` (and on manual dispatch) via GitHub Actions in [.github/workflows/](.github/workflows/). The pipeline is composed of the following jobs:
 
 - **Python Lint** — Runs Ruff in format-check mode against the repo's Python sources. Fails the PR if any file is not ruff-format-clean and uploads the proposed diff as a build artifact.
-- **Notebook Lint** *(not released)* — Will enforce notebook hygiene (cleared outputs, consistent formatting, etc.) so that `.ipynb` reviews on GitNotebooks stay focused on substantive changes.
+- **Notebook Lint** — Runs `nb_lint.py` (Ruff via [nbQA](https://nbqa.readthedocs.io/)) against every tracked `.ipynb` file, formatting code cells in place. Fails the PR if any notebook is not ruff-format-clean and uploads the proposed diff as a build artifact.
 - **Unit Tests** — Runs the `pytest` suite under `tests/unit/` against a freshly installed environment (`pip install -r requirements.txt` + editable install of the project package).
 
 Non-PR automation jobs:
 - **Reproducibility** *(not released)* — Users can manually trigger this workflow for an end-to-end data and modeling pipeline on a slim sample so that downstream notebooks remain runnable from a clean clone.
 
-### Local Reproducibility
+### Source Code
 
 > **Prerequisite:** Follow [docs/DEVELOPER_SETUP.md](docs/DEVELOPER_SETUP.md) to set up Python, the virtual environment, and Git LFS so the project's data and dependencies resolve correctly.
 
-The [src/](src/) directory hosts reusable Python code (helpers, model utilities, scripts) that the notebooks import. Centralizing logic there keeps notebooks focused on narrative and exploration while letting non-trivial functions be shared, tested, and lint-checked alongside the rest of the codebase.
+The `src` directory contains reusable code to support notebook exploration & project reproducibility.
+
+The `utils` directory replicates many of the custom functions originally used in our notebooks. The authors are credited, and docstrings are included with usage details.
+
+> NOTE: As of 5/8/2026, we haven't incorporated the `src` code into our notebooks, but the plumbing is there and fully functional. To use code from `src`, follow the steps in `docs/DEVELOPER_SETUP.md` which includes example import usage into notebooks. After developer setup, you can also run the unit tests which confirm our custom functions work.
+
+See [src/SOURCE.md](src/SOURCE.md) for additional details.
 
 ### Local Testing
 
 > **Prerequisite:** Follow [docs/DEVELOPER_SETUP.md](docs/DEVELOPER_SETUP.md) before running the steps below.
 
-**Lint** — From the repository root, run the wrapper that matches your shell. Both forward to `src/scripts/linting/py_lint.py` and apply Ruff formatting in place:
+**Lint** — From the repository root, run the wrapper that matches your shell. Both forward to `src/scripts/linting/py_lint.py` and `src/scripts/linting/nb_lint.py` and apply Ruff formatting in place:
 
 ```bash
 # macOS / Linux
@@ -208,7 +223,7 @@ The [src/](src/) directory hosts reusable Python code (helpers, model utilities,
 lint.bat
 ```
 
-Inspect the resulting diff and commit any changes the formatter applies; the CI `Python Lint` job will fail otherwise.
+Inspect the resulting diff and commit any changes the formatter applies; the CI `Python Lint` and `Notebook Lint` jobs may fail otherwise.
 
 **Unit tests** — From the `tests/unit/` directory, run the full suite or a single file:
 
@@ -220,7 +235,7 @@ pytest
 pytest test_fileops.py
 ```
 
-See [tests/README.md](tests/README.md) for additional usage details.
+See [tests/TESTS.md](tests/TESTS.md) for additional usage details.
 
 ## Repository Structure
  
@@ -255,29 +270,34 @@ datascience-capstone/
 ├── docs/                           # Project documentation, reports, and references
 │   ├── CLONING.md
 │   ├── CONTRIBUTING.md
-│   ├── DEVELOPER_SETUP.md
+│   ├── DEVELOPER_SETUP.md          # Recommended setup steps for reproducibility
 │   ├── python_setup.md
 │   ├── data_dictionaries/          # Per-stage data dictionaries
-│   └── workflows/                  # Linting and testing workflow docs
+│   └── github_actions/             # Linting and testing workflow docs
 │ 
 ├── notebooks/                      # Jupyter Notebooks for the DataScience Flow
-│   │                                (w/ ephemeral `outputs/` dir per section)
+│   │                                   (w/ ephemeral `outputs/` dir per section)
+│   ├── NOTEBOOKS.md                # Overview of  our notebooks section                         
 │   ├── 00_tidy_data_prep/
 │   ├── 01_eda/
 │   ├── 02_feature_processing/
 │   ├── 03_model_exploration/
 │   ├── 04_model/
 │   ├── 05_evaluation/
-│   ├── 06_presentation/
+│   ├── 06_validation/
+│   ├── 99_presentation/
 │   └── 99_sandbox/
+│ 
 ├── src/                            # Reusable Python source supporting notebooks
 │   ├── eda.py
 │   ├── exceptions.py
 │   ├── scripts/                    # Standalone data-prep / lint scripts (incl. julia/)
 │   └── utils/                      # Shared helpers: common, fileops, logreg, nist, nn, xgb
+│ 
 ├── tests/                          # Pytest suite
 │   ├── model/                      # Model tests (TODO — not yet implemented)
 │   └── unit/                       # Unit tests for src/ helpers + lint script
+│ 
 ├── lint.bat / lint.sh              # Local lint entrypoints (Ruff)
 ├── pyproject.toml                  # Project + tooling configuration
 └── requirements.txt                # Python dependencies

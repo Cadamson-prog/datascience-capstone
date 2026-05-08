@@ -43,9 +43,9 @@ __Models__
 We rely on the following resources for our peer reviews:
 
 - Pull Request comments (for non-notebook files, general feedback, and PR approvals)
-- Our [ReviewNB](https://app.reviewnb.com/bkoconnell/datascience-capstone/) page (3rd party resource specifically for Jupyter Notebook reviews)
+- Our [GitNotebooks](https://app.gitnotebooks.com/bkoconnell/datascience-capstone/pulls) page (3rd party resource specifically for Jupyter Notebook reviews)
 
-__*ReviewNB*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews.
+__*GitNotebooks*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews. Here is an example of a PR review our team recently did: [PR-47 Peer Review](https://app.gitnotebooks.com/bkoconnell/datascience-capstone/pull/47)
 
 ## Project Background
 
@@ -182,7 +182,7 @@ Pre-designed tests for the latest model releases are available in `tests/model/`
 CI runs on every pull request to `main` (and on manual dispatch) via GitHub Actions in [.github/workflows/](.github/workflows/). The pipeline is composed of the following jobs:
 
 - **Python Lint** — Runs Ruff in format-check mode against the repo's Python sources. Fails the PR if any file is not ruff-format-clean and uploads the proposed diff as a build artifact.
-- **Notebook Lint** *(not released)* — Will enforce notebook hygiene (cleared outputs, consistent formatting, etc.) so that `.ipynb` reviews on ReviewNB stay focused on substantive changes.
+- **Notebook Lint** *(not released)* — Will enforce notebook hygiene (cleared outputs, consistent formatting, etc.) so that `.ipynb` reviews on GitNotebooks stay focused on substantive changes.
 - **Unit Tests** — Runs the `pytest` suite under `tests/unit/` against a freshly installed environment (`pip install -r requirements.txt` + editable install of the project package).
 
 Non-PR automation jobs:

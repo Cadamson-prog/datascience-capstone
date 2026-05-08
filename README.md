@@ -225,6 +225,14 @@ lint.bat
 
 Inspect the resulting diff and commit any changes the formatter applies; the CI `Python Lint` and `Notebook Lint` jobs may fail otherwise.
 
+**Import-position check** (opt-in, not run by `lint.sh` / `lint.bat`). `src/scripts/linting/import_lint.py` verifies that every `import` in the repo's `.py` and `.ipynb` files appears at the top of the file, before any non-import code. It is a rule-checker (no auto-fix) and does not run in CI. Invoke it manually when you want to verify import-position hygiene:
+
+```bash
+python src/scripts/linting/import_lint.py
+```
+
+A Markdown report grouped by file is written to `.artifacts_ci/import_lint_report.md` (gitignored) on every run. See [docs/linting.md](docs/linting.md) for the full rule definition, allowed exceptions, and how to read the output.
+
 **Unit tests** — From the `tests/unit/` directory, run the full suite or a single file:
 
 ```bash

@@ -94,12 +94,16 @@ def run_nbqa_ruff(files: list[Path]) -> int:
         print("No Jupyter notebooks to format.")
         return 0
     print(f"Running nbqa + ruff format on {len(files)} notebook(s)...")
+    # `nbqa` parses its first positional argument as a single tool name, so
+    # to run the `ruff format` *subcommand* we pass the whole string under
+    # `--nbqa-shell` (which executes `command` directly instead of via
+    # `python -m <command>`).
     cmd = [
         sys.executable,
         "-m",
         "nbqa",
-        "ruff",
-        "format",
+        "--nbqa-shell",
+        "ruff format",
         *[str(f) for f in files],
     ]
     result = subprocess.run(cmd)

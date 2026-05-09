@@ -2,7 +2,8 @@ The `src` directory contains reusable code to support notebook exploration & pro
 
 The `utils` directory replicates many of the custom functions originally used in our notebooks. The authors are credited, and docstrings are included with usage details.
 
-> NOTE: As of 5/8/2026, we haven't incorporated the `src` code into our notebooks, but the plumbing is there and fully functional. To use code from `src`, follow the steps in `docs/DEVELOPER_SETUP.md` which includes example import usage into notebooks. After developer setup, you can also run the unit tests which confirm our custom functions work.
+> As of 5/8/2026, we haven't incorporated the `src` code into our notebooks, but the plumbing is there and fully functional. 
+To use code from `src`, follow the steps in [QuickStart](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/QuickStart.md), *or* [Developer Setup](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/DEVELOPER_SETUP.md) which includes example **import** usage into notebooks. After developer setup, you can also run the unit tests which confirm that our custom functions work.
 
 __Scripts__
 

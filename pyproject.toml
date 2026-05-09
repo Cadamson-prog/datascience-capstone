@@ -17,7 +17,6 @@ dependencies = [
     "xgboost",
     "umap-learn",
     "torch",
-    "torchvision",
     "shap",
 ]
 

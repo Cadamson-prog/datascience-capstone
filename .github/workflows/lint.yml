@@ -9,9 +9,13 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  # let's ensure consistency with Python version for CI jobs
+  PYTHON_VERSION: "3.11"
+
 jobs:
   py-lint:
-    name: Ruff formatter check
+    name: Ruff formatter (.PY scripts)
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +27,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install ruff
         run: |
@@ -74,7 +78,7 @@ jobs:
           exit 1
 
   nb-lint:
-    name: Ruff formatter check (notebooks)
+    name: Ruff formatter (.IPYNB notebooks)
     runs-on: ubuntu-latest
 
     steps:
@@ -86,7 +90,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install ruff and nbqa
         run: |

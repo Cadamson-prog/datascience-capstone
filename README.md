@@ -291,7 +291,7 @@ datascience-capstone/
 ├── docs/                           # Repository support documentation / guides
 │   ├── github_actions/             # CI workflow docs
 │   ├── CLONING.md
-│   ├── CONTRIBUTING.md             # Best Practices
+│   ├── CONTRIBUTING.md             # Best Practices & guidelines for contributing
 │   ├── DEVELOPER_SETUP.md          # Recommended setup guide for reproducibility
 │   ├── linting.md                  # Steps to run local scripts for Python compliance
 │   ├── python_setup.md

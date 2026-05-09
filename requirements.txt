@@ -15,7 +15,6 @@ scikit-learn
 xgboost
 umap-learn
 torch
-torchvision
 shap
 
 # Testing

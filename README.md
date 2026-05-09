@@ -218,7 +218,7 @@ See [src/SOURCE.md](src/SOURCE.md) for additional details.
 
 > **Prerequisite:** Follow [docs/DEVELOPER_SETUP.md](docs/DEVELOPER_SETUP.md) before running the steps below.
 
-**Notebook Validation (*reproducibility*)** ... Not released yet ... but this script can be run locally to validate our notebooks. The output notebooks from this process are ephemeral and are written to [.artifacts_ci/notebooks/](https://github.com/bkoconnell/datascience-capstone/tree/main/.artifacts_ci/notebooks).
+**Validate Notebooks (*reproducibility*)** ... Not released yet ... but this script can be run locally to validate our notebooks. The output notebooks from this process are ephemeral and are written to [.artifacts_ci/notebooks/](https://github.com/bkoconnell/datascience-capstone/tree/main/.artifacts_ci/notebook_validation).
 
 **Lint** ... From the repository root, run the wrapper that matches your shell. Both forward to `src/scripts/linting/py_lint.py` and `src/scripts/linting/nb_lint.py` and apply Ruff formatting in place:
 
@@ -230,9 +230,9 @@ See [src/SOURCE.md](src/SOURCE.md) for additional details.
 lint.bat
 ```
 
-Inspect the resulting diff and commit any changes the formatter applies; the CI `Python Lint` and `Notebook Lint` jobs may fail otherwise.
+Inspect the resulting diff and commit any changes the formatter applies, otherwise the CI `Python Lint` and `Notebook Lint` jobs may fail.
 
-**Unit tests** — From the `tests/unit/` directory, run the full suite or a single file:
+**Unit tests** ... From the `tests/unit/` directory, run the full suite or a single file:
 
 ```bash
 # Run all unit tests
@@ -248,29 +248,27 @@ See [tests/TESTS.md](tests/TESTS.md) for additional usage details.
 
 __Project Artifacts__
 
-Our final models, reports, and presentations can be found in the [artifacts]() directory.
+Our data dictionaries, final models, project reports, and stakeholder presentation can be found in the [artifacts/](https://github.com/bkoconnell/datascience-capstone/tree/main/artifacts) directory.
 
 > The plots for our presentation & final report are colorblind-friendly with alt text to assist those who are visually impaired.
 
 __CI Artifacts__
 
-Output files from continuous improvement scripts like Notebook Validation and Import Statement Check are ephemeral and get written to [.artifacts_ci/notebooks/](https://github.com/bkoconnell/datascience-capstone/tree/main/.artifacts_ci/notebooks). The entire `.artifacts_ci/` directory is  gitignored.
+Ephemeral output files from locally run continuous improvement scripts (e.g. notebook validation, import linting) are written to [.artifacts_ci/](https://github.com/bkoconnell/datascience-capstone/tree/main/.artifacts_ci). The entire `.artifacts_ci/` directory is gitignored.
 
 ## Repository Structure
  
 ```
 datascience-capstone/
-├── .artifacts_ci/                  # Ephemeral output files from local CI scripts
+├── .artifacts_ci/                  # Ephemeral output files from local scripts (validation/linting)
 ├── .github/
 │   └── workflows/                  # CI workflows (py-lint, nb-lint, unit-tests)
 │
 ├── artifacts/
-│   ├── models/                     # Trained model artifacts (e.g., neural_network/)
-│   ├── presentation/               # Our presentation for NIJ
+│   ├── data_dictionaries/          # Data dictionaries for our datasets
+│   ├── models/                     # Final models
+│   ├── presentation/               # NIJ stakeholder presentation
 │   └── reports/                    # Submitted project reports
-│       ├── 01_eda/
-│       ├── 02_feature_processing/
-│       └── 03_model_exploration/
 │
 ├── data/
 │   ├── raw/                        # Original unmodified datasets
@@ -287,20 +285,21 @@ datascience-capstone/
 │       ├── engineered_features_xgboost.parquet  # NFI Feature Engineered (xgb)
 │       ├── engineered_features_nn.parquet       # NFI Feature Engineered (nn)
 │       │
-│       ├── preprocessed_nist.parquet            # NIST for cross-testing
-│       └── nist_concatenated_parquets/          # NIST concatenated (not fully processed)
+│       ├── preprocessed_nist.parquet            # NIST for cross-testing/validation
+│       └── nist_concatenated_parquets/          # NIST concatenated (unprocessed)
 │ 
-├── docs/                           # Project documentation, reports, and references
+├── docs/                           # Repository support documentation / guides
+│   ├── github_actions/             # CI workflow docs
 │   ├── CLONING.md
-│   ├── CONTRIBUTING.md
-│   ├── DEVELOPER_SETUP.md          # Recommended setup steps for reproducibility
+│   ├── CONTRIBUTING.md             # Best Practices
+│   ├── DEVELOPER_SETUP.md          # Recommended setup guide for reproducibility
+│   ├── linting.md                  # Steps to run local scripts for Python compliance
 │   ├── python_setup.md
-│   ├── data_dictionaries/          # Per-stage data dictionaries
-│   └── github_actions/             # Linting and testing workflow docs
+│   └── testing.md
 │ 
 ├── notebooks/                      # Jupyter Notebooks for the DataScience Flow
-│   │                                   (w/ ephemeral `outputs/` dir per section)
-│   ├── NOTEBOOKS.md                # Overview of  our notebooks section                         
+│   │
+│   ├── NOTEBOOKS.md                # Overview of our Notebooks                  
 │   ├── 00_tidy_data_prep/
 │   ├── 01_eda/
 │   ├── 02_feature_processing/
@@ -311,17 +310,18 @@ datascience-capstone/
 │   ├── 99_presentation/
 │   └── 99_sandbox/
 │ 
-├── src/                            # Reusable Python source supporting notebooks
-│   ├── eda.py
-│   ├── exceptions.py
-│   ├── scripts/                    # Standalone data-prep / lint scripts (incl. julia/)
-│   └── utils/                      # Shared helpers: common, fileops, logreg, nist, nn, xgb
+├── src/                            # Reusable Python source code / custom functions
+│   ├── eda.py                      # reproduced EDA steps
+│   ├── exceptions.py               # Custom exceptions
+│   ├── scripts/                    # Data prep & linting scripts (includes `julia/` for NIST)
+│   └── utils/                      # Custom Functions: common, fileops, logreg, nist, nn, xgb
 │ 
 ├── tests/                          # Pytest suite
 │   ├── model/                      # Model tests (TODO — not yet implemented)
-│   └── unit/                       # Unit tests for src/ helpers + lint script
+│   └── unit/                       # Unit tests for source code
 │ 
-├── lint.bat / lint.sh              # Local lint entrypoints (Ruff)
+├── lint.bat / lint.sh              # Run Linting (local)
+├── validate.bat / validate.sh      # Run Notebook Validation (local)
 ├── pyproject.toml                  # Project + tooling configuration
 └── requirements.txt                # Python dependencies
 ```

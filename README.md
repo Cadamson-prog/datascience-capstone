@@ -189,7 +189,7 @@ The latest model releases are found here: `artifacts/models/`.
 
 Pre-designed tests for the latest model releases are available in `tests/model/`.
 
-> TODO: Write model tests. Then add steps here for running the Model Tests
+> **TODO: Write model tests. Then add steps here for running the Model Tests. Include the latest test results for each model.**
 
 ### Test Automation (GitHub)
 
@@ -201,6 +201,8 @@ CI runs on every pull request to `main` (and on manual dispatch) via GitHub Acti
 
 Non-PR automation jobs:
 - **Notebook Validation** *(Reproducibility)* [not released] ... Users can manually trigger this workflow for an end-to-end data and modeling pipeline on a slim sample so that downstream notebooks remain runnable from a clean clone.
+
+>**TODO: Link to latest Reproducibility report from the `validate` testing (GitHub CI) w/ Screenshot of all notebooks passing**
 
 ### Source Code / Custom Functions
 
@@ -241,6 +243,8 @@ pytest
 # Run a specific test file
 pytest test_fileops.py
 ```
+
+>**TODO: Link to latest Unit Test report from the `unit test` job (GitHub CI) w/ Screenshot of all tests passing**
 
 See [tests/TESTS.md](tests/TESTS.md) for additional usage details.
 

@@ -1,13 +1,13 @@
 # Developer Setup
 
-This document walks through setting up your local clone of the repository so that the [src/](../src/) and [tests/](../tests/) directories can be leveraged for notebooks and scripts.
+This document walks through setting up your local clone of the repository so that the [src/](../src/) and [tests/](../tests/) directories can be leveraged for notebooks and scripts. It also ensures that notebooks can be re-run with the proper dependencies, as well as the notebook validation script for reproducibility.
 
 ## Prerequisites
 
 Before continuing, make sure you have:
 
-1. **Cloned the repository** to your local machine — see [CLONING.md](CLONING.md)
-2. **Installed Python 3.11** (recommended — matches CI; 3.9 is the minimum supported) — see [python_setup.md](python_setup.md)
+1. **Cloned the repository** to your local machine (see [CLONING.md](CLONING.md))
+2. **Installed Python 3.9+** (see [python_setup.md](python_setup.md))
 
 All commands below assume your terminal's current working directory is the project root (`datascience-capstone/`).
 

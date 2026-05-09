@@ -34,7 +34,7 @@ def load_data_file(file_name: str) -> pd.DataFrame:
     """
 
     p = Path(file_name)
-    # fileops.py lives at <project-root>/src/utils/fileops.py — climb three
+    # fileops.py lives at <project-root>/src/utils/fileops.py - climb three
     # parents to reach the project root, then descend into `data`.
     data_dir = Path(__file__).resolve().parent.parent.parent / "data"
 

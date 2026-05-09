@@ -6,7 +6,7 @@ The dataset (`engineered_features_xgboost.parquet`) contains 2,294,985 rows and 
 
 ### Metadata Columns
 
-> **Composite Key:** `stub_id` and `particle_id` together uniquely identify each row. Neither column is unique on its own — the pairing is always unique across the full dataset.
+> **Composite Key:** `stub_id` and `particle_id` together uniquely identify each row. Neither column is unique on its own - the pairing is always unique across the full dataset.
 
 | Column | Type | Description |
 |---|---|---|
@@ -54,7 +54,7 @@ Fourteen features engineered from elemental composition to improve GSR discrimin
 
 | Column | Datatype | Baseline v1 | Baseline v2 | Baseline v3 | PR-AUC Estimate | Description |
 |---|---|---|---|---|---|---|
-| `core_gsr_count` | int | ✓ | | | 0.9976 | Count of core GSR elements present in the particle (Pb, Ba, Sb), ranging 0–3. Dropped in v2+ due to circular encoding — the feature directly replicates the expert labeling rule, causing near-immediate model convergence and suspected target leakage. |
+| `core_gsr_count` | int | ✓ | | | 0.9976 | Count of core GSR elements present in the particle (Pb, Ba, Sb), ranging 0-3. Dropped in v2+ due to circular encoding - the feature directly replicates the expert labeling rule, causing near-immediate model convergence and suspected target leakage. |
 | `log_pb_plus_sb` | float | ✓ | ✓ | | 0.9973 | log(1 + (Pb + Sb)). Additive log-compressed quantification of the core GSR element pairing of lead and antimony. Dropped in v3 to assess potential redundancy or leakage. |
 | `pb_sb_over_non_ba_mass` | float | ✓ | ✓ | | 0.9979 | (Pb + Sb) as a fraction of total elemental mass excluding barium. Isolates the Pb & Sb pair to distinguish GSR from barium-heavy Non-GSR confounders (BaAl, BaCaSi). |
 | `pb_sb_over_non_ba_o_mass` | float | ✓ | ✓ | | 0.9988 | (Pb + Sb) as a fraction of total elemental mass excluding barium and oxygen. Highest single-feature PR-AUC; dropped in v3 alongside `pb_sb_over_non_ba_mass` due to assess potential redundancy or leakage. |

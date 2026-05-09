@@ -1,7 +1,7 @@
 The `tests` directory supports all testing functionality for the project. It is organized into two subdirectories:
 
-- [`model/`](model/) — Model testing (see below).
-- [`unit/`](unit/) — Unit tests for shared source code under [`src/`](../src/).
+- [`model/`](model/) - Model testing (see below).
+- [`unit/`](unit/) - Unit tests for shared source code under [`src/`](../src/).
 
 ---
 

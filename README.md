@@ -54,7 +54,7 @@ We rely on the following resources for our peer code reviews:
 - Pull Request comments (PR approvals, general feedback, comments on non-notebook files)
 - Our [GitNotebooks](https://app.gitnotebooks.com/bkoconnell/datascience-capstone/pulls) page (3rd party resource specifically for Jupyter Notebook reviews)
 
-__*GitNotebooks*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews. Here is an example of a PR review our team recently did (it was large so may be slow to load): [PR-47 Peer Review](https://app.gitnotebooks.com/bkoconnell/datascience-capstone/pull/47)
+__*GitNotebooks*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews. Here is an example of a PR review our team recently did : [PR-54 Code Review](https://app.gitnotebooks.com/bkoconnell/datascience-capstone/pull/54)
 
 ## Project Background
 

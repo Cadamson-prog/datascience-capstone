@@ -3,36 +3,21 @@ Author: Brendan OConnell
 Year:   2026
 
 Purpose:
-    Run the `ruff` formatter against every Python file tracked by the
-    repository (and any new, non-gitignored Python files staged for commit).
-    The script formats files in place and exits 0 if `ruff` itself succeeds.
-
-    The companion GitHub Actions workflow (`.github/workflows/py-lint.yml`)
-    invokes this script, captures any resulting `git diff`, uploads it as an
-    artifact, and fails the job if the diff is non-empty.
+    Run `ruff format` against every .PY script in the repository.
+    Writes any formatting changes back to the Python files in place.
+    Exits 0 if `ruff` succeeds.
 
 Local usage:
-    From the repository root, run:
+    The script can be invoked from any working directory inside the repo.
+    It resolves the repo root with `git rev-parse --show-toplevel`.
 
+    To use, run:
         python src/scripts/linting/py_lint.py
 
-    The script can be invoked from any working directory inside the repo;
-    it resolves the repo root with `git rev-parse --show-toplevel`.
+Prerequisites:
+    - `ruff` (check `requirements.txt` for pinned version).
 
-    Prerequisites:
-        - You are inside a git repository.
-        - `ruff==0.15.12` is installed in the active Python environment.
-          Install with `pip install ruff==0.15.12`
-          (or `pip install -r requirements.txt`) if needed.
-
-How to recover from a failed GitHub Actions `py-lint` job:
-    1. Download the `py_lint_diff` artifact from the workflow run to inspect
-       the changes ruff wants to apply.
-    2. Locally run `python src/scripts/linting/py_lint.py`.
-    3. Stage the changes (`git add -u`), commit, and push.
-    4. Re-run the workflow.
-
-    See `docs/github_actions/linting.md` for the full walkthrough.
+See `docs/linting.md` for additional support.
 """
 
 import subprocess

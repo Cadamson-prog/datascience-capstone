@@ -1,0 +1,65 @@
+name: import-lint
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  import-lint:
+    name: Import-position check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run import_lint.py
+        id: import_lint
+        shell: bash
+        run: |
+          set +e
+          python src/scripts/linting/import_lint.py
+          rc=$?
+          set -e
+          if [ "$rc" -eq 0 ]; then
+            echo "violations=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "violations=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload import lint report
+        if: steps.import_lint.outputs.violations == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: import_lint_report
+          path: .artifacts_ci/import_lint_report.md
+          if-no-files-found: error
+
+      - name: Fail job if violations were found
+        if: steps.import_lint.outputs.violations == 'true'
+        shell: bash
+        run: |
+          echo "::error title=Import-position violations::One or more imports appear after non-import code."
+          echo ""
+          echo "How to fix:"
+          echo "  1. Download the 'import_lint_report' artifact for the offending"
+          echo "     file, cell (for notebooks), line, and import text."
+          echo "  2. Locally run:  python src/scripts/linting/import_lint.py"
+          echo "  3. Move each late import to the top of the file (or top-of-notebook"
+          echo "     import cell), commit, and push."
+          echo "  4. Re-run this workflow."
+          echo ""
+          echo "See docs/linting.md for the rule and allowed exceptions."
+          exit 1

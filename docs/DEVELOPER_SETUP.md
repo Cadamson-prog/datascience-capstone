@@ -1,7 +1,5 @@
 # Developer Setup
 
-> It is highly recommended to follow this guide for problem-free reproducibility of our project's notebooks and script execution.
-
 This guide provides the steps for setting up your local clone of the repository so that the [src/](../src/) and [tests/](../tests/) directories can be leveraged for notebooks and scripts. It also ensures that notebooks can be re-run with the proper dependencies without altering your global Python packages. 
 
 ### Prerequisites
@@ -51,9 +49,9 @@ source .venv/bin/activate
 
 Confirm that your shell prompt is now prefixed with `(datascience-capstone)`:
 
-![alt text](venv_prompt.png)
+![alt text](.alt-text-images-for-docs/.developer-setup/venv_prompt.png)
 
-> **VS Code tip:** open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`), run **Python: Select Interpreter**, and pick the one inside `.venv/`. VS Code will then auto-activate the venv for new terminals and use it as the kernel for notebooks.
+> **VS Code tip:** open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`), run "Python: Select Interpreter", and pick the one inside `.venv/`. VS Code will then auto-activate the venv for new terminals and use it as the kernel for notebooks.
 
 ### Deactivating the venv
 
@@ -62,6 +60,8 @@ When you're done working, you can leave the venv with:
 ```bash
 deactivate
 ```
+
+>This command is for reference purposes. You should keep your venv **activated** for the remainder of the steps.
 
 ---
 

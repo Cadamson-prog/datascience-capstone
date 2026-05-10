@@ -24,7 +24,7 @@ Impatient developer? Can't wait to try our models? The [QuickStart](https://gith
 
 Contributors are welcome! Please follow our [CONTRIBUTING](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/CONTRIBUTING.md) guidelines to learn how we’ve **checked each box** ✅ for ***coding best practices*** 😉
 
-> **Note on Reproducibility**
+> **Note on Reproducibility:**
  For anyone cloning our repository locally, it is highly recommended to complete (at minimum) steps 1 and 2 from the [QuickStart](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/QuickStart.md) guide as a path of least resistence. It ensures your local environment matches the project's while keeping the Python dependencies separate from your global Python packages.
 
  [Read the Docs](https://github.com/bkoconnell/datascience-capstone/tree/main/docs) for all our in-depth repository support documentation.
@@ -45,7 +45,7 @@ __Models__
 - XGBoost: **Brendan OConnell**
 - Neural Net: **Kristin Predeck**
 
-> Individual file attributions can be found in the file headers with Author details, or in the [NOTEBOOKS.md](https://github.com/bkoconnell/datascience-capstone/blob/main/notebooks/NOTEBOOKS.md) file which lists each author per notebook.
+> Individual file attributions can be found in the header of source code files with Author details, or in the [NOTEBOOKS.md](https://github.com/bkoconnell/datascience-capstone/blob/main/notebooks/NOTEBOOKS.md) file which lists each author per notebook.
 
 ### Code Reviews
 

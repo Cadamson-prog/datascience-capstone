@@ -3,47 +3,41 @@ Author: Brendan OConnell
 Year:   2026
 
 Purpose:
-    Lint check that every import statement in the repository's `.py` and
-    `.ipynb` files appears at the top of the file, before any non-import
-    code.
+    Lint check all .PY and .IPYNB files for import statement compliance.
+    Every import statement must appear at the top of the file,
+    before any non-import code.
 
-    What counts as "OK to appear before / among the imports":
-        - A shebang line (e.g. `#!/usr/bin/env python`) on the first line
-        - Comments and blank lines
-        - A single module-level docstring (the very first statement)
-        - Other import statements (`import x`, `from x import y`)
-        - `try:` / `if:` blocks whose entire body is itself only imports
-          (this covers the common compatibility shim and
-          `if TYPE_CHECKING:` patterns)
+    **Violations:**
+    Any non-import statement (assignment, function/class def,
+    executable code, etc.) that appears before an `import` /
+    `from ... import ...` statement at module scope.
 
-    What counts as a violation:
-        - Any non-import statement (assignment, function/class def,
-          executable code, etc.) that appears before an `import` /
-          `from ... import ...` statement at module scope.
+    Things that are allowed before importss:
+    - shbang line (e.g. `#!/usr/bin/env python`) on the first line
+    - Comments and blank lines
+    - A single module-level docstring
+    - Other import statements
+    - `try:` / `if:` blocks whose entire body is itself only imports
 
-    For `.ipynb` files:
-        - Markdown cells are ignored entirely. Any number of markdown
-          cells at the top, or interleaved between code cells, is fine.
-        - Code cells are checked in order as if their bodies were
-          concatenated: once a code cell contains non-import code, any
-          import in that or a later code cell is a violation.
+    For .IPYNB notebook files:
+    - Markdown cells are ignored entirely.
 
 Local usage:
     From anywhere inside the repo:
 
         python src/scripts/linting/import_lint.py
 
-    The script exits 0 when no violations are found, 1 otherwise. It
-    prints each violation on its own line to stderr (prefixed by the
-    repo-relative path, plus notebook cell index for `.ipynb`) and also
-    writes a grouped-by-file Markdown report to
-    `.artifacts_ci/import_lint_report.md`. There is no auto-fix; you
-    have to move each late import yourself. The `.artifacts_ci/`
-    directory is gitignored.
+    The script exits 0 when no violations are found, and 1 for violations.
+    It prints each violation on its own line to stderr.
+    It also writes an ephemeral Markdown report, grouped by file:
+        `.artifacts_ci/import_lint_report.md`.
 
-    This script is not wired into `lint.sh` / `lint.bat`. Those wrappers
-    only run formatters. Run this one directly, or rely on the CI
-    `import-lint` job. See `docs/linting.md` for the full walkthrough.
+    Unlike ruff lint tools, there is no auto-fix.
+    Each offending import statement must be manually fixed.
+
+    Not included in the `lint.sh` / `lint.bat` format wrappers.
+
+See `docs/linting.md` for additional support.
 """
 
 import ast
@@ -143,7 +137,8 @@ def _is_module_docstring(node: ast.AST) -> bool:
 
 
 def _is_import_only(node: ast.AST) -> bool:
-    """True if `node` is an import or a wrapper whose body contains only imports.
+    """
+    True if `node` is an import or a wrapper whose body contains only imports.
 
     Handles compatibility shims and `if TYPE_CHECKING:` blocks:
 
@@ -172,9 +167,11 @@ def _is_import_only(node: ast.AST) -> bool:
 
 
 def _strip_ipython_lines(src: str) -> str:
-    """Replace IPython magic / shell-escape lines with a no-op so `ast.parse`
+    """
+    Replace IPython magic / shell-escape lines with a no-op so `ast.parse`
     can succeed without changing the line count (so reported line numbers still
-    point at the original cell)."""
+    point at the original cell).
+    """
     out = []
     for line in src.split("\n"):
         stripped = line.lstrip()
@@ -202,7 +199,8 @@ def _check_stmts(
     *,
     allow_docstring: bool,
 ) -> tuple[list[Violation], bool, str | None]:
-    """Walk a module/cell body and report any import that appears after
+    """
+    Walk a module/cell body and report any import that appears after
     non-import code.
 
     Returns (violations, updated seen_non_import, updated first_loc).

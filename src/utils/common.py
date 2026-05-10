@@ -111,6 +111,8 @@ def cap_join(lst, n=10):
     """
     Join a list into a string, but cap the number of items to 'n'.
 
+    Usage: condense the display of list items in a visualization when `n` examples will suffice.
+
     Original Author: Brendan OConnell
     """
     return ", ".join(str(x).capitalize() for x in lst[:n])

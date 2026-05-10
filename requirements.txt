@@ -15,7 +15,6 @@ scikit-learn
 xgboost
 umap-learn
 torch
-torchvision
 shap
 
 # Testing
@@ -23,3 +22,4 @@ pytest
 
 # Linting / formatting
 ruff==0.15.12
+nbqa

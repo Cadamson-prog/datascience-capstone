@@ -17,10 +17,16 @@ dependencies = [
     "xgboost",
     "umap-learn",
     "torch",
-    "torchvision",
     "shap",
 ]
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["src*"]
+
+[tool.ruff.lint.per-file-ignores]
+# Notebooks routinely import libraries in early cells for use in later cells
+# (F401: unused import, E402: import not at top), and a `pd.set_option(...)`
+# call near the top of a notebook can easily exceed the default line length
+# (E501).
+"*.ipynb" = ["E402", "F401", "E501"]

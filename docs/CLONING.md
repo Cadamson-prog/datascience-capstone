@@ -1,8 +1,15 @@
 # Cloning the Repository
 
-This document walks through how to clone this repository to your local machine. Pick the method you're most comfortable with.
+### Prerequisite: Install Git (CLI only)
 
-**Repository URL:** `https://github.com/bkoconnell/datascience-capstone.git`
+> This prerequisite only applies if using a CLI method.
+GitHub Desktop and VS Code bundle their own Git. 
+
+Skip this section if `git --version` already works in your terminal.
+
+- **Windows:** download from [git-scm.com/download/win](https://git-scm.com/download/win) and run the installer.
+- **macOS:** `brew install git`, or just run `git --version` once and accept the Xcode Command Line Tools prompt.
+- **Linux:** `sudo apt install git` (Debian/Ubuntu) or `sudo dnf install git` (Fedora).
 
 ---
 
@@ -79,9 +86,3 @@ VS Code has built-in Git support that lets you clone directly from the editor.
 6. When prompted, click **Open** to open the cloned repo in VS Code
 
 > **Tip:** If you have the [GitHub Pull Requests](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github) extension installed, you can also clone from the Source Control panel directly by signing into GitHub.
-
----
-
-## After Cloning
-
-Once the repository is on your local machine, check out [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to create branches and submit pull requests, or [DEVELOPER_SETUP.md](DEVELOPER_SETUP.md) for additional developer features & setup (highly recommended!)

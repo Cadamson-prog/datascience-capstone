@@ -1,8 +1,42 @@
+This document outlines the following:
+- [Best Practices](#best-practices)
+- [Contributing Guidelines](#contributing-guidelines)
+
+# Best Practices
+
+The following matrix illustrates how our project implementations align with best practice requirements.
+
+
+| Best Practice Criteria | Team Delta's Implementation | Example(s) if applicable |
+|---|---|---|
+| Annotated Code | We have extensive markdown annotations throughout our notebooks describing our code | TODO: Link to well-annotated notebook |
+| Code Reviews | Our Pull Request process ensures we have the opportunity to review each other's contributions and provide constructive feedback. Each comment is directly linked to the user who posted it and we have the ability to suggest real-time code changes or request reviews. We specifically incorporated **GitNotebooks** which links directly to our PR's in GitHub and visually displays our IPYNB notebooks (where GitHub lacks this ability). This process is more conducive to interpretable reviews, whereas GitHub's raw JSON diffs are too cryptic for effective code reviews. | TODO: Link some GitNotebook PR reviews |
+| Assignment Delegation | Our repository's README has as "Project Attributions" section that defines which EDA and Model assignments each team member was assigned. Our `notebooks/` directory is subdivided by DataFlow process steps, and each notebook within those are named according to the EDA or Model assignment they correspond to. Our NOTEBOOKS.md file also provides an overview of this structure with assignment details. | TODO: Link to README: Project Attributions ... Link to NOTEBOOKS.md |
+| Readability: Well-organized code | Our notebooks are thoughtfully organized with a flow that reflects pertinent details in order of execution. We utilize GitNotebooks for code reviews and provide constructive feedback in areas where we feel irrelevant or distracting code should be removed | TODO: example of comment from PR 47 to remove unused UMAP plot |
+| Readability: Move unused code | We have a dedicated `notebooks/` subdirectory called `99_sandbox` where we move unused or older versions of notebooks, or one-off exploratory deadends, to avoid cluttering our main notebook pipeline. These are mostly kept for traceability and historical context. | TODO: Link to 99_sandbox  |
+| Readability: Variable/Function naming | Our variable and function naming is always thoughtful and relavant without being excessively long. | TODO: Link or image of CustomFunctions / variable naming | 
+| Readability: Code Flow & Logic | We prioritize the flow of our code. It is well organized, formatted, and follows the story of our process through the DataScience Flow stages. The code is explanatory on its own, but we do include annotations to clarify key decisions and insights. | TODO: screenshot of neat readable code  |
+| Code Best Practice: Python Formatting | All our PY scripts and IPYNB notebooks adhere strictly to Python formatting standards. We use custom **linting** scripts that leverage the `ruff` library to ensure that all contributions meet the Python formatting standards. We run linting scripts locally, but also have automated CI workflows in GitHub for our PRs to ensure that we don't merge any PRs to our main branch until the linting checks have passed. | TODO: Link to linting script & screenshot of GitHub Actions lint check passing  |
+| Code Best Practice: Import Statements | We have another custom script that reviews all our PY files and IPYNB notebooks to confirm that all libraries/packages are imported prior to any coding. The only allowable content prior to import statements is Docstrings and Markdown cells in notebooks, which are necessary for detailing the Author, purpose, and usage of the particular script or notebook. This script has also been incorporated into our GitHub CI workflow along with the linting/format checks. | TODO: Link to import_lint.py and screenshot GitHub Actions check for import-lint  |
+| README: Authorship | Our repository's README has as link to our CODEOWNERS file which lists each team member. It also has a "Project Attributions" section that defines at a high level which assignments each team member worked on. Our NOTEBOOKS.md (the README for our `notebooks/` section) lists each notebook name and the Author credited for that notebook. | TODO: Screenshot of Team Delta (CODEOWNERS link + Project Attributions) & a link to NOTEBOOKS.md |
+| README: Project Details / Overview | The repository README has sections specifically related to project background, research questions, hypotheses/predictions, stakeholders, data & methods which include details about our model selections, our tech stack, testing & source code, repository structure, and the project timeline.  | TODO: Link to README table-of-contents  |
+| README: Custom Functions | The "Testing & Source Code" section of our README highlights our `src/` directory which includes reusable custom functions. Each module has header docstrings that detail authorship, purpose, and usage among other things. The custom functions also have their own docstrings with additional information (usage / args / etc.) | TODO: Link to SOURCE.md and Link to src/utils/  |
+| README: Reproducibility | Our README starts off with a QuickStart guide that streamlines the navigation of our repository in a way that facilitates even a first-time user to be running our code and repating our analysis in just 7 steps! But wait, there's more! A bonus step is included for anyone that wants to run our unit test suite for the custom functions. | TODO: Link to QuickStart.md  |
+| Custom Functions | As previously noted, we implemented custom functions throughout our notebooks, but for convenience of review (and for future reusability of code) we have rewritten many of these custom functions in our `src/utils/` directory, and we have a full unit test suite to show they function. Each function has a docstring that defines its purpose and usage, and it can be linked back to an originating notebook. | TODO: Link to `src/utils/` and corresponding link to an originating notebook w/ a screenshot of an example custom function  |
+| Testing / Validation / Reproducibility (self-tested) | Each team member has tested and validated their own code. We also have a `validate` script that is manually run with a report on each notebook's reproducibility. And each model has a model test with results to demonstrate the current state of the model.  | TODO: Screenshot of `validate` results and link to each model test results  |
+| Testing / Validation / Reproducibility (user-tested) | All of the self-testing functionality that we have locally is also available in our CI workflow in GitHub. Any user can run the tests there to get results. Or, they can follow the steps in the QuickStart guide to run the linting, validation, model, and unit tests locally. | TODO: Link to CI results for validate & model tests  |
+| Rendered Documents / Reports | Our `artifacts/` directory contains our official reports & presentation for our stakeholder, NIJ, which are all rendered as PDF's. We also have our finals models and our data dictionaries in the `artifacts/` directory. | TODO: Link to the artifacts directory.  |
+
+---
+
 # Contributing Guidelines
 
 Below are guidelines for users to follow when contributing to our GitHub project.
 
-> This document assumes the repository has already been cloned to your local machine. If you haven't done that yet, see [CLONING.md](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/CLONING.md) for instructions.
+The following assumptions are made:
+
+- You have already cloned this repository locally. If not, see [CLONING.md](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/CLONING.md)
+- You have a supported version of Python installed. If not, see [python_setup.md](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/python_setup.md)
 
 ## Branching and Pull Request Workflow
 

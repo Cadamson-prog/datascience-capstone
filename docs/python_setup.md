@@ -16,7 +16,7 @@ or
 python3 --version
 ```
 
-If you see `Python 3.11.x`, you're set. `Python 3.9.x` or higher will work, but 3.11 is recommended to match CI. Otherwise, install Python using one of the options below.
+If you see `Python 3.9.x` or higher then you're set. Otherwise, install Python using one of the options below.
 
 ---
 

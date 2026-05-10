@@ -1,5 +1,8 @@
-# Raw data (too large for GitHub)
+# Raw data
 data/raw/
+
+# CI artifacts
+.artifacts_ci/
 
 # Jupyter / Python
 .ipynb_checkpoints/

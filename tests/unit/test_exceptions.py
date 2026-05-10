@@ -62,7 +62,7 @@ class TestExceptionStructure:
 
 
 class TestExceptionsAreDistinctTypes:
-    """Catching one custom exception must not catch the others — callers in
+    """Catching one custom exception must not catch the others - callers in
     fileops.py rely on this to handle each error condition separately."""
 
     def test_data_file_not_found_does_not_catch_invalid_name(self):

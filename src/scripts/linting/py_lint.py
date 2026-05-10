@@ -32,7 +32,7 @@ How to recover from a failed GitHub Actions `py-lint` job:
     3. Stage the changes (`git add -u`), commit, and push.
     4. Re-run the workflow.
 
-    See `docs/workflows/linting.md` for the full walkthrough.
+    See `docs/github_actions/linting.md` for the full walkthrough.
 """
 
 import subprocess

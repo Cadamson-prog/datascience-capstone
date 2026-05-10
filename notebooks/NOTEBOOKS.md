@@ -175,17 +175,16 @@ __Outputs:__
 
 __Notebook Authors w/ estimated run time:__
 
-- `data_prep/NIST_data_inspect.ipynb` Kristin Predeck *TBD*
-- `eda/EPA_environmental_confounder_analysis.ipynb` Carlos Adamson *TBD*
+- `data_prep/NIST_data_inspect.ipynb` Kristin Predeck *Does not Run - missing a raw data file*
+- `eda/EPA_environmental_confounder_analysis.ipynb` Carlos Adamson *Does not Run - missing a raw data file*
 - `eda/NFI_oxygen_analysis.ipynb` Brendan OConnell ~30s
-- `eda/particle_eda_viz_formatting.ipynb` Kristin Predeck ~2 min (just a copy of her EDA notebook w/ added viz formatting)
+- `eda/particle_eda_viz_formatting.ipynb` Kristin Predeck ~2 min (a copy of her EDA notebook w/ added viz formatting for EDA report)
 - `eda/oxygen.ipynb` Brendan OConnell ~24s
 - `model_baseline_exploration/nn_baseline.ipynb` Kristin Predeck ~13 min
 - `model_baseline_exploration/xgboost_baseline_v1.ipynb` Brendan OConnell ~1.5 min
 - `model_baseline_exploration/xgboost_baseline_v3.ipynb` Brendan OConnell ~3 min
 - `model_baseline_exploration/xgboost_baseline_v4_no_eng_feats.ipynb` Brendan OConnell ~4 min
 - `model_eval/xgb_eval.ipynb` Brendan OConnell ~6 min
-- `model_eval/xgb_eval_v3.ipynb` Brendan OConnell *TBD*
 - `validation/renormalize_NIST_oxygen.ipynb` Brendan OConnell ~6s
 
 __Goals:__

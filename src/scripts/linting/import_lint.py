@@ -311,9 +311,7 @@ def _format_report(
     by_file: dict[str, list[Violation]] = {}
     for v in violations:
         by_file.setdefault(v.file, []).append(v)
-    lines.append(
-        f"Violations: {len(violations)} across {len(by_file)} file(s)"
-    )
+    lines.append(f"Violations: {len(violations)} across {len(by_file)} file(s)")
     if errors:
         lines.append(f"Parse errors: {len(errors)}")
     lines.append("")

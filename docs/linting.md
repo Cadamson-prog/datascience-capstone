@@ -1,75 +1,52 @@
 # Linting Locally
 
-Two repo-root wrappers run both linters back-to-back: `py_lint.py` (Python
-files via [ruff](https://docs.astral.sh/ruff/)) and `nb_lint.py` (Jupyter
-notebooks via [nbQA](https://nbqa.readthedocs.io/) + ruff). Each formats
-in place - review the diff before committing.
+Run lint checks from the project root before committing. The same checks run in CI. 
+See [docs/github_actions/linting.md](github_actions/linting.md) for the GitHub Actions side.
 
-For the GitHub Actions side of these jobs, see
-[`docs/github_actions/linting.md`](github_actions/linting.md).
+## Autoformat (py_lint + nb_lint)
 
----
+Formats .PY and .IPYNB files in place using ruff (notebooks via nbqa). 
+From the root directory, run the appropriate command for your shell:
 
-## Prerequisites
-
-- You are inside a clone of this repository.
-- Your active Python environment has the linting dependencies installed:
-
-  ```bash
-  pip install -r requirements.txt
-  ```
-
-  (Pinned: `ruff==0.15.12`. `nbqa` is also required for notebook linting.)
-
----
-
-## Run it
-
-**macOS / Linux / Git Bash:**
+**macOS / Linux:**
 
 ```bash
 ./lint.sh
 ```
 
-**Windows cmd / PowerShell:**
+**Windows:**
 
-```cmd
-.\lint.bat
+```powershell
+lint.bat
 ```
 
-Both wrappers run, in order:
+Both wrappers run `py_lint.py` then `nb_lint.py`. After the script executes, any changes made will show up in source control (`git status` to view). Commit the format changes and push to the remote repository.
 
-1. `python src/scripts/linting/py_lint.py` - formats every tracked
-   (and new, non-gitignored) `.py` file with `ruff format`.
-2. `python src/scripts/linting/nb_lint.py` - formats every tracked
-   (and new, non-gitignored) `.ipynb` file with `nbqa ruff format`.
+Running the lint script prior to pushing ensures that the GitHub CI `py-lint` and `nb-lint` jobs don't fail when they run for an open PR (they *will* fail if the pushed code does not match what the CI formatter expects).
 
-You can also invoke either script on its own:
+## Import-position check (import_lint)
+
+Checks that every `import` statement in every .PY and .IPYNB file lives at the top of the file, before any other code. Unlike the previous lint script, there is no auto-fix. Any offending import statements must be manually fixed, committed, and pushed.
+
+Run from the project root:
 
 ```bash
-python src/scripts/linting/py_lint.py
-python src/scripts/linting/nb_lint.py
+python src/scripts/linting/import_lint.py
 ```
 
----
+The script:
 
-## Review and commit
+- Exits 0 if clean, 1 otherwise.
+- Prints each offending import to stderr (file, line, import text, plus cell index for notebooks).
+- Writes a Markdown report (grouped by file name) to `.artifacts_ci/import_lint_report.md` (gitignored).
 
-After the wrapper finishes, inspect any changes and commit them:
+To fix, open each file the report flags and move the offending `import` to the top before any other code. Re-run the script and confirm exit code 0 before pushing.
 
-```bash
-git diff
-git add -u
-git commit -m "Apply ruff formatting"
-```
+The following are allowed before or among the imports:
 
----
+- a shebang on the first line: `#!`
+- comments and blank lines
+- a single module-level docstring
+- `try:` or `if:` blocks whose body is only imports
+- markdown cells in notebooks
 
-## Notebook lint configuration
-
-Ruff's notebook-specific rules are configured in
-[`pyproject.toml`](../pyproject.toml) under
-`[tool.ruff.lint.per-file-ignores]` with a `*.ipynb` glob. The current
-exemptions cover common notebook patterns (imports in non-first cells,
-imports kept for later cells, long `pd.set_option(...)` lines). Update
-that section if you need to add or remove rules for notebooks.

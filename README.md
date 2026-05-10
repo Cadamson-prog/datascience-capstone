@@ -1,5 +1,3 @@
-
-
 # Machine Learning for Gunshot Residue (GSR) Classification<br><br>*Accuracy, Interpretability, and Failure Analysis*
 ____________________________________________________________
 > Join the conversation! Checkout our [Discussion Board](https://github.com/bkoconnell/datascience-capstone/discussions) where we brainstorm and collaborate on the project.
@@ -16,6 +14,7 @@ ____________________________________________________________
 - [Methods](#methods)
 - [Technical Stack](#technical-stack)
 - [Testing & Source Code](#testing--source-code)
+- [Artifacts](#artifacts)
 - [Repository Structure](#repository-structure)
 - [Project Timeline](#project-timeline)
 
@@ -25,10 +24,10 @@ Impatient developer? Can't wait to try our models? The [QuickStart](https://gith
 
 Contributors are welcome! Please follow our [CONTRIBUTING](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/CONTRIBUTING.md) guidelines to learn how we’ve **checked each box** ✅ for ***coding best practices*** 😉
 
-[Read the Docs](https://github.com/bkoconnell/datascience-capstone/tree/main/docs) for all our in-depth repository support documentation.
-
 > **Note on Reproducibility**
- For anyone cloning our repository locally, it is highly recommended to follow the [DEVELOPER SETUP](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/DEVELOPER_SETUP.md) instructions or start with the [QuickStart](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/QuickStart.md) guide as a path of least resistence. It ensures your local environment matches the project's while keeping the Python dependencies separate from your global Python packages.
+ For anyone cloning our repository locally, it is highly recommended to complete (at minimum) steps 1 and 2 from the [QuickStart](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/QuickStart.md) guide as a path of least resistence. It ensures your local environment matches the project's while keeping the Python dependencies separate from your global Python packages.
+
+ [Read the Docs](https://github.com/bkoconnell/datascience-capstone/tree/main/docs) for all our in-depth repository support documentation.
 
 ## Team Delta
 
@@ -46,7 +45,7 @@ __Models__
 - XGBoost: **Brendan OConnell**
 - Neural Net: **Kristin Predeck**
 
-> Individual file attributions can be found in the file headers with Author details, or in the NOTEBOOKS.md file which lists each author per notebook.
+> Individual file attributions can be found in the file headers with Author details, or in the [NOTEBOOKS.md](https://github.com/bkoconnell/datascience-capstone/blob/main/notebooks/NOTEBOOKS.md) file which lists each author per notebook.
 
 ### Code Reviews
 
@@ -55,7 +54,7 @@ We rely on the following resources for our peer code reviews:
 - Pull Request comments (PR approvals, general feedback, comments on non-notebook files)
 - Our [GitNotebooks](https://app.gitnotebooks.com/bkoconnell/datascience-capstone/pulls) page (3rd party resource specifically for Jupyter Notebook reviews)
 
-__*GitNotebooks*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews. Here is an example of a PR review our team recently did: [PR-47 Peer Review](https://app.gitnotebooks.com/bkoconnell/datascience-capstone/pull/47)
+__*GitNotebooks*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews. Here is an example of a PR review our team recently did (it was large so may be slow to load): [PR-47 Peer Review](https://app.gitnotebooks.com/bkoconnell/datascience-capstone/pull/47)
 
 ## Project Background
 
@@ -185,80 +184,67 @@ View the [requirements.txt](https://github.com/bkoconnell/datascience-capstone/b
 
 ### Model Testing
 
-The latest model releases are found here: `artifacts/models/`.
+The latest model releases are found here: [artifacts/models/](https://github.com/bkoconnell/datascience-capstone/tree/main/artifacts/models).
 
 Pre-designed tests for the latest model releases are available in `tests/model/`.
 
 > **TODO: Write model tests. Then add steps here for running the Model Tests. Include the latest test results for each model.**
 
-### Test Automation (GitHub)
+### Test Automation (GitHub Actions CI)
 
-CI runs on every pull request to `main` (and on manual dispatch) via GitHub Actions in [.github/workflows/](.github/workflows/). The pipeline is composed of the following jobs:
+CI runs on every pull request to `main` (and on manual dispatch) via GitHub Actions in [.github/workflows/](https://github.com/bkoconnell/datascience-capstone/tree/main/.github/workflows/). The pipeline is composed of the following jobs:
 
-- **Python Lint** ... Runs Ruff in format-check mode against the repo's Python sources. Fails the PR if any file is not ruff-format-clean and uploads the proposed diff as a build artifact.
-- **Notebook Lint** ... Runs `nb_lint.py` (Ruff via [nbQA](https://nbqa.readthedocs.io/)) against every tracked `.ipynb` file, formatting code cells in place. Fails the PR if any notebook is not ruff-format-clean and uploads the proposed diff as a build artifact.
+- **Python Lint** ... Runs `py_lint.py`, which uses the Ruff formatting tool against the repo's .PY files. Fails the CI job if any file is not format-compliant and uploads the proposed diff as a build artifact.
+
+- **Notebook Lint** ... Runs `nb_lint.py` (Ruff formatting tool via [nbQA](https://nbqa.readthedocs.io/)) against .IPYNB files. Fails the CI job if any file is not format-compliant and uploads the proposed diff as a build artifact.
+
+- **Import-Position Lint** ... Checks every .PY and .IPYNB file for imports that appear after non-import code. Fails the CI job and uploads a Markdown report of the offending imports as a build artifact. See [docs/github_actions/linting.md](https://github.com/bkoconnell/datascience-capstone/tree/main/docs/github_actions/linting.md).
+
 - **Unit Tests** ... Runs the `pytest` suite under `tests/unit/` against a freshly installed environment (`pip install -r requirements.txt` + editable install of the project package).
 
-Non-PR automation jobs:
-- **Notebook Validation** *(Reproducibility)* [not released] ... Users can manually trigger this workflow for an end-to-end data and modeling pipeline on a slim sample so that downstream notebooks remain runnable from a clean clone.
+Manually triggered CI jobs:
+- **Notebook Validation** *(Reproducibility)* [not released] ... Users can manually trigger this workflow using a PR Label to either run all notebooks in the project (in parallel) or run only the notebooks that are in the **changed files** for the PR.
 
 >**TODO: Link to latest Reproducibility report from the `validate` testing (GitHub CI) w/ Screenshot of all notebooks passing**
 
+### Local Testing
+
+**Lint (auto-format)** ... Apply ruff formatting to every `.py` and `.ipynb` file via the `lint.sh` / `lint.bat` wrapper, then commit the diff. See [docs/linting.md](docs/linting.md).
+
+**Lint (import position)** ... Check that every `import` sits at the top of its file. No auto-fix. Review the report and move any offending imports manually. See [docs/linting.md](docs/linting.md).
+
+**Model tests** ... Not released yet ... Will run predefined tests from `tests/model/`. See [docs/testing.md](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/testing.md).
+
+**Unit tests** ... Run the pytest suite under `tests/unit/`. See [docs/testing.md](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/testing.md). (NOTE: You must complete steps 1 & 2 from the [QuickStart](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/QuickStart.md) guide for developer env setup *before* running the tests).
+
+**Validate Notebooks (*reproducibility*)** ... Not released yet ... but this script can be run locally to validate our notebooks.
+
+>**TODO: Link to latest Unit Test report from the `unit test` job (GitHub CI) w/ Screenshot of all tests passing**
+
 ### Source Code / Custom Functions
 
-> **Prerequisite:** Follow [docs/DEVELOPER_SETUP.md](docs/DEVELOPER_SETUP.md) to set up Python, the virtual environment, and Git LFS so the project's data and dependencies resolve correctly.
+> **Prerequisite:** You must complete steps 1 & 2 from the [QuickStart](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/QuickStart.md) guide for developer env setup.
 
 The `src` directory contains reusable code to support notebook exploration & project reproducibility.
 
 The `utils` directory replicates many of the custom functions originally used in our notebooks. The authors are credited, and docstrings are included with usage details.
 
-> NOTE: As of 5/8/2026, we haven't incorporated the `src` code into our notebooks, but the plumbing is there and fully functional. To use code from `src`, follow the steps in `docs/DEVELOPER_SETUP.md` which includes example import usage into notebooks. After developer setup, you can also run the unit tests which confirm our custom functions work.
+> NOTE: As of 5/8/2026, we haven't incorporated the `src` code into our notebooks, but the plumbing is there and fully functional. To import code from `src` into a notebook, review the usage examples in [docs/DEVELOPER_SETUP.md](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/DEVELOPER_SETUP.md). After developer setup, you can also run the unit tests which confirm our custom functions work.
 
-See [src/SOURCE.md](src/SOURCE.md) for additional details.
+See [src/SOURCE.md](https://github.com/bkoconnell/datascience-capstone/blob/main/src/SOURCE.md) for additional details.
 
-### Local Testing
-
-> **Prerequisite:** Follow [docs/DEVELOPER_SETUP.md](docs/DEVELOPER_SETUP.md) before running the steps below.
-
-**Validate Notebooks (*reproducibility*)** ... Not released yet ... but this script can be run locally to validate our notebooks. The output notebooks from this process are ephemeral and are written to [.artifacts_ci/notebooks/](https://github.com/bkoconnell/datascience-capstone/tree/main/.artifacts_ci/notebook_validation).
-
-**Lint** ... From the repository root, run the wrapper that matches your shell. Both forward to `src/scripts/linting/py_lint.py` and `src/scripts/linting/nb_lint.py` and apply Ruff formatting in place:
-
-```bash
-# macOS / Linux
-./lint.sh
-
-# Windows
-lint.bat
-```
-
-Inspect the resulting diff and commit any changes the formatter applies, otherwise the CI `Python Lint` and `Notebook Lint` jobs may fail.
-
-**Unit tests** ... From the `tests/unit/` directory, run the full suite or a single file:
-
-```bash
-# Run all unit tests
-pytest
-
-# Run a specific test file
-pytest test_fileops.py
-```
-
->**TODO: Link to latest Unit Test report from the `unit test` job (GitHub CI) w/ Screenshot of all tests passing**
-
-See [tests/TESTS.md](tests/TESTS.md) for additional usage details.
 
 ## Artifacts
 
 __Project Artifacts__
 
-Our data dictionaries, final models, project reports, and stakeholder presentation can be found in the [artifacts/](https://github.com/bkoconnell/datascience-capstone/tree/main/artifacts) directory.
+Our final models, stakeholder presentation, project reports, and data dictionaries can be found in the [artifacts/](https://github.com/bkoconnell/datascience-capstone/tree/main/artifacts) directory.
 
 > The plots for our presentation & final report are colorblind-friendly with alt text to assist those who are visually impaired.
 
 __CI Artifacts__
 
-Ephemeral output files from locally run continuous improvement scripts (e.g. notebook validation, import linting) are written to [.artifacts_ci/](https://github.com/bkoconnell/datascience-capstone/tree/main/.artifacts_ci). The entire `.artifacts_ci/` directory is gitignored.
+Ephemeral output files from locally run continuous improvement scripts (e.g. notebook validation, import linting) are written to [.artifacts_ci/](https://github.com/bkoconnell/datascience-capstone/tree/main/.artifacts_ci). (gitignored)
 
 ## Repository Structure
  
@@ -269,13 +255,13 @@ datascience-capstone/
 │   └── workflows/                  # CI workflows (py-lint, nb-lint, unit-tests)
 │
 ├── artifacts/
-│   ├── data_dictionaries/          # Data dictionaries for our datasets
 │   ├── models/                     # Final models
 │   ├── presentation/               # NIJ stakeholder presentation
 │   └── reports/                    # Submitted project reports
+│       └── data_dictionaries/      # Data dictionaries for our datasets
 │
 ├── data/
-│   ├── raw/                        # Original unmodified datasets
+│   ├── raw/                        # Original datasets (unmodified except compression & concat)
 │   │   ├── NFI/                    # primary dataset
 │   │   └── NIST/                   # secondary dataset
 │   │

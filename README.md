@@ -238,6 +238,8 @@ See [src/SOURCE.md](https://github.com/bkoconnell/datascience-capstone/blob/main
 
 __Project Artifacts__
 
+Normally we would keep our artifacts in a separate artifact repository for storage efficiency, but given the nature of this capstone project we have decided to store them in the code repository.
+
 Our final models, stakeholder presentation, project reports, and data dictionaries can be found in the [artifacts/](https://github.com/bkoconnell/datascience-capstone/tree/main/artifacts) directory.
 
 > The plots for our presentation & final report are colorblind-friendly with alt text to assist those who are visually impaired.

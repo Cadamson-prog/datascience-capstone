@@ -24,7 +24,7 @@ Impatient developer? Can't wait to try our models? The [QuickStart](https://gith
 
 Contributors are welcome! Please follow our [CONTRIBUTING](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/CONTRIBUTING.md) guidelines to learn how we’ve **checked each box** ✅ for ***coding best practices*** 😉
 
-> **Note on Reproducibility**
+> **Note on Reproducibility:**
  For anyone cloning our repository locally, it is highly recommended to complete (at minimum) steps 1 and 2 from the [QuickStart](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/QuickStart.md) guide as a path of least resistence. It ensures your local environment matches the project's while keeping the Python dependencies separate from your global Python packages.
 
  [Read the Docs](https://github.com/bkoconnell/datascience-capstone/tree/main/docs) for all our in-depth repository support documentation.
@@ -45,7 +45,7 @@ __Models__
 - XGBoost: **Brendan OConnell**
 - Neural Net: **Kristin Predeck**
 
-> Individual file attributions can be found in the file headers with Author details, or in the [NOTEBOOKS.md](https://github.com/bkoconnell/datascience-capstone/blob/main/notebooks/NOTEBOOKS.md) file which lists each author per notebook.
+> Individual file attributions can be found in the header of source code files with Author details, or in the [NOTEBOOKS.md](https://github.com/bkoconnell/datascience-capstone/blob/main/notebooks/NOTEBOOKS.md) file which lists each author per notebook.
 
 ### Code Reviews
 
@@ -54,7 +54,7 @@ We rely on the following resources for our peer code reviews:
 - Pull Request comments (PR approvals, general feedback, comments on non-notebook files)
 - Our [GitNotebooks](https://app.gitnotebooks.com/bkoconnell/datascience-capstone/pulls) page (3rd party resource specifically for Jupyter Notebook reviews)
 
-__*GitNotebooks*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews. Here is an example of a PR review our team recently did (it was large so may be slow to load): [PR-47 Peer Review](https://app.gitnotebooks.com/bkoconnell/datascience-capstone/pull/47)
+__*GitNotebooks*__ addresses the shortcomings of GitHub's UI, which displays `.ipynb` files as raw JSON and is not conducive to interpretable reviews. Here is an example of a PR review our team recently did : [PR-54 Code Review](https://app.gitnotebooks.com/bkoconnell/datascience-capstone/pull/54)
 
 ## Project Background
 

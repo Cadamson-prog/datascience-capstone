@@ -3,30 +3,23 @@ Author: Brendan OConnell
 Year:   2026
 
 Purpose:
-    Run `ruff format` against every Jupyter notebook tracked by the
-    repository (and any new, non-gitignored `.ipynb` files staged for
-    commit). The notebooks are linted via `nbqa`, which extracts each
-    code cell, runs ruff against it, and writes any formatting changes
-    back to the notebook in place.
+    Run `ruff format` against every .IPYNB notebook file in the repository.
+    Uses `nbqa`, which extracts each code cell, runs ruff against it,
+    and writes any formatting changes back to the notebook in place.
 
-    Ruff's lint configuration for notebooks lives in `pyproject.toml`
-    under `[tool.ruff.lint.per-file-ignores]` with a `*.ipynb` glob.
+    Lint configurations live in `pyproject.toml` under `[tool.ruff.lint.per-file-ignores]` with a `*.ipynb` glob.
 
 Local usage:
-    From the repository root, run:
+    The script can be invoked from any working directory inside the repo.
+    It resolves the repo root with `git rev-parse --show-toplevel`.
 
+    To use, run:
         python src/scripts/linting/nb_lint.py
 
-    The script can be invoked from any working directory inside the repo;
-    it resolves the repo root with `git rev-parse --show-toplevel`.
+Prerequisites:
+    - `ruff` and `nbqa` (check `requirements.txt` for pinned versions).
 
-    Prerequisites:
-        - You are inside a git repository.
-        - `ruff==0.15.12` and `nbqa` are installed in the active Python
-          environment. Install with `pip install -r requirements.txt`
-          if needed.
-
-See `docs/linting.md` for the full local-linting walkthrough.
+See `docs/linting.md` for additional support.
 """
 
 import subprocess

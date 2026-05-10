@@ -4,6 +4,7 @@ numpy
 pyarrow
 scipy
 IPython
+ipykernel
 
 # Visualization
 matplotlib

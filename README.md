@@ -182,13 +182,16 @@ View the [requirements.txt](https://github.com/bkoconnell/datascience-capstone/b
 
 ## Testing & Source Code
 
-### Model Testing
+**NEW! Notebook Validation Test**
 
-The latest model releases are found here: [artifacts/models/](https://github.com/bkoconnell/datascience-capstone/tree/main/artifacts/models).
+- GitHub Actions manually-triggered CI job called `nb-validate`.
+- Runs all 18 of our primary DataScience Flow notebooks in parallel.
+- A great way to determine how many of our notebooks successfully run from start to finish without wasting your local resources! 
 
-Pre-designed tests for the latest model releases are available in `tests/model/`.
+The **Pass**/**Fail** results are posted directly to the CI job on GitHub.
 
-> **TODO: Write model tests. Then add steps here for running the Model Tests. Include the latest test results for each model.**
+The most recent Notebook Validation Test was on 5/11 - click the link below to see the results. (18/18 passed)
+[GitHub Actions - Notebook Validation Test results](https://github.com/bkoconnell/datascience-capstone/actions/runs/25662999047#artifacts)
 
 ### Test Automation (GitHub Actions CI)
 
@@ -202,11 +205,6 @@ CI runs on every pull request to `main` (and on manual dispatch) via GitHub Acti
 
 - **Unit Tests** ... Runs the `pytest` suite under `tests/unit/` against a freshly installed environment (`pip install -r requirements.txt` + editable install of the project package).
 
-Manually triggered CI jobs:
-- **Notebook Validation** *(Reproducibility)* [not released] ... Users can manually trigger this workflow using a PR Label to either run all notebooks in the project (in parallel) or run only the notebooks that are in the **changed files** for the PR.
-
->**TODO: Link to latest Reproducibility report from the `validate` testing (GitHub CI) w/ Screenshot of all notebooks passing**
-
 ### Local Testing
 
 **Lint (auto-format)** ... Apply ruff formatting to every `.py` and `.ipynb` file via the `lint.sh` / `lint.bat` wrapper, then commit the diff. See [docs/linting.md](docs/linting.md).
@@ -216,10 +214,6 @@ Manually triggered CI jobs:
 **Model tests** ... Not released yet ... Will run predefined tests from `tests/model/`. See [docs/testing.md](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/testing.md).
 
 **Unit tests** ... Run the pytest suite under `tests/unit/`. See [docs/testing.md](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/testing.md). (NOTE: You must complete steps 1 & 2 from the [QuickStart](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/QuickStart.md) guide for developer env setup *before* running the tests).
-
-**Validate Notebooks (*reproducibility*)** ... Not released yet ... but this script can be run locally to validate our notebooks.
-
->**TODO: Link to latest Unit Test report from the `unit test` job (GitHub CI) w/ Screenshot of all tests passing**
 
 ### Source Code / Custom Functions
 
@@ -274,7 +268,7 @@ datascience-capstone/
 │       ├── preprocessed.parquet                 # Post-EDA NFI w/ 27 Elements and w/o Ambiguous
 │       ├── preprocessed_minimal.parquet         # Post-EDA NFI w/ 89 elements and w/o Ambiguous
 │       ├── engineered_features_logistic.parquet # NFI Feature Engineered (log reg)
-│       ├── engineered_features_xgboost.parquet  # NFI Feature Engineered (xgb)
+│       ├── engineered_features_xgb_all.parquet  # NFI Feature Engineered (xgb)
 │       ├── engineered_features_nn.parquet       # NFI Feature Engineered (nn)
 │       │
 │       ├── preprocessed_nist.parquet            # NIST for cross-testing/validation
@@ -292,15 +286,15 @@ datascience-capstone/
 ├── notebooks/                      # Jupyter Notebooks for the DataScience Flow
 │   │
 │   ├── NOTEBOOKS.md                # Overview of our Notebooks                  
-│   ├── 00_tidy_data_prep/
-│   ├── 01_eda/
+│   ├── 01_eda/                     # Data Science pipeline = Notebook sections 01 - 06
 │   ├── 02_feature_processing/
 │   ├── 03_model_exploration/
 │   ├── 04_model/
 │   ├── 05_evaluation/
 │   ├── 06_validation/
-│   ├── 99_presentation/
-│   └── 99_sandbox/
+│   ├── 99_presentation/            # Supplementary notebooks for the presentation visuals
+│   ├── 99_sandbox/                 # A safe place to play and explore w/o cluttering main flow
+│   └── archive/                    # Notebooks kept for historical context
 │ 
 ├── src/                            # Reusable Python source code / custom functions
 │   ├── eda.py                      # reproduced EDA steps
@@ -309,11 +303,12 @@ datascience-capstone/
 │   └── utils/                      # Custom Functions: common, fileops, logreg, nist, nn, xgb
 │ 
 ├── tests/                          # Pytest suite
-│   ├── model/                      # Model tests (TODO — not yet implemented)
+│   ├── model/                      # Model tests (coming soon!)
 │   └── unit/                       # Unit tests for source code
 │ 
+├── devsetup.bat / devsetup.sh      # The Most Important Script To Run
+│
 ├── lint.bat / lint.sh              # Run Linting (local)
-├── validate.bat / validate.sh      # Run Notebook Validation (local)
 ├── pyproject.toml                  # Project + tooling configuration
 └── requirements.txt                # Python dependencies
 ```

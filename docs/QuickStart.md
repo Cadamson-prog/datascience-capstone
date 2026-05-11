@@ -85,17 +85,33 @@ python src/scripts/linting/import_lint.py
 
 --
 
-# 5. Run the `validate` script
+# 5. Run the new Notebook Validation Test via GitHub Actions!
 
-Validate reproducibility of our [notebooks](https://github.com/bkoconnell/datascience-capstone/tree/main/notebooks). 
+A brand new CI job called `nb-validate` that you can manually trigger via GitHub Actions.
 
-You always have the option to manually validate the notebooks. If so, we recommend you first look at [NOTEBOOKS.md](https://github.com/bkoconnell/datascience-capstone/blob/main/notebooks/NOTEBOOKS.md), which lists estimated run times for each notebook, identifies the author of each notebook, and logically identifies which notebooks are not considered part of our primary DataScience Flow (hint: subdirectories `99_presentation` and `99_sandbox`).
+Validates the execution of our 18 primary notebooks. The most recent validation test was on 5/11 and all 18 notebooks ran from start to finish without any errors.
 
-> If you choose to manually validate the notebooks, you can skip the rest of this step and move to **#6** when you've completed the validation. 
-Otherwise, the details for running the `validate` script are below.
+[View the results on our GitHub repo!](https://github.com/bkoconnell/datascience-capstone/actions/runs/25662999047#artifacts)
 
-All relevant notebooks in the DataScience Flow should execute fully without errors. This includes the following subdirectories in `notebooks/`:
-- 00_tidy_data_prep
+The notebooks run in parallel. Timings vary considerably. You can view a complete list of notebooks and their estimated execution times for test in the **[nb-validate doc](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/github_actions/nb_validate.md)**
+
+**Our Recommendation** is to go to our [GitHub Actions - NB Validate](https://github.com/bkoconnell/datascience-capstone/actions/workflows/nb-validate.yml) page, click the `Run workflow` drop-down to the far right (it should default to `main` branch), then click the green **Run workflow** button to dispatch all 18 validation tests. 
+
+Then go to step 6 while you wait for the results!
+
+For your reference, the most recent Notebook Validation Test ran for 1hr 2min
+
+---
+
+# 6. Reproducibility Check
+
+## Manually run our [notebooks/](https://github.com/bkoconnell/datascience-capstone/blob/main/notebooks)
+
+While you're waiting for the GitHub CI test results from step 5, keep yourself busy by manually validating the notebooks to confirm reproducibility.
+
+We recommend you first look at [NOTEBOOKS.md](https://github.com/bkoconnell/datascience-capstone/blob/main/notebooks/NOTEBOOKS.md), which lists estimated run times for each notebook, identifies the author of each notebook, and logically identifies which notebooks are not considered part of our primary DataScience Flow (hint: subdirectories `99_presentation`, `99_sandbox`, and `archived`).
+
+All our primary notebooks in the DataScience Flow should execute fully without errors. This includes the following subdirectories in `notebooks/`:
 - 01_eda
 - 02_feature_processing
 - 03_model_exploration
@@ -106,50 +122,9 @@ All relevant notebooks in the DataScience Flow should execute fully without erro
 It does **not** include:
 - 99_presentation
 - 99_sandbox
+- archive
 
-> Running the validate script without the `--max_nb_runtime` option will run *all* notebooks listed above (excluding `99_` prefixed subdirectories), which will be very time consuming. Consider the `--max_nb_runtime` options below.
-
-We have runtime estimates for our notebooks.
-You can pass the `--max_nb_runtime` option to skip notebooks that we estimate to run over a certain amount of minutes. Here are the options:
-
-- `--max_nb_runtime=5` (any NB with runtime over 5 minutes is skipped)
-- `--max_nb_runtime=10` (and so on ...)
-- `--max_nb_runtime=20`
-- `--max_nb_runtime=30`
-
-Validation runs 1 notebook at a time, not in parallel. Based on current runtimes, here are the estimated total execution times for validation per option:
-- max_nb_runtime=5 ... **total estimated execution time =  __ minutes**
-- max_nb_runtime=10 ... **total estimated execution time =  __ minutes**
-- max_nb_runtime=20 ... **total estimated execution time =  __ minutes**
-- max_nb_runtime=30 ... **total estimated execution time =  __ minutes**
-
-We do not have a total estimated execution time for running the validate script without the `--max_nb_runtime` option.
-
-**Windows (PowerShell):**
-
-```powershell
-.\validate.bat
-```
-or with max_runtime (recommended):
-```powershell
-.\validate.bat --max_runtime=5
-```
-
-**macOS / Linux / Git Bash:**
-
-```bash
-./validate.sh
-```
-or with max_runtime (recommended):
-```bash
-./validate.sh --max_runtime=5
-```
-
----
-
-# 6. Test a model
-
-Not implemented yet.
+Some of the `99_` notebooks may run but are not guarenteed as they sometimes require maintenance and do not get the same attention as our main flow. The `archived` notebooks do not run and are only saved for historical context.
 
 ---
 

@@ -7,7 +7,7 @@ The `tests` directory supports all testing functionality for the project. It is 
 
 ## Model Testing
 
-> **TODO:** Model testing is not yet implemented. The [`model/`](model/) subdirectory is reserved for forthcoming tests that exercise the trained classifiers (logistic regression, XGBoost, neural network) against held-out data and reproducibility benchmarks.
+> **Coming Soon!** Model testing is not yet implemented. The [`model/`](model/) subdirectory is reserved for forthcoming tests that exercise the trained classifiers (logistic regression, XGBoost, neural network) against held-out data and reproducibility benchmarks.
 
 ---
 

@@ -254,7 +254,7 @@ Ephemeral output files from locally run continuous improvement scripts (e.g. not
 datascience-capstone/
 ├── .artifacts_ci/                  # Ephemeral output files from local scripts (validation/linting)
 ├── .github/
-│   └── workflows/                  # CI workflows (py-lint, nb-lint, unit-tests)
+│   └── workflows/                  # CI workflows (lint, unit-tests)
 │
 ├── artifacts/
 │   ├── models/                     # Final models

@@ -19,6 +19,11 @@ Each job uploads an artifact named `nb-validate-<slug>` containing the Markdown 
 
 The run appears at the top of the list within a few seconds. Click into it to watch progress.
 
+## Estimate Run Times per Notebook
+
+![alt text](image-1.png)
+![alt text](image.png)
+
 
 
 ## How to view results

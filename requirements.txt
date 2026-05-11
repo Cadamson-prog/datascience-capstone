@@ -3,8 +3,12 @@ pandas
 numpy
 pyarrow
 scipy
+
+# Jupyter
 IPython
 ipykernel
+ipywidgets
+nbconvert
 
 # Visualization
 matplotlib

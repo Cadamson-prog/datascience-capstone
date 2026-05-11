@@ -11,10 +11,6 @@
 ## Steps for Raw Data File Conversion
 
 1. Clone the NFI GitHub repository locally.
-2. Create a python script that:
-    - Reads in each CSV file
-    - Concatenates the Particle files together into a single table
-    - Joins all tables together into a single table, using Particle ID as the Primary Key.
-    - Writes the final raw table to a compressed Parquet format.
-3. Run the python script (see `scripts/nfi_particle_data_full.py`)
-4. Copy the script & Parquet output file to our project repository.
+2. Copy `src/scripts/nfi_particle_data_full.py` script to the root dir of cloned NFI repo.
+3. Run the python script: `python nfi_particle_data_full.py`
+4. The output parquet file from that script is what is copied into this repository's `data/raw/NFI/` directory.

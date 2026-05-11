@@ -19,8 +19,49 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # 01_eda
           - name: particle_eda
             notebook: notebooks/01_eda/particle_eda.ipynb
+          - name: umap
+            notebook: notebooks/01_eda/umap.ipynb
+          # 02_feature_processing / 1_preprocessing
+          - name: pipeline
+            notebook: notebooks/02_feature_processing/1_preprocessing/pipeline.ipynb
+          - name: pipeline_minimal_xgb
+            notebook: notebooks/02_feature_processing/1_preprocessing/pipeline_minimal_xgb.ipynb
+          # 02_feature_processing / 2_engineering
+          - name: feature_exploration_xgboost
+            notebook: notebooks/02_feature_processing/2_engineering/feature_exploration_xgboost.ipynb
+          - name: feature_exploration_nn
+            notebook: notebooks/02_feature_processing/2_engineering/feature_exploration_nn.ipynb
+          - name: feature_exploration_log_regression
+            notebook: notebooks/02_feature_processing/2_engineering/feature_exploration_log_regression.ipynb
+          # 03_model_exploration
+          - name: logistic_regression
+            notebook: notebooks/03_model_exploration/Logisitic_Regression.ipynb
+          - name: xgboost_baseline_v2
+            notebook: notebooks/03_model_exploration/xgboost_baseline_v2.ipynb
+          - name: nn_baseline_v2
+            notebook: notebooks/03_model_exploration/nn_baseline_v2.ipynb
+          # 04_model
+          - name: xgb_optimize
+            notebook: notebooks/04_model/xgb_optimize.ipynb
+          - name: nn_tuning
+            notebook: notebooks/04_model/nn_tuning.ipynb
+          - name: hp_logistic_regression
+            notebook: notebooks/04_model/HP_Logistic_Regression.ipynb
+          # 05_evaluation
+          - name: nn_ablation_study
+            notebook: notebooks/05_evaluation/nn_ablation_study.ipynb
+          - name: xgb_eval_v2
+            notebook: notebooks/05_evaluation/xgb_eval_v2.ipynb
+          # 06_validation
+          - name: xgb_nist_validation
+            notebook: notebooks/06_validation/xgb_nist_validation.ipynb
+          - name: logistic_regression_nist_validation
+            notebook: notebooks/06_validation/logistic_regression_nist_validation.ipynb
+          - name: nn_nist_validation
+            notebook: notebooks/06_validation/NN_nist_validation.ipynb
 
     steps:
       - name: Checkout

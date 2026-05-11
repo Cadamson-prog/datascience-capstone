@@ -1,12 +1,10 @@
-# TIDY / DATA PREP
+# RAW DATA
 
-__Notebook Authors__
-
-- `NFI_data_load_and_merge.ipynb` Kristin Predeck
+All raw data notebooks have been moved to the `notebooks/archived/raw_data_load/` directory.
 
 __Goals:__
 
-- Load raw data files & convert file format as needed
+- Load raw data files for initial inspection
 - Get data into tidy/wide format for data exploration
 - Confirm uniqueness of observations
 - Preliminary data cleaning
@@ -45,8 +43,8 @@ __Key Decisions / Insights:__
 
 __Notebook Authors:__
 
-- `pipeline.ipynb` Brendan OConnell
-- `pipeline_minimal_xgb.ipynb` Brendan OConnell
+- `pipeline.ipynb` Brendan OConnell ~4s
+- `pipeline_minimal_xgb.ipynb` Brendan OConnell ~4s
 
 __Goals:__
 
@@ -173,14 +171,21 @@ __Outputs:__
 
 > These are kept for traceability/historical context and are not maintained against the latest data layouts.
 
+__Notebook Authors for original raw data inspection:__
+
+Single use data inspection notebooks to load raw files from a local storage location.
+
+*Will not run. Bad filepath for raw data.*
+
+- `create_main_data.ipynb` Kristin Predeck
+- `NFI_data_load_and_merge.ipynb` Kristin Predeck
+- `NIST_data_inspect.ipynb` Kristin Predeck
+- `EPA_environmental_confounder_analysis.ipynb` Carlos Adamson
+
 __Notebook Authors w/ estimated run time:__
 
-- `data_prep/create_main_data.ipynb` Kristin Predeck - 1-time script
-    *Does not Run - missing a raw data files*
-- `data_prep/NIST_data_inspect.ipynb` Kristin Predeck - 1-time script
-    *Does not Run - missing a raw data file*
-- `eda/EPA_environmental_confounder_analysis.ipynb` Carlos Adamson - 1-time script
-    *Does not Run - missing a raw data file*
+Post-inspection notebooks that are not maintained as part of our main DataScience flow.
+
 - `eda/NFI_oxygen_analysis.ipynb` Brendan OConnell ~30s
 - `eda/particle_eda_viz_formatting.ipynb` Kristin Predeck ~2 min (a copy of her EDA notebook w/ added viz formatting for EDA report)
 - `model_baseline_exploration/nn_baseline.ipynb` Kristin Predeck ~13 min

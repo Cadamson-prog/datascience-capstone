@@ -167,7 +167,11 @@ def execute_notebook(nb_path: Path, kernel_name: str, root: Path) -> dict:
 
 def format_log(result: dict, root: Path, kernel_name: str, started_utc: str) -> str:
     """Build the Markdown log body for a single notebook result."""
-    rel = result["path"].relative_to(root) if result["path"].is_absolute() else result["path"]
+    rel = (
+        result["path"].relative_to(root)
+        if result["path"].is_absolute()
+        else result["path"]
+    )
     lines = [
         "# Notebook validation report",
         "",
@@ -194,7 +198,9 @@ def format_log(result: dict, root: Path, kernel_name: str, started_utc: str) -> 
     return "\n".join(lines)
 
 
-def write_log(output_dir: Path, nb_path: Path, started_local: datetime, body: str) -> Path:
+def write_log(
+    output_dir: Path, nb_path: Path, started_local: datetime, body: str
+) -> Path:
     """Write the Markdown log with a timestamp + notebook-name suffix."""
     stamp = started_local.strftime("%Y%m%d_%H%M%S")
     path = output_dir / f"nb_validate_{nb_path.stem}_{stamp}.md"

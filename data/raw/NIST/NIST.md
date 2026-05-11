@@ -17,11 +17,10 @@ The difficulty here is that the raw data files are stored as PXZ & HDZ files, a 
 1) Download all 30 zips (1 for each discrete sample).
 2) For each sample, unzip the contents into a local directory.
 3) Install Julia & open Julia REPL
-4) Follow the `julia.jl` script to process each Zeppelin conversion (see `scripts/julia/julia.jl`)
-    - OR run each source/target individually with `scripts/julia/hdz_to_parquet.jl` from command prompt (see usage)
-    - OR run full batch with `scripts/julia/batch_hdz_to_parquet.jl` from command prompt (see usage -- change job paths accordingly)
+4) Follow the `julia.jl` script to process each Zeppelin conversion (see `src/scripts/julia/julia.jl`)
+    - OR run each source/target individually with `src/scripts/julia/hdz_to_parquet.jl` from command prompt (see usage)
+    - OR run full batch with `src/scripts/julia/batch_hdz_to_parquet.jl` from command prompt (see usage -- change job paths accordingly)
 
 ## Additional Notes for each NIST sample subdirectory
 
 - The configuration.txt file details the configuration of the testing and data collection for the sample.
-- 

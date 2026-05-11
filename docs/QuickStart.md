@@ -91,7 +91,7 @@ A brand new CI job called `nb-validate` that you can manually trigger via GitHub
 
 Validates the execution of our 18 primary notebooks. The most recent validation test was on 5/11 and all 18 notebooks ran from start to finish without any errors.
 
-[View the results on our GitHub repo!](https://github.com/bkoconnell/datascience-capstone/actions/runs/25662999047#artifacts)
+[View the results on our GitHub repo!](https://github.com/bkoconnell/datascience-capstone/actions/runs/25662999047)
 
 The notebooks run in parallel. Timings vary considerably. You can view a complete list of notebooks and their estimated execution times for test in the **[nb-validate doc](https://github.com/bkoconnell/datascience-capstone/blob/main/docs/github_actions/nb_validate.md)**
 

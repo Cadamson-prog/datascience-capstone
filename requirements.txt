@@ -20,6 +20,7 @@ shap
 
 # Testing
 pytest
+papermill
 
 # Linting / formatting
 ruff==0.15.12

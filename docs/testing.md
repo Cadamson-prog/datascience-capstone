@@ -1,19 +1,14 @@
 # Testing Locally
 
-The [`tests/`](../tests/) directory has two subdirectories:
-
 - [`tests/unit/`](../tests/unit/) - unit tests for source code in [`src/`](../src/).
-- [`tests/model/`](../tests/model/) - reserved for forthcoming model tests (logistic regression, XGBoost, neural network). Not yet implemented.
 
 ### Prerequisites
 
-Follow [`DEVELOPER_SETUP.md`](DEVELOPER_SETUP.md) to get your Python environment set up with an editable install of the project package (step #3).
-
-> Unit tests will fail if Step #3 of the DEVELOPER SETUP guide is skipped.
+Complete steps 1 & 2 in the [QuickStart](QuickStart.md) guide, or manually configure using the [DEVELOPER SETUP](DEVELOPER_SETUP.md) walkthrough to get your Python environment set up with an editable install of the project package.
 
 ## Running unit tests
 
-From the `tests/unit` directory:
+From the **`tests/unit`** directory:
 
 **Run the full suite:**
 
@@ -38,10 +33,3 @@ pytest test_fileops.py
 ```bash
 pytest test_fileops.py::test_function_name
 ```
-
-## Model tests
-
-Not yet implemented. The `tests/model/` subdirectory is reserved for
-tests that exercise the trained classifiers against held-out data and
-reproducibility benchmarks. This section will be filled in once those
-tests land.

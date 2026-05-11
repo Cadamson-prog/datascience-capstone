@@ -1,0 +1,85 @@
+name: nb-validate
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  validate:
+    name: Validate ${{ matrix.name }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: particle_eda
+            notebook: notebooks/01_eda/particle_eda.ipynb
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e . --no-deps
+
+      - name: Run nb_validate
+        id: run
+        continue-on-error: true
+        run: python src/scripts/validation/nb_validate.py ${{ matrix.notebook }}
+
+      - name: Show validation output dir
+        if: always()
+        shell: bash
+        run: |
+          if [ -d .artifacts_ci/validation ]; then
+            ls -la .artifacts_ci/validation/
+          else
+            echo "No validation output dir was produced."
+          fi
+
+      - name: Upload validation log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nb-validate-${{ matrix.name }}
+          path: .artifacts_ci/validation/
+          if-no-files-found: warn
+
+      - name: Write step summary
+        if: always()
+        shell: bash
+        run: |
+          if [ "${{ steps.run.outcome }}" = "success" ]; then
+            echo "### ${{ matrix.name }}: PASSED" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "### ${{ matrix.name }}: FAILED" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Notebook: \`${{ matrix.notebook }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Download the \`nb-validate-${{ matrix.name }}\` artifact for the full Markdown report." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail job if validation failed
+        if: steps.run.outcome != 'success'
+        shell: bash
+        run: |
+          echo "::error title=Notebook validation failed::See the nb-validate-${{ matrix.name }} artifact for the Markdown error report."
+          exit 1

@@ -18,6 +18,7 @@ dependencies = [
     "umap-learn",
     "torch",
     "shap",
+    "papermill",
 ]
 
 [tool.setuptools.packages.find]

@@ -30,8 +30,8 @@ jobs:
           - name: pipeline_minimal_xgb
             notebook: notebooks/02_feature_processing/1_preprocessing/pipeline_minimal_xgb.ipynb
           # 02_feature_processing / 2_engineering
-          - name: feature_exploration_xgboost
-            notebook: notebooks/02_feature_processing/2_engineering/feature_exploration_xgboost.ipynb
+          - name: feature_engineering_xgb_all_elements
+            notebook: notebooks/02_feature_processing/2_engineering/feature_engineering_xgb_all_elements.ipynb
           - name: feature_exploration_nn
             notebook: notebooks/02_feature_processing/2_engineering/feature_exploration_nn.ipynb
           - name: feature_exploration_log_regression
